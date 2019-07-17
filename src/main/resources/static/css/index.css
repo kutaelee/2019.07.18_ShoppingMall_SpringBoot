@@ -1,0 +1,50 @@
+.banner{
+	border:1px solid;
+	height: 76vh;
+}
+.banner div{
+    transition: 0.1s;
+}
+.main-img1{
+    width: 60%;
+    height: 100%;
+    display: inline-block;
+    background-image: url(../img/1.jpg);
+    background-size: cover;
+    margin: 0;
+}
+.main-img2{
+    width: 25%;
+    height: 100%;
+    display: inline-block;
+    background:center;
+    background-image: url(../img/2.jpg);
+    background-size: cover;
+    margin: 0 -6px;
+}
+.main-img3{
+    width: 15%;
+    height: 100%;
+    display: inline-block;
+    background:center;
+    background-image: url(../img/3.jpg);
+    background-size: cover;
+    margin: 0 -2px;
+}
+.button-div{
+    position: absolute;
+    z-index: 100;
+    margin-top: 37vh;
+    margin-left: 95%;
+}
+.button-div button{
+    font-size: 40px;
+    font-weight: normal;
+    color: black;
+    opacity: .8;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    padding: 0 10px;
+    background: ghostwhite;
+}

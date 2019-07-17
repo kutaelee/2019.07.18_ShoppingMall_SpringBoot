@@ -1,0 +1,57 @@
+body{
+	padding:0;
+	margin:0;
+}
+.title{
+	font-family: 'Damion', cursive;
+}
+.nav{
+	font-family: 'Nanum Gothic', sans-serif;
+}
+.user-nav{
+	width:100%;
+	margin:1% 0 1% 0;
+	text-align:right;
+}
+.user-nav span{
+	margin-right: 1%;
+}
+.user-nav span:last-child{
+	margin-right: 1%;
+}
+.user-nav a{
+	color:gray;
+	font-size:13px;
+}
+.title{
+	
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    padding: 0 0 1% 0;
+    cursor: pointer;
+}
+.title a{
+	font-size: 60px;
+	text-decoration: none;
+	color:black;
+	letter-spacing: 2px;
+}
+.nav{
+	width:100%;
+	height:15%;
+	background:white;
+	text-align:center;
+}
+.nav span{
+	width:10%;
+	display: inline-block;
+	text-align:center;
+	padding:1%;
+}
+.nav a{
+	text-decoration: none;
+	color:black;
+	font-size:18px;
+	font-weight:bold;
+}
