@@ -3,6 +3,7 @@ package com.example.demo.member;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,11 +18,12 @@ public class MemberDAO {
 	
 	public void getUser() {
 		String SQL = "select * from member"; 
-		List list=new ArrayList<HashMap<String,Object>>();
+		List list=new ArrayList<Map<String,Object>>();
 		list=template.queryForList(SQL);
-		
-		for(int i=0;i<list.size();i++) {
-			System.out.println(list.get(i).toString());
+		Map<String,Object> map=(Map<String, Object>) list.get(0);
+
+		for(String key:map.keySet()) {
+			System.out.println(map.get(key));
 		}
 		
 	

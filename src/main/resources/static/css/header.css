@@ -1,6 +1,12 @@
 body{
-	padding:0;
 	margin:0;
+	overflow-x:hidden;
+	margin-bottom:30%;
+}
+.header{
+	position:sticky;
+	top:0px;
+	z-index:1000;
 }
 .title{
 	font-family: 'Damion', cursive;
@@ -8,50 +14,63 @@ body{
 .nav{
 	font-family: 'Nanum Gothic', sans-serif;
 }
-.user-nav{
-	width:100%;
-	margin:1% 0 1% 0;
-	text-align:right;
-}
-.user-nav span{
-	margin-right: 1%;
-}
-.user-nav span:last-child{
-	margin-right: 1%;
-}
-.user-nav a{
-	color:gray;
-	font-size:13px;
-}
+
 .title{
-	
     width: 100%;
-    height: 20%;
+    height: 10%;
     text-align: center;
     padding: 0 0 1% 0;
     cursor: pointer;
+   	background:white;
+   	opacity:.9;
+   	top:0;
 }
 .title a{
 	font-size: 60px;
 	text-decoration: none;
-	color:black;
+	color:tomato;
 	letter-spacing: 2px;
 }
 .nav{
-	width:100%;
-	height:15%;
-	background:white;
-	text-align:center;
+    width: 15%;
+    background: white;
+    opacity:.9;
+    text-align: center;
+    margin-left: 100%;
+    height:100vh;
+    position:absolute;
+    z-index:999;
 }
-.nav span{
-	width:10%;
-	display: inline-block;
-	text-align:center;
-	padding:1%;
+.nav div{
+	margin-top:10%;
+}
+.nav div:first-child{
+	margin-top:25%;
+	letter-spacing:1px;
 }
 .nav a{
 	text-decoration: none;
 	color:black;
 	font-size:18px;
 	font-weight:bold;
+}
+.nav a:hover{
+	opacity:1;
+	color:tomato;
+}
+.nav-bar{
+    z-index: 1000;
+   	position:fixed;
+    margin-left: 96vw;
+    margin-top:1vh;
+    
+}
+.nav-bar button{
+	border:none;
+	cursor: pointer;
+	color:black;
+	background:transparent;
+}
+.nav-bar button:hover{
+	opacity:1;
 }

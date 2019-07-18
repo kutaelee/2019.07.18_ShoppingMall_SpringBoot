@@ -14,6 +14,7 @@ public class MemberController {
 	}
 	@GetMapping("/user")
 	public String user() {
+		
 		md.getUser();
 		return "sign";
 	}

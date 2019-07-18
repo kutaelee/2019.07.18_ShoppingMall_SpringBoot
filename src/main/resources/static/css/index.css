@@ -1,50 +1,89 @@
 .banner{
-	border:1px solid;
-	height: 76vh;
+	width:100%;
+	height: 40vh;
 }
 .banner div{
     transition: 0.1s;
 }
 .main-img1{
-    width: 60%;
+    width: 92vw;
     height: 100%;
-    display: inline-block;
-    background-image: url(../img/1.jpg);
-    background-size: cover;
-    margin: 0;
+    margin-left: 4vw;
 }
-.main-img2{
-    width: 25%;
-    height: 100%;
-    display: inline-block;
-    background:center;
-    background-image: url(../img/2.jpg);
-    background-size: cover;
-    margin: 0 -6px;
-}
-.main-img3{
-    width: 15%;
-    height: 100%;
-    display: inline-block;
-    background:center;
-    background-image: url(../img/3.jpg);
-    background-size: cover;
-    margin: 0 -2px;
-}
+
 .button-div{
     position: absolute;
     z-index: 100;
-    margin-top: 37vh;
-    margin-left: 95%;
+    margin-top: 15vh;
+    margin-left: 96vw;
 }
-.button-div button{
-    font-size: 40px;
+.index-body button{
+	font-size: 40px;
     font-weight: normal;
-    color: black;
+    color: white;
     opacity: .8;
     cursor: pointer;
     border: 1px solid transparent;
     border-radius: 50%;
     padding: 0 10px;
-    background: ghostwhite;
+    background: black;
+}
+.index-body button:hover{
+	opacity:1;
+	transition:.2s;
+}
+#review-slide-left-btn{
+	position:absolute;
+	margin-left:1vw;
+	margin-top:29vh;
+}
+
+#review-slide-right-btn{
+	position:absolute;
+	margin-left:96vw;
+	margin-top:29vh;
+}
+.new-review{
+	margin-top:2%;
+	width:9999px;
+	height:40vh;
+	transition:0.3s;
+}
+.index-title{
+	color:tomato;
+	margin-left:4vw;
+}
+#doc-first{
+	margin-left:4vw;
+}
+.document{
+	margin-right:3.5vw;
+	border:2px solid black;
+	width:13vw;
+	padding:20px;
+	text-align:center;
+	cursor:pointer;
+	display:inline-block;
+	height:30vh;
+}
+
+.document:hover{
+	border-color:tomato;
+}
+.document h1{
+	font-size:1.2vw;
+	padding-bottom:5px;
+	border-bottom:1px solid gray;
+}
+.document p{
+	font-size:.6vw;
+	position:absolute;
+    width: 13vw;
+}
+.document img{
+	width: 60%;
+    height: 50%;
+}
+.new-item{
+	margin-left:4vw;
 }
