@@ -32,24 +32,24 @@
 	opacity:1;
 	transition:.2s;
 }
-#review-slide-left-btn{
+#item-slide-left-btn{
 	position:absolute;
 	margin-left:1vw;
 	margin-top:29vh;
 }
 
-#review-slide-right-btn{
+#item-slide-right-btn{
 	position:absolute;
 	margin-left:96vw;
 	margin-top:29vh;
 }
-.new-review{
+.new-item{
 	margin-top:2%;
 	width:9999px;
 	height:40vh;
 	transition:0.3s;
 }
-.review-section{
+.item-section{
 	width:100vw;
 	padding-left:5vw;
 	display:inline-block;
@@ -59,9 +59,8 @@
 	color:crimson;
 	margin-left:4vw;
 }
-#doc-first{
-}
-.document{
+
+.item-section-slot{
 	margin-right:3%;
 	border:2px solid black;
 	width:12%;
@@ -69,26 +68,79 @@
 	text-align:center;
 	cursor:pointer;
 	display:inline-block;
-	height:30vh;
+	height:25vh;
 }
 
-.document:hover{
+.item-section-slot:hover{
 	border-color:crimson;
 }
-.document h1{
-	font-size:1.2vw;
+.item-section-slot a{
+	display:block;
+	color:black;
+	text-decoration: none;
+	font-size:1vw;
 	padding-bottom:5px;
-	border-bottom:1px solid gray;
 }
-.document p{
-	font-size:.6vw;
-	position:absolute;
+.item-section-slot p{
+    font-size: 1.2vw;
+    color: crimson;
+    position: absolute;
     width: 13vw;
+    font-weight: bold;
 }
-.document img{
+.item-section-slot img{
 	width: 60%;
     height: 50%;
 }
-.new-item{
-	margin-left:4vw;
+.new-review{
+	margin-left:8vw;
+}
+.item-section-nav{
+	width:100%;
+	text-align:center;
+	
+}
+.item-section-nav div:first-child{
+	background:black;
+}
+.nav-circle{
+	opacity:.8;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 1vw;
+    height: 2vh;
+    background:transparent;
+    display: inline-block;
+    cursor:pointer;
+}
+#new-review-title{
+	display:none;
+}
+.new-review-slot{
+	margin-right:3%;
+	border:2px solid black;
+	width:41%;
+	padding:20px;
+	text-align:center;
+	cursor:pointer;
+	display:none;
+	height:80vh;
+	word-break:keep-all;
+}
+.new-review-slot:hover{
+	border-color:crimson;
+}
+.new-review-slot h1{
+	border-bottom:1px solid gray;
+	font-size:1.5vw;
+}
+.new-review-slot img{
+	width: 100%;
+	height:60%;
+}
+.new-review-slot p{
+	font-size:.9vw;
+	position:absolute;
+    width: 38%;
+    line-height: 3vh;
 }

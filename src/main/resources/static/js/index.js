@@ -1,23 +1,55 @@
 
 
 $(document).ready(()=>{
-	/* ��� ��ưŬ�� */
+
 	var scrollCount=2;
-	var sw=0;
+	var bannerClickSw=0;
+	var reviewCount=0;
+	var currentTop=0;
+	
 	$(".header").load("../include/header.html");
+	//배너 자동변경
 	window.setInterval(()=>{
-		if(sw==0){
-			bannerScroll();
+		if(bannerClickSw===0){
+			bannerSlide();
 		}else{
-			sw=0;
+			bannerClickSw=0;
 		}
 	},3000);
-	$(".banner-slide-btn").click(()=>{
-		sw=1;
-		bannerScroll();
+	// 스크롤
+	$(window).scroll(function () { 
+		currentTop = $(document).scrollTop(); 
+		if(currentTop>$('.item-section-nav').scrollTop()){
+			window.setTimeout(()=>{
+				$('#new-review-title').fadeIn('slow');
+				$('.new-review-slot').fadeIn('slow');
+				$('.new-review-slot').css('display','inline-block');
+			},200);
+		}
 	});
+
+	$(".slide-btn").click((e)=>{
+		let id=e.target.id;
+		if(id==='banner-slide-right-btn'){
+			sw=1;
+			bannerSlide();
+		}
+		if(id==='item-slide-right-btn'||id==='item-slide-left-btn'){
+			reviewSlide();
+		}
 	
-	function bannerScroll(){
+	});
+	$('.nav-circle').click((e)=>{
+		let id=e.target.id;
+		if(id==='nav-circle1'){
+			reviewCount=1;
+		}else{
+			reviewCount=0;
+		}
+		reviewSlide();
+	});
+	/* 배너 버튼클릭 */
+	function bannerSlide(){
 		let count=scrollCount;
 		$(".main-img1").attr("src","../img/"+count+".jpg");
 		$('.main-img1').css("transition-timing-function","ease-in");
@@ -28,19 +60,22 @@ $(document).ready(()=>{
 		}
 	}
 	
-	/* �ֽű� �����̵� */
-	var margin=0;
-	
-	$('.review-slide-btn').click(()=>{
+	/* 최신글 슬라이드 */
 
-		if(margin===0){	
-			$('.new-review').css('margin-left','-105vw');
-			margin=1;
+	function reviewSlide(){
+		if(reviewCount===0){	
+			$('.new-item').css('margin-left','-105vw');
+			$('.item-section-nav div:nth-child(1)').css('background','transparent');
+			$('.item-section-nav div:nth-child(2)').css('background','black');
+			reviewCount=1;
 		}
-		else if(margin===1){
-			$('.new-review').css('margin-left','0');
-			margin=0;
+		else if(reviewCount===1){
+			$('.new-item').css('margin-left','0');
+			$('.item-section-nav div:nth-child(1)').css('background','black');
+			$('.item-section-nav div:nth-child(2)').css('background','transparent');
+			reviewCount=0;
 		}		
-	});
+	}
+
 });
 
