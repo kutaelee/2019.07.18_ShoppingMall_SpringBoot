@@ -8,7 +8,14 @@ public class MemberVO {
 	private String pw;
 	private int seq;
 	private int grade;
+	private int point;
 	
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
 	@Override
 	public String toString() {
 		return "MemberVO [id=" + id + ", pw=" + pw + ", seq=" + seq + ", grade=" + grade + "]";

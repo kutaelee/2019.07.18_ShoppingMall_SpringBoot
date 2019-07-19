@@ -20,12 +20,8 @@ public class MemberDAO {
 		String SQL = "select * from member"; 
 		List list=new ArrayList<Map<String,Object>>();
 		list=template.queryForList(SQL);
-		Map<String,Object> map=(Map<String, Object>) list.get(0);
-
-		for(String key:map.keySet()) {
-			System.out.println(map.get(key));
-		}
 		
+		System.out.println(list.toString());
 	
 	}
 	

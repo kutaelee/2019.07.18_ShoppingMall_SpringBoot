@@ -28,7 +28,7 @@ body{
 .title a{
 	font-size: 60px;
 	text-decoration: none;
-	color:crimson;
+	color:tomato;
 	letter-spacing: 2px;
 }
 .nav{
@@ -56,7 +56,7 @@ body{
 }
 .nav a:hover{
 	opacity:1;
-	color:crimson;
+	color:tomato;
 }
 .nav-bar{
     z-index: 1000;

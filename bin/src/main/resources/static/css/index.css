@@ -49,22 +49,17 @@
 	height:40vh;
 	transition:0.3s;
 }
-.review-section{
-	width:100vw;
-	padding-left:5vw;
-	display:inline-block;
-	
-}
 .index-title{
-	color:crimson;
+	color:tomato;
 	margin-left:4vw;
 }
 #doc-first{
+	margin-left:4vw;
 }
 .document{
-	margin-right:3%;
+	margin-right:3.5vw;
 	border:2px solid black;
-	width:12%;
+	width:13vw;
 	padding:20px;
 	text-align:center;
 	cursor:pointer;
@@ -73,7 +68,7 @@
 }
 
 .document:hover{
-	border-color:crimson;
+	border-color:tomato;
 }
 .document h1{
 	font-size:1.2vw;

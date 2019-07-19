@@ -1,7 +1,7 @@
 
 
 $(document).ready(()=>{
-	/* ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°Å¬ï¿½ï¿½ */
+	/* ¹è³Ê ¹öÆ°Å¬¸¯ */
 	var scrollCount=2;
 	var sw=0;
 	$(".header").load("../include/header.html");
@@ -28,17 +28,17 @@ $(document).ready(()=>{
 		}
 	}
 	
-	/* ï¿½Ö½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ */
+	/* ÃÖ½Å±Û ½½¶óÀÌµå */
 	var margin=0;
 	
 	$('.review-slide-btn').click(()=>{
 
 		if(margin===0){	
-			$('.new-review').css('margin-left','-105vw');
+			$('.new-review').css('margin-left','-95.8vw');
 			margin=1;
 		}
 		else if(margin===1){
-			$('.new-review').css('margin-left','0');
+			$('.new-review').css('margin-left','0vw');
 			margin=0;
 		}		
 	});
