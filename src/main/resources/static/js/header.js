@@ -42,6 +42,6 @@ $(document).ready(()=>{
 
 	/* 로그인 버튼*/
 	$('.login-icon').click(()=>{
-		document.location.href='/loginpage';
+		document.location.href='/account';
 	});
 });

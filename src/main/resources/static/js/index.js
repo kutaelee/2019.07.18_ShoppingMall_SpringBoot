@@ -18,19 +18,15 @@ $(document).ready(()=>{
 	$(window).scroll(function () { 
 		currentTop = $(document).scrollTop(); 
 		if(currentTop>$('.item-section-nav').scrollTop()){
-			window.setTimeout(()=>{
 				displayInlineblock(['new-review-slot1','new-review-slot2','new-review-title','new-review-title-info']);
 				listFadeIn(['new-review-title','new-review','new-review-title-info']);
-			},100);
 		}
 		
 		if(currentTop>$('.review-slot').offset().top+$('.review-slot').outerHeight(true)-$(window).height() 
 				&& 'inline-block'===$('#new-review-slot1').css('display')){
-			window.setTimeout(()=>{
-				console.log('a')
 				listFadeIn(['best-review-title','best-review','best-review-title-info']);
 				displayInlineblock(['best-review-slot1','best-review-slot2','best-review-title','best-review-title-info']);
-			},200);
+
 		}
 	});
 	
