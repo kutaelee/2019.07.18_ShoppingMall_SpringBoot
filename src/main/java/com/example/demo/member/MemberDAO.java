@@ -25,4 +25,12 @@ public class MemberDAO {
 	
 	}
 	
+	public List<Map<String,Object>> getSelect(HashMap<String,Object> reqMap){
+		String SQL = "select * from member"; 
+		List<Map<String, Object>> list = template.queryForList(SQL);
+		
+		
+		return list;
+	}
+	
 }
