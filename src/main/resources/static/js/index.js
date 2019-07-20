@@ -1,5 +1,3 @@
-
-
 $(document).ready(()=>{
 
 	var scrollCount=2;
@@ -30,10 +28,6 @@ $(document).ready(()=>{
 
 	$(".slide-btn").click((e)=>{
 		let id=e.target.id;
-		if(id==='banner-slide-right-btn'){
-			sw=1;
-			bannerSlide();
-		}
 		if(id==='item-slide-right-btn'||id==='item-slide-left-btn'){
 			reviewSlide();
 		}
@@ -64,7 +58,7 @@ $(document).ready(()=>{
 
 	function reviewSlide(){
 		if(reviewCount===0){	
-			$('.new-item').css('margin-left','-105vw');
+			$('.new-item').css('margin-left','-107vw');
 			$('.item-section-nav div:nth-child(1)').css('background','transparent');
 			$('.item-section-nav div:nth-child(2)').css('background','black');
 			reviewCount=1;
@@ -78,4 +72,3 @@ $(document).ready(()=>{
 	}
 
 });
-
