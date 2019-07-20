@@ -1,6 +1,7 @@
 .banner{
 	width:100%;
 	height: 40vh;
+	cursor:pointer;
 }
 .banner div{
     transition: 0.1s;
@@ -51,8 +52,15 @@
 .index-title{
 	color:crimson;
 	margin-left:4vw;
+	display: inline-block;
 }
-
+.index-title-info{
+	margin-left: 1vw;
+    display: inline-block;
+    color: gray;
+    font-size: .7vw;
+    display:none;
+}
 .item-section-slot{
 	margin-right:2.5vw;
 	border:2px solid black;
@@ -85,8 +93,9 @@
 	width: 60%;
     height: 50%;
 }
-.new-review{
+.review{
 	margin-left:8vw;
+	display:none;
 }
 .item-section-nav{
 	width:100%;
@@ -109,29 +118,31 @@
 #new-review-title{
 	display:none;
 }
-.new-review-slot{
+#best-review-title{
+	display:none;
+}
+.review-slot{
 	margin-right:3%;
 	border:2px solid black;
 	width:41%;
 	padding:20px;
 	text-align:center;
 	cursor:pointer;
-	display:none;
 	height:80vh;
 	word-break:keep-all;
 }
-.new-review-slot:hover{
+.review-slot:hover{
 	border-color:crimson;
 }
-.new-review-slot h1{
+.review-slot h1{
 	border-bottom:1px solid gray;
 	font-size:1.5vw;
 }
-.new-review-slot img{
+.review-slot img{
 	width: 100%;
 	height:60%;
 }
-.new-review-slot p{
+.review-slot p{
 	font-size:.9vw;
 	position:absolute;
     width: 38%;

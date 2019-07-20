@@ -83,7 +83,7 @@ body{
 }
 
 .search-text{
-	height: 4vh;
+	height: 35px;
     width: 15vw;
     border: 2px solid crimson;
     margin-right: 1vw;
@@ -98,7 +98,9 @@ body{
     cursor: pointer;
     position: absolute;
 }
+
 .nav-toggle-icon{
 	width: 2.2vw;
-    margin-top: .7vh;
+    margin-top: .6vh;
+    color:#CA1E1E;
 }

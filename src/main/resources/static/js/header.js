@@ -1,4 +1,5 @@
 $(document).ready(()=>{
+	/* 메뉴 토글 */
 	function navToggle(button){
 		if(button==='toggle-off'){
 			$('.nav-toggle-btn').attr('id','toggle-on');
@@ -18,11 +19,12 @@ $(document).ready(()=>{
 			$('.title').slideDown('slow');
 		}
 	}
+
 	$('.nav-bar').click(()=>{
 		let button=$('.nav-toggle-btn').attr('id');
 		navToggle(button);
 	});
-	// 검색
+	/* 검색 */
 	$('.search-icon').click((e)=>{
 		let id=e.target.id;
 		if(id==='search-toggle-btn'){
