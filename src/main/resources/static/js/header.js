@@ -8,6 +8,7 @@ $(document).ready(()=>{
 			$('.nav').css('transition','0.3s');
 			$('.search').fadeOut();
 			$('.title').slideUp('slow');
+			$('.login-icon').fadeOut();
 		}
 		if(button==='toggle-on'){		
 			$('.nav-toggle-btn').attr('id','toggle-off');
@@ -15,8 +16,9 @@ $(document).ready(()=>{
 			$('.nav-toggle-icon').attr('src','../img/icon/list.png');
 			$('.nav').css('margin-left','100%');
 			$('.nav').css('transition','0.3s');
-			$('.search').fadeIn();
+			$('.search').fadeIn('slow');
 			$('.title').slideDown('slow');
+			$('.login-icon').fadeIn();
 		}
 	}
 
@@ -24,6 +26,7 @@ $(document).ready(()=>{
 		let button=$('.nav-toggle-btn').attr('id');
 		navToggle(button);
 	});
+	
 	/* 검색 */
 	$('.search-icon').click((e)=>{
 		let id=e.target.id;
@@ -33,8 +36,12 @@ $(document).ready(()=>{
 			$('.search-text').focus();
 		}
 		if(id==='search-submit-btn'){
-			document.location.href='/';
+			document.location.href='/searchpage?'+$('.search-text').val();
 		}
 	});
 
+	/* 로그인 버튼*/
+	$('.login-icon').click(()=>{
+		document.location.href='/loginpage';
+	});
 });

@@ -21,7 +21,7 @@ $(document).ready(()=>{
 			window.setTimeout(()=>{
 				displayInlineblock(['new-review-slot1','new-review-slot2','new-review-title','new-review-title-info']);
 				listFadeIn(['new-review-title','new-review','new-review-title-info']);
-			},200);
+			},100);
 		}
 		
 		if(currentTop>$('.review-slot').offset().top+$('.review-slot').outerHeight(true)-$(window).height() 

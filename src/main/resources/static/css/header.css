@@ -1,7 +1,7 @@
 body{
 	margin:0;
 	overflow-x:hidden;
-	margin-bottom:30%;
+	margin-bottom:10vh;
 }
 .header{
 	position:sticky;
@@ -25,7 +25,7 @@ body{
    	top:0;
 }
 .title a{
-	font-size: 60px;
+	font-size: 3vw;
 	cursor: pointer;
 	text-decoration: none;
 	color:crimson;
@@ -83,11 +83,11 @@ body{
 }
 
 .search-text{
-	height: 35px;
+    display: none;
+	height: 2vw;
     width: 15vw;
     border: 2px solid crimson;
-    margin-right: 1vw;
-    display: none;
+    margin-left: -8vw;
     font-size: .9vw;
     padding-left: .5vw;
     letter-spacing: 1px;
@@ -97,10 +97,19 @@ body{
     width: 2vw;
     cursor: pointer;
     position: absolute;
+    margin-left: 1vw;
 }
 
 .nav-toggle-icon{
 	width: 2.2vw;
     margin-top: .6vh;
     color:#CA1E1E;
+}
+.login-icon{
+	position: absolute;
+    width: 2.2vw;
+    margin-top: 2.7vh;
+    margin-left: 93vw;
+    z-index: 100;
+    cursor: pointer;
 }
