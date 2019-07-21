@@ -47,12 +47,25 @@ body{
 .nav div:first-child{
 	margin-top:25%;
 	letter-spacing:1px;
+	margin-bottom:11%;
 }
 .nav a{
 	text-decoration: none;
 	color:black;
-	font-size:18px;
+	font-size:1vw;
 	font-weight:bold;
+}
+.nav h2{
+	font-size: 1.3vw;
+	cursor:pointer;
+}
+.nav ul{
+	padding-left:40%;
+	display:none;
+}
+.nav li{
+	text-align:left;
+	margin-bottom:5%;
 }
 .nav a:hover{
 	opacity:1;
@@ -112,4 +125,7 @@ body{
     margin-left: 93vw;
     z-index: 100;
     cursor: pointer;
+}
+.main-category-list{
+	margin-bottom:10%;
 }

@@ -18,8 +18,4 @@ public class ViewController {
 		return "searchpage";
 	}
 	
-	@GetMapping("/sign")
-	public String sign() {
-		return "sign";
-	}
 }

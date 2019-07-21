@@ -11,11 +11,4 @@ public class MainService {
 	@Autowired
 	MainDAO md;
 	
-	public List<Map<String, Object>> getNewReview() {
-		return md.getNewReview();
-	}
-
-	public List<Map<String, Object>> getBestReview() {
-		return md.getBestReview();
-	}
 }

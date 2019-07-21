@@ -40,8 +40,59 @@ $(document).ready(()=>{
 		}
 	});
 
-	/* 로그인 버튼*/
+	/* 로그인 버튼 */
 	$('.login-icon').click(()=>{
 		document.location.href='/account';
 	});
+	
+	/* 카테고리 데이터 바인드 */
+	getCategory();
+	function getCategory(){
+		let url="/ajax/getMainCategory";  
+		$.ajax({
+			type:'post',
+			url:url,
+			success:(data)=>{		
+				for(item of data){
+					let mainCategory="<h2 id=main-category"+item.SEQ+">"+item.TITLE+"</h2>" 
+					+"<div class='main-category-list' id=main-category"+item.SEQ+"-list>" 
+					+ "<ul id=sub-category"+item.SEQ+"></ul></div>";
+					$('.nav').append(mainCategory);
+				}
+			},
+			error:(e)=>{
+				console.log(e);
+			}
+		}).done((data, status, responseObj) => {
+			let url="/ajax/getSubCategory";  
+			$.ajax({
+				type:'post',
+				url:url,
+				success:(data)=>{
+					for(item of data){
+						let mainCategory= "<li><a href='/subcategory"+item.SEQ+"'>"+item.TITLE+"</a></li>";	
+						$('#sub-category'+item.PARENT_SEQ).append(mainCategory);
+					}
+				},
+				error:(e)=>{
+					console.log(e);
+				}
+			});
+			
+			}).fail((result, status, responseObj) => {
+				console.log(e);
+		});
+	}
+	
+	/* 메인카테고리 클릭 토글 */
+	$(document).on('click','.nav h2',(e)=>{
+		let id=e.target.id;
+		if($('#'+id+'-list ul').css('display')==='none'){
+			$('.main-category-list ul').slideUp('fast');
+			$('#'+id+'-list ul').slideToggle('fast');
+		}else{
+			$('.main-category-list ul').slideUp('fast');
+		}
+	});
+	
 });

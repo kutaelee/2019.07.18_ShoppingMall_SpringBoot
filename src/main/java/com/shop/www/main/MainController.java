@@ -18,24 +18,19 @@ public class MainController {
 
 	@Autowired
 	MainService ms;
+	@Autowired
+	MainDAO md;
 	
 	@PostMapping("/ajax/getNewReview")
 	public List<Map<String,Object>> getNewRewview(HttpServletRequest request, Model model) {
-		try {
-			CommonClass.common(request, model);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return ms.getNewReview();
+		/*
+		 * try { CommonClass.common(request, model); } catch (Exception e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 */
+		return md.getNewReview();
 	}
 	@PostMapping("/ajax/getBestReview")
 	public List<Map<String,Object>> getBestReview(HttpServletRequest request, Model model) {
-		try {
-			CommonClass.common(request, model);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ms.getBestReview();
+		return md.getBestReview();
 	}
 }
