@@ -1,4 +1,4 @@
-package com.shop.review;
+package com.shop.www.review;
 
 public class ReviewController {
 

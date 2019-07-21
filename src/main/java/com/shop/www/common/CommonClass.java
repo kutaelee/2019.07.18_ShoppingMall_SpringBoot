@@ -1,4 +1,4 @@
-package com.shop.common;
+package com.shop.www.common;
 
 import java.util.Iterator;
 import java.util.Map;

@@ -9,10 +9,10 @@
 		<version>2.1.6.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.shop</groupId>
-	<artifactId>shop</artifactId>
+	<groupId>com.example</groupId>
+	<artifactId>demo-3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>shop</name>
+	<name>demo-3</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
