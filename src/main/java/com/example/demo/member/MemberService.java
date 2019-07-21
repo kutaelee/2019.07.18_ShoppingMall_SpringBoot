@@ -30,4 +30,9 @@ public class MemberService {
 		
 		
 	}
+
+	public List<Map<String, Object>> getNewReview() {
+		// TODO Auto-generated method stub
+		return md.getNewReview();
+	}
 }

@@ -32,5 +32,14 @@ public class MemberDAO {
 		
 		return list;
 	}
+
+	public List<Map<String, Object>> getNewReview() {
+		// TODO Auto-generated method stub
+		String SQL = " SELECT * FROM REVIEW"
+					+ " ORDER BY FRST_REG_DT"
+					+ " LIMIT 2";
+		List<Map<String, Object>> list = template.queryForList(SQL);
+		return list;
+	}
 	
 }
