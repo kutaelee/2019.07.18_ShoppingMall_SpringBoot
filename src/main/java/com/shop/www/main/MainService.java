@@ -12,7 +12,10 @@ public class MainService {
 	MainDAO md;
 	
 	public List<Map<String, Object>> getNewReview() {
-		// TODO Auto-generated method stub
 		return md.getNewReview();
+	}
+
+	public List<Map<String, Object>> getBestReview() {
+		return md.getBestReview();
 	}
 }

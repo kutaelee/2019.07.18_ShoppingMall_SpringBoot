@@ -118,4 +118,30 @@ $(document).ready(()=>{
 	        }
 	     });
 	}
+	
+	/* 베스트 리뷰 데이터 바인딩 */
+	getBestReview();
+	function getBestReview(){
+	    let url="/ajax/getBestReview";  
+	    $.ajax({      
+	        type:"POST",  
+	        url:url,      
+	        success:(data)=>{   
+	            let list = data;
+	            
+	            for(var i=0;i<list.length;i++){
+	            	let bestReview = '<div class="review-slot" id="best-review-slot'+(i+1)+'">'
+	            	+'<img src="'+list[i].THUM_IMG_PATH+'">'
+	            	+'<h1>'+list[i].TITLE+'</h1>'
+	            	+'<p>'+list[i].CONTENTS+'</p>'
+	            	+'</div>'
+	            	$('#best-review').append(bestReview);
+	            }
+	            
+	        },   
+	        error:function(e){  
+	          console.log(e);
+	        }
+	     });
+	}
 });

@@ -21,7 +21,6 @@ public class MainController {
 	
 	@PostMapping("/ajax/getNewReview")
 	public List<Map<String,Object>> getNewRewview(HttpServletRequest request, Model model) {
-		System.out.println("getNewReview");
 		try {
 			CommonClass.common(request, model);
 		} catch (Exception e) {
@@ -29,5 +28,14 @@ public class MainController {
 			e.printStackTrace();
 		}
 		return ms.getNewReview();
+	}
+	@PostMapping("/ajax/getBestReview")
+	public List<Map<String,Object>> getBestReview(HttpServletRequest request, Model model) {
+		try {
+			CommonClass.common(request, model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ms.getBestReview();
 	}
 }
