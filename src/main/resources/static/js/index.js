@@ -1,11 +1,11 @@
 $(document).ready(()=>{
 
-	var scrollCount=2;
-	var bannerClickSw=0;
-	var reviewCount=0;
-	var currentTop=0;
+	var bannerClickSw=0; // 배너 스위치
+	var reviewCount=0; // 리뷰 섹션 인덱스
+	var currentTop=0; // 현재 스크롤 위치
 	
 	$(".header").load("../include/header.html");
+	
 	/* 배너 자동변경 */
 	window.setInterval(()=>{
 		if(bannerClickSw===0){
@@ -14,7 +14,8 @@ $(document).ready(()=>{
 			bannerClickSw=0;
 		}
 	},3000);
-	/* 스크롤 */
+	
+	/* 스크롤 애니메이션 */
 	$(window).scroll(function () { 
 		currentTop = $(document).scrollTop(); 
 		if(currentTop>$('.item-section-nav').scrollTop()){
@@ -59,17 +60,8 @@ $(document).ready(()=>{
 		}
 		reviewSlide();
 	});
-	/* 배너 버튼클릭 */
-	function bannerSlide(){
-		let count=scrollCount;
-		$(".main-img1").attr("src","../img/"+count+".jpg");
-		$('.main-img1').css("transition-timing-function","ease-in");
-		if(scrollCount<3){
-			scrollCount++;
-		}else{
-			scrollCount=1;
-		}
-	}
+
+	
 	
 	/* 최신글 슬라이드 */
 	function reviewSlide(){
@@ -86,5 +78,31 @@ $(document).ready(()=>{
 			reviewCount=0;
 		}		
 	}
-
+	/* 새로운 리뷰 데이터 바인딩 */
+	getNewReview();
+	function getNewReview(){
+	    var url="/ajax/getNewReview";  
+	    $.ajax({      
+	        type:"POST",  
+	        url:url,      
+	        success:function(data){   
+	            console.log(data);
+	            console.log(data[1].THUM_IMG_PATH);
+	            let list = data;
+	            
+	            for(var i=0;i<list.length;i++){
+	            	let newReview = '<div class="review-slot" id="new-review-slot'+(i+1)+'">'
+	            	+'<img src="'+list[i].THUM_IMG_PATH+'">'
+	            	+'<h1>'+list[i].TITLE+'</h1>'
+	            	+'<p>'+list[i].CONTENTS+'</p>'
+	            	+'</div>'
+	            	$('#new-review').append(newReview);
+	            }
+	            
+	        },   
+	        error:function(e){  
+	          console.log(e);
+	        }
+	    });
+	}
 });
