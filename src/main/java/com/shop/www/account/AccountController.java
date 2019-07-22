@@ -3,6 +3,7 @@ package com.shop.www.account;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.coyote.Adapter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,22 @@ public class AccountController {
 		HashMap<String,Object> map=requtil.reqToHashMap(req);
 		map.put("ip", requtil.getRemoteIP(req));
 		as.insertUser(map);
+	}
+	
+	@PostMapping("/ajax/login")
+	public boolean login(HttpServletRequest req,HttpSession session) throws Exception {
+		HashMap<String,Object> map=requtil.reqToHashMap(req);
+		if(StringUtils.isEmptyOrWhitespaceOnly(map.get("id").toString()) || StringUtils.isEmptyOrWhitespaceOnly(map.get("pw").toString())) {
+			return false;
+		}
+		if(as.pwCheck(map)) {
+			session.setAttribute("id", map.get("id"));
+			System.out.println(session.getAttribute("id"));
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 	
 	@PostMapping("/ajax/doubleCheck")

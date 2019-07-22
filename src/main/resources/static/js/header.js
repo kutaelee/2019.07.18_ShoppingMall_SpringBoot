@@ -1,4 +1,5 @@
 $(document).ready(()=>{
+
 	/* 메뉴 토글 */
 	function navToggle(button){
 		if(button==='toggle-off'){
@@ -9,8 +10,13 @@ $(document).ready(()=>{
 			$('.search').fadeOut();
 			$('.title').slideUp('slow');
 			$('.login-icon').fadeOut();
+			$('.nav-title').css('transform','translateX(0vw)');
+			$('.nav h2').css('transform','translateX(0vw)');
 		}
-		if(button==='toggle-on'){		
+		if(button==='toggle-on'){
+			$('.main-category-list ul').hide();
+			$('.nav-title').css('transform','translateX(100vw)');
+			$('.nav h2').css('transform','translateX(100vw)');
 			$('.nav-toggle-btn').attr('id','toggle-off');
 			$('.nav-toggle-btn').css('color','black');
 			$('.nav-toggle-icon').attr('src','../img/icon/list.png');
@@ -53,11 +59,13 @@ $(document).ready(()=>{
 			type:'post',
 			url:url,
 			success:(result)=>{		
+				let i=.5;
 				for(item of result){
-					let mainCategory="<h2 id=main-category"+item.SEQ+">"+item.TITLE+"</h2>" 
-					+"<div class='main-category-list' id=main-category"+item.SEQ+"-list>" 
-					+ "<ul id=sub-category"+item.SEQ+"></ul></div>";
+					let mainCategory='<h2 id="main-category'+item.SEQ+'" style="transition:'+i+'s">'+item.TITLE+'</h2>'
+					+'<div class="main-category-list" id="main-category'+item.SEQ+'-list">' 
+					+ '<ul id="sub-category'+item.SEQ+'"></ul></div>';
 					$('.nav').append(mainCategory);
+					i+=.4;
 				}
 			},
 			error:(e)=>{
@@ -70,7 +78,7 @@ $(document).ready(()=>{
 				url:url,
 				success:(result)=>{
 					for(item of result){
-						let mainCategory= "<li><a href='/review/subcategory"+item.SEQ+"'>"+item.TITLE+"</a></li>";	
+						let mainCategory= '<li><a href="/review/subcategory'+item.SEQ+'">'+item.TITLE+'</a></li>';	
 						$('#sub-category'+item.PARENT_SEQ).append(mainCategory);
 					}
 				},
@@ -88,7 +96,6 @@ $(document).ready(()=>{
 	$(document).on('click','.nav h2',(e)=>{
 		let id=e.target.id;
 		$('#'+id+'-list ul').slideToggle('fast');
-		
 	});
 	
 });

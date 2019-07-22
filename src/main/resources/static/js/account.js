@@ -62,8 +62,8 @@ $(document).ready(()=>{
 	});
 	
 	function insertUser(){
-		let data=$('.sign-form').serialize();
-		let url='/ajax/insertUser'
+		const data=$('.sign-form').serialize();
+		const url='/ajax/insertUser'
 		$.ajax({
 			type:"POST",
 			url:url,
@@ -83,8 +83,8 @@ $(document).ready(()=>{
 	/* 회원 가입 밸류 체크 */
 	let doubling=false;
 	$('.sign-form input').change((e)=>{
-		let key=e.target.className;
-		let value=e.target.value;
+		const key=e.target.className;
+		const value=e.target.value;
 		if(key==='id'){
 			idPattenReplace(value);
 		}
@@ -113,10 +113,10 @@ $(document).ready(()=>{
 	
 	/* 빈값이 있으면 false를 반환 */
 	function emptyCheck(){
-		let email=$('.sign-form .email').val();
-		let id=$('.sign-form .id').val();
-		let pw=$('.sign-form .pw').val();
-		let pwCheck=$('.sign-form .pw-check').val();
+		const email=$('.sign-form .email').val();
+		const id=$('.sign-form .id').val();
+		const pw=$('.sign-form .pw').val();
+		const pwCheck=$('.sign-form .pw-check').val();
 		let bool=true;
 		
 		if(!email){
@@ -138,8 +138,8 @@ $(document).ready(()=>{
 	
 	/* 비밀번호 두개가 같지 않으면 false를 반환 */
 	function pwSameCheck(){
-		let pw=$('.sign-form .pw').val();
-		let pw2=$('.sign-form .pw-check').val();
+		const pw=$('.sign-form .pw').val();
+		const pw2=$('.sign-form .pw-check').val();
 		if(pw===pw2 && pw2.length>3){
 			pwSame=true;
 			return true;
@@ -152,10 +152,10 @@ $(document).ready(()=>{
 	/* 길이가 모두 규격에 맞지 않으면 false를 반환 */
 	function lengthCheck(){
 		let bool=true;
-		let emailLen=$('.sign-form .email').val().length;
-		let idLen=$('.sign-form .id').val().length;
-		let pwLen=$('.sign-form .pw').val().length;
-		let pwCheckLen=$('.sign-form .pw-check').val().length;
+		const emailLen=$('.sign-form .email').val().length;
+		const idLen=$('.sign-form .id').val().length;
+		const pwLen=$('.sign-form .pw').val().length;
+		const pwCheckLen=$('.sign-form .pw-check').val().length;
 		
 		if(emailLen>50 || emailLen<4){
 			emailLenCheck=false;
@@ -189,7 +189,7 @@ $(document).ready(()=>{
 	
 	/* 중복값이 있으면 false를 반환 */
 	function doubleCheck(key,value){
-		let url='/ajax/doubleCheck'
+		const url='/ajax/doubleCheck';
 		
 		$.ajax({
 			type:"POST",
@@ -231,11 +231,33 @@ $(document).ready(()=>{
 			
 		});
 	}
-	/* 있으면 false를 반환 */
+	/* 특수문자가 있으면 빈값으로 치환 */
 	function idPattenReplace(value){
-		let regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+		const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
 		   if (regExp.test(value)) {
 			      $('.sign-form .id').val(value.replace(regExp, ""));
 		   }
 	}
+	
+	/* 로그인 */
+	$('.login-btn').click(()=>{
+		const url='/ajax/login';
+		const data=$('.login-form').serialize();
+		$.ajax({
+			url:url,
+			type:"POST",
+			data:data,
+			success:(result)=>{
+				if(result){
+					alert("로그인이 완료되었습니다.");
+					history.back();
+				}else{
+					alert("일치하는 정보가 없습니다.");
+				}
+			},
+			error:(e)=>{
+				console.log(e);
+			}
+		});
+	});
 });

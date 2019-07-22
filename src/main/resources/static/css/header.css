@@ -57,14 +57,22 @@ a{
     position:absolute;
     z-index:999;
     overflow-y:scroll;
+    overflow-x:hidden;
 }
 .nav div{
 	margin-top:10%;
 }
 .nav div:first-child{
 	margin-top:25%;
-	letter-spacing:1px;
 	margin-bottom:11%;
+}
+.nav-title{
+	font-weight:bold;
+	color:crimson;
+	letter-spacing: .3vw;
+	font-size:1.5vw;
+	transform: translateX(100vw);
+	transition:.5s;
 }
 .nav a{
 	text-decoration: none;
@@ -75,10 +83,12 @@ a{
 .nav h2{
 	font-size: 1.3vw;
 	cursor:pointer;
+	transform: translateX(100vw);
 }
 .nav h2:hover{
 	color:crimson;
 }
+
 .nav ul{
 	padding-left:35%;
 	display:none;
