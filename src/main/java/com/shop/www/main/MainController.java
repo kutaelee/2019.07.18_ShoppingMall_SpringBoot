@@ -29,8 +29,14 @@ public class MainController {
 		 */
 		return md.getNewReview();
 	}
+	
 	@PostMapping("/ajax/getBestReview")
 	public List<Map<String,Object>> getBestReview(HttpServletRequest request, Model model) {
 		return md.getBestReview();
+	}
+	
+	@PostMapping("/ajax/getProduct")
+	public List<Map<String,Object>> getProduct(HttpServletRequest request, Model model) {
+		return md.getProduct();
 	}
 }

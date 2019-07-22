@@ -70,7 +70,7 @@ $(document).ready(()=>{
 				url:url,
 				success:(data)=>{
 					for(item of data){
-						let mainCategory= "<li><a href='/subcategory"+item.SEQ+"'>"+item.TITLE+"</a></li>";	
+						let mainCategory= "<li><a href='/review/subcategory"+item.SEQ+"'>"+item.TITLE+"</a></li>";	
 						$('#sub-category'+item.PARENT_SEQ).append(mainCategory);
 					}
 				},
@@ -87,12 +87,8 @@ $(document).ready(()=>{
 	/* 메인카테고리 클릭 토글 */
 	$(document).on('click','.nav h2',(e)=>{
 		let id=e.target.id;
-		if($('#'+id+'-list ul').css('display')==='none'){
-			$('.main-category-list ul').slideUp('fast');
-			$('#'+id+'-list ul').slideToggle('fast');
-		}else{
-			$('.main-category-list ul').slideUp('fast');
-		}
+		$('#'+id+'-list ul').slideToggle('fast');
+		
 	});
 	
 });

@@ -29,16 +29,15 @@
 #item-slide-left-btn{
 	position:absolute;
 	margin-left:3vw;
-	margin-top:23vh;
+	margin-top:91vh;
 }
 
 #item-slide-right-btn{
 	position:absolute;
 	margin-left:94vw;
-	margin-top:23vh;
+	margin-top:91vh;
 }
-.new-item{
-	margin-top:2%;
+.sale-item{
 	width:9999px;
 	height:34vh;
 	transition:0.3s;
@@ -59,7 +58,6 @@
     display: inline-block;
     color: gray;
     font-size: .7vw;
-    display:none;
 }
 .item-section-slot{
 	margin-right:2.5vw;
@@ -78,6 +76,7 @@
 .item-section-slot a{
 	display:block;
 	color:black;
+	font-weight:800;
 	text-decoration: none;
 	font-size:1vw;
 	padding-bottom:5px;
@@ -90,13 +89,10 @@
     font-weight: bold;
 }
 .item-section-slot img{
-	width: 60%;
-    height: 50%;
+	width: 100%;
+    height: 65%;
 }
-.review{
-	margin-left:8vw;
-	display:none;
-}
+
 .item-section-nav{
 	width:100%;
 	text-align:center;
@@ -116,36 +112,63 @@
     cursor:pointer;
 }
 #new-review-title{
-	display:none;
 }
 #best-review-title{
 	margin-top:5vh;
-	display:none;
+}
+
+.review{
+	margin-left:8vw;
 }
 .review-slot{
-	margin-right:3%;
-	border:2px solid black;
-	width:41%;
-	padding:20px;
-	text-align:center;
-	cursor:pointer;
-	height:80vh;
-	word-break:keep-all;
+    margin-right: 5%;
+    border: 2px solid black;
+    width: 25%;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    height: 55vh;
+    word-break: keep-all;
+    display:inline-block;
 }
 .review-slot:hover{
 	border-color:crimson;
 }
 .review-slot h1{
-	border-bottom:1px solid gray;
 	font-size:1.5vw;
+	line-height: 5vh;
 }
-.review-slot img{
-	width: 100%;
-	height:60%;
+.review-slot a{
+	font-weight: 800;
 }
-.review-slot p{
-	font-size:.9vw;
-	position:absolute;
-    width: 38%;
-    line-height: 3vh;
+.review-img{
+	width: 80%;
+	height:40%;
+}
+.review-content{
+    font-size: .8vw;
+    line-height: 3.5vh;
+    text-overflow: ellipsis;
+    height: 24.5vh;
+    word-break: keep-all;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
+    width: 95%;
+    padding-left: 2.5%;
+}
+.best-review-like-icon{
+	width: .8vw;
+    height: 1.6vh;
+}
+#best-review .review-slot{
+	height:60vh;
+}
+.like-cnt{
+	color: black;
+    font-size: .8vw;
+}
+.like-cnt-info{
+	font-size: .8vw;
 }

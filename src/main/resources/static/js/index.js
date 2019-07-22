@@ -27,40 +27,11 @@ $(document).ready(()=>{
 		}
 	} 
 	
-	/* 스크롤 애니메이션 */
-	$(window).scroll(()=>{ 
-		currentTop = $(document).scrollTop(); 
-		if(currentTop>$('.item-section-nav').scrollTop()){
-				displayInlineblock(['new-review-slot1','new-review-slot2','new-review-title','new-review-title-info']);
-				listFadeIn(['new-review-title','new-review','new-review-title-info']);
-		}
-		
-		if(currentTop>$('.review-slot').offset().top+$('.review-slot').outerHeight(true)-$(window).height() 
-				&& 'inline-block'===$('#new-review-slot1').css('display')){
-				listFadeIn(['best-review-title','best-review','best-review-title-info']);
-				displayInlineblock(['best-review-slot1','best-review-slot2','best-review-title','best-review-title-info']);
-
-		}
-	});
-	
-	/* css 변환 */
-	function displayInlineblock(list){
-		for(id of list){
-			$('#'+id).css('display','inline-block');
-		}
-	}
-	function listFadeIn(list){
-		for(id of list){
-			$('#'+id).fadeIn('slow');
-		}
-	}
-	
-	/* 슬라이드 버튼 클릭*/
+	/* item 슬라이드 버튼 클릭*/
 	$(".slide-btn").click((e)=>{
 		let id=e.target.id;
-		if(id==='item-slide-right-btn'||id==='item-slide-left-btn'){
-			reviewSlide();
-		}
+		reviewSlide();
+		
 	
 	});
 	$('.nav-circle').click((e)=>{
@@ -75,23 +46,25 @@ $(document).ready(()=>{
 
 	
 	
-	/* 최신글 슬라이드 */
+	/* 세일아이템 슬라이드 */
 	function reviewSlide(){
 		if(reviewCount===0){	
-			$('.new-item').css('margin-left','-107vw');
+			$('.sale-item').css('margin-left','-107vw');
 			$('.item-section-nav div:nth-child(1)').css('background','transparent');
 			$('.item-section-nav div:nth-child(2)').css('background','black');
 			reviewCount=1;
 		}
 		else if(reviewCount===1){
-			$('.new-item').css('margin-left','0');
+			$('.sale-item').css('margin-left','0');
 			$('.item-section-nav div:nth-child(1)').css('background','black');
 			$('.item-section-nav div:nth-child(2)').css('background','transparent');
 			reviewCount=0;
 		}		
 	}
-	getNewReview();
+	
+
 	/* 새로운 리뷰 데이터 바인딩 */
+	getNewReview();
 	function getNewReview(){
 	    let url="/ajax/getNewReview";  
 	    $.ajax({      
@@ -104,16 +77,16 @@ $(document).ready(()=>{
 	            
 	            for(var i=0;i<list.length;i++){
 	            	let newReview = '<div class="review-slot" id="new-review-slot'+(i+1)+'">'
-	            	+'<img src="'+list[i].THUM_IMG_PATH+'">'
-	            	+'<h1>'+list[i].TITLE+'</h1>'
-	            	+'<p>'+list[i].CONTENTS+'</p>'
+	            	+'<img class="review-img" src="'+list[i].THUM_IMG_PATH+'">'
+	            	+'<h1>'+list[i].TITLE+'</h1><hr>'
+	            	+'<p class="review-content">'+list[i].CONTENTS+'</p>'
 	            	+'</div>'
 	            	$('#new-review').append(newReview);
 	            }
 	            
 	            
 	        },   
-	        error:function(e){  
+	        error:(e)=>{  
 	          console.log(e);
 	        }
 	     });
@@ -131,17 +104,55 @@ $(document).ready(()=>{
 	            
 	            for(var i=0;i<list.length;i++){
 	            	let bestReview = '<div class="review-slot" id="best-review-slot'+(i+1)+'">'
-	            	+'<img src="'+list[i].THUM_IMG_PATH+'">'
+	            	+'<img class="review-img" src="'+list[i].THUM_IMG_PATH+'">'
 	            	+'<h1>'+list[i].TITLE+'</h1>'
-	            	+'<p>'+list[i].CONTENTS+'</p>'
+	            	+'<a class="like-cnt">'+list[i].LIKE_CNT+'</a><a class="like-cnt-info">명이 이 리뷰를 좋아합니다 </a>'
+	            	+'<img class="best-review-like-icon" src="../img/icon/like.png"><hr>'
+	            	+'<p class="review-content">'+list[i].CONTENTS+'</p>'
 	            	+'</div>'
 	            	$('#best-review').append(bestReview);
 	            }
 	            
 	        },   
-	        error:function(e){  
+	        error:(e)=>{  
 	          console.log(e);
 	        }
 	     });
+	}
+	
+	/* 세일 아이템 데이터 바인딩 */
+	getProduct();
+	function getProduct(){
+	    let url="/ajax/getProduct";  
+	    $.ajax({      
+	        type:"POST",  
+	        url:url,      
+	        success:(data)=>{  
+	            let list = data;
+	    
+	        	for(var i=0;i<10;i++){
+	        		let product='<div class="item-section-slot">'
+	        		if(i<list.length){
+			        		product+='<img src="'+list[i].THUM_IMG_PATH+'">'
+			        		+'<a href="'+list[i].URL+'">'+list[i].TITLE+'</a>'
+			        		+'<p> 세일중</p>'
+	        		}else{
+	        			product+='<img src="../img/empty.jpg">'
+	        				+'<a>상품을 준비중입니다.</a>'
+	        		}
+
+	        		if(i<5){
+	        			$('#item-sec1').append(product);
+	        		}else{
+	        			$('#item-sec2').append(product);
+	        		}
+	        	
+	        	}
+	        	
+	        },
+	        error:(e)=>{
+	        	console.log(e);
+	        }
+	    });
 	}
 });
