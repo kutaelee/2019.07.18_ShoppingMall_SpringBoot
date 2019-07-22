@@ -70,10 +70,9 @@ $(document).ready(()=>{
 	    $.ajax({      
 	        type:"POST",  
 	        url:url,      
-	        success:(data)=>{   
-	            console.log(data);
-	            console.log(data[1].THUM_IMG_PATH);
-	            let list = data;
+	        success:(result)=>{   
+	            console.log(result);
+	            let list = result;
 	            
 	            for(var i=0;i<list.length;i++){
 	            	let newReview = '<div class="review-slot" id="new-review-slot'+(i+1)+'">'
@@ -99,8 +98,8 @@ $(document).ready(()=>{
 	    $.ajax({      
 	        type:"POST",  
 	        url:url,      
-	        success:(data)=>{   
-	            let list = data;
+	        success:(result)=>{   
+	            let list = result;
 	            
 	            for(var i=0;i<list.length;i++){
 	            	let bestReview = '<div class="review-slot" id="best-review-slot'+(i+1)+'">'
@@ -127,8 +126,8 @@ $(document).ready(()=>{
 	    $.ajax({      
 	        type:"POST",  
 	        url:url,      
-	        success:(data)=>{  
-	            let list = data;
+	        success:(result)=>{  
+	            let list = result;
 	    
 	        	for(var i=0;i<10;i++){
 	        		let product='<div class="item-section-slot">'

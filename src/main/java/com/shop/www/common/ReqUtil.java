@@ -7,9 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Component;
+
 //import org.apache.log4j.Logger;
 
-
+@Component
 public class ReqUtil {
 	//private static Logger log = Logger.getLogger(ReqUtil.class);
 	

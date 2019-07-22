@@ -13,12 +13,11 @@
 		<div class="box" id="login-box">
 			<h1 class="login-title">로그인</h1>
 			<form class="login-form" name="login-form">
-				<label for="user-id">ID</label><br /> <input class="user-id"
-					type="text"><br /> <label for="user-pw">Password</label><br />
-				<input class="user-pw" type="password">
-				<button class="login-btn">Login</button>
+				<label for="id">ID</label><br /> <input class="id"
+					type="text" name="id"><br /> <label for="pw">Password</label><br />
+				<input class="pw" type="password" name="pw">
 			</form>
-
+				<button class="login-btn">Login</button>
 			<a class="signform-call-btn">아이디가 없으신가요?</a>
 			<a class="findform-call-btn">아이디/비밀번호를 잊으셨나요?</a>
 		</div>
@@ -27,15 +26,21 @@
 		<div class="box" id="sign-box">
 			<h1 class="sign-title">회원 가입</h1>
 
-			<form class="login-form" name="sign-form">
-				<label for="user-email">Email </label><br /> <input class="user-email"
-					type="email" placeholder="인증에 사용하실 이메일 주소"> <label
-					for="user-id">ID</label><br /> <input class="user-id" type="text" placeholder="로그인 시 사용하실 아이디"><br />
-				<label for="user-id">Password</label><br /> <input class="user-pw"
-					type="password" placeholder="로그인 시 사용하실 비밀번호"> <label for="user-pw">Password
-					Check</label><br /> <input class="user-pw" type="password" placeholder="비밀번호 한번 더 입력">
-				<button class="sign-btn">Sign In</button>
+			<form class="sign-form" name="sign-form">
+				<label for="email">Email </label><br /> 
+				<input class="email"type="email" placeholder="인증에 사용하실 이메일 주소" name="email">
+				<img class="email-check-icon" src="../img/icon/error.png"><br />
+					 <label for="id">ID</label><br /> 
+					 <input class="id" type="text" placeholder="로그인 시 사용하실 아이디" name="id">
+					 <img class="id-check-icon" src="../img/icon/error.png"><br />
+				<label for="id">Password</label><br /> 
+				<input class="pw" type="password" placeholder="로그인 시 사용하실 비밀번호" name="pw"> 
+				<img class="pw-check-icon" src="../img/icon/error.png"><br />
+				<label for="pw">Password Check</label><br /> 
+				<input class="pw-check" type="password" placeholder="비밀번호 한번 더 입력">
+				<img class="pw2-check-icon" src="../img/icon/error.png"><br />
 			</form>
+				<button class="sign-btn">Sign Up</button>
 			<a class="loginform-call-btn">이미 아이디가 있으신가요?</a>
 		</div>
 		
@@ -43,10 +48,10 @@
 			<h1 class="find-title">회원 정보 찾기</h1>
 
 			<form class="find-form" name="find-form">
-				<label for="user-email">Email </label><br /> <input class="user-email"
-					type="email" placeholder="가입할 때 입력하신 이메일 주소">
-				<button class="find-btn"> 확인 </button>
-			</form>
+				<label for="email">Email </label><br /> <input class="email"
+					type="email" placeholder="가입할 때 입력하신 이메일 주소" name="email">
+			</form>	
+				<button class="find-btn"> OK! </button>
 			<a class="back-call-btn">로그인 화면으로 돌아갈까요?</a>
 		</div>
 	</div>

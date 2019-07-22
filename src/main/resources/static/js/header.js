@@ -52,8 +52,8 @@ $(document).ready(()=>{
 		$.ajax({
 			type:'post',
 			url:url,
-			success:(data)=>{		
-				for(item of data){
+			success:(result)=>{		
+				for(item of result){
 					let mainCategory="<h2 id=main-category"+item.SEQ+">"+item.TITLE+"</h2>" 
 					+"<div class='main-category-list' id=main-category"+item.SEQ+"-list>" 
 					+ "<ul id=sub-category"+item.SEQ+"></ul></div>";
@@ -63,13 +63,13 @@ $(document).ready(()=>{
 			error:(e)=>{
 				console.log(e);
 			}
-		}).done((data, status, responseObj) => {
+		}).done((result, status, responseObj) => {
 			let url="/ajax/getSubCategory";  
 			$.ajax({
 				type:'post',
 				url:url,
-				success:(data)=>{
-					for(item of data){
+				success:(result)=>{
+					for(item of result){
 						let mainCategory= "<li><a href='/review/subcategory"+item.SEQ+"'>"+item.TITLE+"</a></li>";	
 						$('#sub-category'+item.PARENT_SEQ).append(mainCategory);
 					}

@@ -33,11 +33,17 @@ label{
 input{
 	margin-top:1vh;
 	margin-bottom:1vh;
-	width:100%;
+	width:85%;
 	height:10%;
 	transition:.5s;
 	letter-spacing: 1px;
 	padding:1%;
+}
+.sign-form img{
+	width:5%;
+	margin-left:2%;
+	height:10%;
+	display:inline-block;
 }
 #login-box label{
 	font-size:1.2vw;
@@ -63,7 +69,7 @@ input{
 }
 .login-btn{
 	font-size: 1.5vw;
-	margin-top: 6%;
+	margin-top: 2%;
 }
 .login-form{
 	margin-bottom:2vh;
@@ -95,4 +101,8 @@ input{
 
 #find-box{
 	margin-top:100vh;
+	height:35vh;
+}
+.find-btn{
+	font-size: 1.2vw;
 }
