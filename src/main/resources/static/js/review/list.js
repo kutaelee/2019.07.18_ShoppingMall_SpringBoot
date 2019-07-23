@@ -1,7 +1,25 @@
+
+function spettacoliIn(){
+	let offset=$(this).offset();
+	let height=$(this).css('height');
+	let width=$(this).css('width');
+	$('.overlay').stop().show();
+	$('.overlay').css('top',offset.top);
+	$('.overlay').css('height',height);
+	$('.overlay').css('width',width);
+	$('.overlay').attr('id',this.id);
+}
 $(document).ready(()=>{
 	$(".header").load("../include/header.html");
 	const path=location.pathname.split('/');
 	
+	$('.overlay').mouseleave(()=>{
+		$('.overlay').stop().hide();
+	});
+	$('.overlay').click(()=>{
+		let id=$('.overlay').prop('id');
+		window.location.href='/review/'+id;
+	})
 	/* 카테고리 정보 -> 리뷰 개수 -> 리뷰리스트  데이터 바인딩 */
 	getSubCategory().then((result)=>{
 		getReviewCount(result).then((result)=>{
@@ -58,7 +76,7 @@ $(document).ready(()=>{
 		});
 		});
 	}
-	
+
 	/* 서브카테고리 리뷰 데이터 바인딩 */
 	function getReviewList(){
 		let url='/ajax/getReviewList';
@@ -70,8 +88,9 @@ $(document).ready(()=>{
 			success:(result)=>{
 				console.log(result);
 				for(item of result){
-					let reviewItem='<tr class="review-item" id="review-item"'+item.SEQ+'>'
-					+'<td class="review-item-thumnail"><img src="'+item.THUM_IMG_PATH+'"></td>'
+					let a='<div class="overlay"><h1 class="overlay-plus">+</h1><h1 class="overlay-info">자세히 보러가기</h1></div>';
+					let reviewItem='<tr class="review-item" onMouseOver="spettacoliIn.call(this)" id="'+item.SEQ+'">'
+					+'<td class="review-item-thumnail"><img class="item-img" src="'+item.THUM_IMG_PATH+'"></td>'
 					+'<td class="review-item-info"><h3 class="review-item-title">'+item.TITLE+'</h3>'
 					+'<p class="review-item-regdate">'+item.FRST_REG_DT+'</p>'
 					+'<p class="review-item-content">'+item.CONTENTS+'</p>'

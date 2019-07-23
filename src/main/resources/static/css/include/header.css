@@ -102,7 +102,7 @@ a{
 }
 .nav-bar{
     z-index: 1000;
-   	position:fixed;
+   	position:absolute;
     margin-left: 96vw;
     margin-top:2vh;
     
