@@ -1,0 +1,119 @@
+@charset "UTF-8";
+.subcategory-title{
+	color:crimson;
+	margin-left:8vw;
+	font-size:2vw;
+	font-family: 'NanumSquareRound',sans-serif;
+	margin-top:0;
+}
+.list-menu{
+    width: 76vw;
+    height: 30vh;
+    margin-left: 10vw;
+    border: 1px solid gray;
+    background: whitesmoke;
+    padding: 2vw;
+}
+.menu-sec{
+	margin-left:5vw;
+	margin-bottom:3vh;
+}
+.menu-sec img{
+	margin-left:.3vw;
+	width:1vw;
+	cursor:pointer;
+}
+.review-search{
+	height:2vh;
+}
+.menu-sec label{
+	margin-right:1%;
+	font-size:1vw;
+}
+.list-menu h1{
+	font-weight:100;
+	font-size:1.5vw;
+	margin-left:3vw;
+}
+.list-menu h2{
+	font-weight:100;
+	font-size:.8vw;
+	color:grey;
+}
+.review-list{
+	width: 80vw;
+	margin:2vh 8vw;
+	padding:2vw;
+}
+.subcategory-list-title{
+	font-size: 1.3vw;
+	font-family: 'NanumSquareRound',sans-serif;
+	font-weight: 800;
+	color: crimson;
+	margin-bottom:2vh;
+}
+.subcategory-list-title a{
+    font-size: 1vw;
+    color: dimgray;
+}
+.review-item{
+    border: 1px solid black;
+    cursor: pointer;
+}
+.review-item-wirter{
+	font-size:.8vw;
+	color:gray;
+	font-style: italic;
+	margin-right:1vw;
+	margin:0;
+}
+.review-item-info{
+	width:96%;
+	display:inline-block;
+	padding:2%;
+}
+.review-item-thumnail{
+	width:30%;
+}
+.review-item-thumnail img{
+	width:90%;
+	display:inline-block;
+	padding:5%;
+}
+.review-item-likecnt{
+	display:inline-block;
+	font-size: .8vw;
+}
+.review-item-like-icon{
+	width:.8vw;
+}
+.review-item-table{
+	border: 1px solid;
+	border-collapse: collapse;
+}
+.review-item-table tr{
+	border: 1px solid;
+}
+.review-item-title{
+	overflow: hidden;
+	text-overflow: ellipsis;
+    white-space: nowrap; 
+    width:50vw;
+}
+.review-item-regdate{
+	color:grey;
+	display: inline-block;
+	font-size:.8vw;
+	margin:0;
+}
+.review-item-content{
+    font-size: .8vw;
+    line-height: 3vh;
+    text-overflow: ellipsis;
+    height: 9vh;
+    word-break: keep-all;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}

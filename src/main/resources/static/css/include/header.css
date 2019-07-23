@@ -71,8 +71,6 @@ a{
 	color:crimson;
 	letter-spacing: .3vw;
 	font-size:1.5vw;
-	transform: translateX(100vw);
-	transition:.5s;
 	text-transform: uppercase;
 }
 .nav a{

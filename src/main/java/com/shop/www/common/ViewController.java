@@ -17,9 +17,9 @@ public class ViewController {
 	public String searchpage() {
 		return "search/searchpage";
 	}
-	@GetMapping("/review/*")
+	@GetMapping("/reviewlist/*")
 	public String review() {
-		return "review/read";
+		return "review/list";
 	}
 	
 }

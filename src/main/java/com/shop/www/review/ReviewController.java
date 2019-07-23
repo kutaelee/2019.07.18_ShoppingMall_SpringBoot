@@ -1,5 +1,8 @@
 package com.shop.www.review;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +25,9 @@ public class ReviewController {
 	@PostMapping("/ajax/getReviewCount")
 	public String getReviewCount(HttpServletRequest req) throws Exception {
 			return rd.getReviewCount(requtil.reqToHashMap(req));
+	}
+	@PostMapping("/ajax/getReviewList")
+	public List<Map<String, Object>> getReviewList(HttpServletRequest req) throws Exception {
+			return rd.getReviewList(requtil.reqToHashMap(req));
 	}
 }

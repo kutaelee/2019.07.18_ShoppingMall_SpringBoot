@@ -1,6 +1,8 @@
 package com.shop.www.review;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -31,6 +33,21 @@ public class ReviewDAO {
 			return "0";
 		}
 
+	}
+
+	public List<Map<String, Object>> getReviewList(HashMap<String, Object> map) {
+		String SQL = "SELECT SEQ,TITLE,CONTENTS,"
+				+ "THUM_IMG_PATH,PARENT_SEQ,LIKE_CNT,"
+				+ "RATING,FRST_REG_DT,FRST_REG_ID"
+				+ " FROM REVIEW"
+				+ " WHERE PARENT_SEQ=? AND DEL_YN='N'"
+				+ " ORDER BY FRST_REG_DT DESC";
+		
+		try {
+			return template.queryForList(SQL, map.get("seq"));
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 }
