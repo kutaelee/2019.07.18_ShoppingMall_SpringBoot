@@ -4,7 +4,7 @@ $(document).ready(()=>{
 	var reviewCount=0; // 리뷰 섹션 인덱스
 	var currentTop=0; // 현재 스크롤 위치
 	
-	$(".header").load("../include/header.html");
+	$('.header').load('../include/header.html');
 	
 	/* 배너 자동변경 */
 	window.setInterval(()=>{
@@ -18,8 +18,8 @@ $(document).ready(()=>{
 	/* 배너 버튼클릭 */
 	function bannerSlide(){
 		let count=scrollCount;
-		$(".main-img1").attr("src","../img/"+count+".jpg");
-		$('.main-img1').css("transition-timing-function","ease-in");
+		$('.main-img1').attr('src','../img/'+count+'.jpg');
+		$('.main-img1').css('transition-timing-function','ease-in');
 		if(scrollCount<3){
 			scrollCount++;
 		}else{
@@ -28,11 +28,9 @@ $(document).ready(()=>{
 	} 
 	
 	/* item 슬라이드 버튼 클릭*/
-	$(".slide-btn").click((e)=>{
+	$('.slide-btn').click((e)=>{
 		let id=e.target.id;
 		reviewSlide();
-		
-	
 	});
 	$('.nav-circle').click((e)=>{
 		let id=e.target.id;
@@ -66,9 +64,9 @@ $(document).ready(()=>{
 	/* 새로운 리뷰 데이터 바인딩 */
 	getNewReview();
 	function getNewReview(){
-	    let url="/ajax/getNewReview";  
+	    let url='/ajax/getNewReview';  
 	    $.ajax({      
-	        type:"POST",  
+	        type:'POST',  
 	        url:url,      
 	        success:(result)=>{   
 	            console.log(result);
@@ -94,9 +92,9 @@ $(document).ready(()=>{
 	/* 베스트 리뷰 데이터 바인딩 */
 	getBestReview();
 	function getBestReview(){
-	    let url="/ajax/getBestReview";  
+	    let url='/ajax/getBestReview';  
 	    $.ajax({      
-	        type:"POST",  
+	        type:'POST',  
 	        url:url,      
 	        success:(result)=>{   
 	            let list = result;
@@ -104,9 +102,9 @@ $(document).ready(()=>{
 	            for(var i=0;i<list.length;i++){
 	            	let bestReview = '<div class="review-slot" id="best-review-slot'+(i+1)+'">'
 	            	+'<img class="review-img" src="'+list[i].THUM_IMG_PATH+'">'
-	            	+'<h1>'+list[i].TITLE+'</h1>'
+	            	+'<h1>'+list[i].TITLE+'</h1><hr>'
 	            	+'<a class="like-cnt">'+list[i].LIKE_CNT+'</a><a class="like-cnt-info">명이 이 리뷰를 좋아합니다 </a>'
-	            	+'<img class="best-review-like-icon" src="../img/icon/like.png"><hr>'
+	            	+'<img class="best-review-like-icon" src="../img/icon/like.png">'
 	            	+'<p class="review-content">'+list[i].CONTENTS+'</p>'
 	            	+'</div>'
 	            	$('#best-review').append(bestReview);
@@ -122,9 +120,9 @@ $(document).ready(()=>{
 	/* 세일 아이템 데이터 바인딩 */
 	getProduct();
 	function getProduct(){
-	    let url="/ajax/getProduct";  
+	    let url='/ajax/getProduct';  
 	    $.ajax({      
-	        type:"POST",  
+	        type:'POST',  
 	        url:url,      
 	        success:(result)=>{  
 	            let list = result;

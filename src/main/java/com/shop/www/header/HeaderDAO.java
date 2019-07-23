@@ -12,13 +12,13 @@ public class HeaderDAO {
 	@Autowired
 	private JdbcTemplate template;
 	
-	public List<Map<String, Object>> getMainCategory() {
+	public List<Map<String, Object>> getMainCategoryList() {
 		String SQL = "SELECT * FROM MAIN_CATEGORY"
 				+ " ORDER BY DISP_ORDER";
 		return template.queryForList(SQL);
 	}
 
-	public List<Map<String, Object>> getSubCategory() {
+	public List<Map<String, Object>> getSubCategoryList() {
 		String SQL = "SELECT * FROM SUB_CATEGORY"
 				+ " ORDER BY DISP_ORDER";
 		return template.queryForList(SQL);

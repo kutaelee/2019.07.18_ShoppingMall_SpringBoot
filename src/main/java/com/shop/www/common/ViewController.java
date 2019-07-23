@@ -11,11 +11,15 @@ public class ViewController {
 	}	
 	@GetMapping("/account")
 	public String loginpage() {
-		return "account";
+		return "account/account";
 	}
 	@GetMapping("/searchpage")
 	public String searchpage() {
-		return "searchpage";
+		return "search/searchpage";
+	}
+	@GetMapping("/review/*")
+	public String review() {
+		return "review/read";
 	}
 	
 }

@@ -73,6 +73,7 @@ a{
 	font-size:1.5vw;
 	transform: translateX(100vw);
 	transition:.5s;
+	text-transform: uppercase;
 }
 .nav a{
 	text-decoration: none;

@@ -54,9 +54,9 @@ $(document).ready(()=>{
 	/* 카테고리 데이터 바인드 */
 	getCategory();
 	function getCategory(){
-		let url="/ajax/getMainCategory";  
+		let url="/ajax/getMainCategoryList";  
 		$.ajax({
-			type:'post',
+			type:'POST',
 			url:url,
 			success:(result)=>{		
 				let i=.5;
@@ -72,13 +72,13 @@ $(document).ready(()=>{
 				console.log(e);
 			}
 		}).done((result, status, responseObj) => {
-			let url="/ajax/getSubCategory";  
+			let url="/ajax/getSubCategoryList";  
 			$.ajax({
-				type:'post',
+				type:'POST',
 				url:url,
 				success:(result)=>{
 					for(item of result){
-						let mainCategory= '<li><a href="/review/subcategory'+item.SEQ+'">'+item.TITLE+'</a></li>';	
+						let mainCategory= '<li><a href="/review/'+item.SEQ+'">'+item.TITLE+'</a></li>';	
 						$('#sub-category'+item.PARENT_SEQ).append(mainCategory);
 					}
 				},

@@ -65,16 +65,16 @@ $(document).ready(()=>{
 		const data=$('.sign-form').serialize();
 		const url='/ajax/insertUser'
 		$.ajax({
-			type:"POST",
+			type:'POST',
 			url:url,
 			data:data,
 			success:(result)=>{
-				alert("회원가입이 완료되었습니다!");
+				alert('회원가입이 완료되었습니다!');
 				history.back();
 			},
 			error:(e)=>{
 				console.log(e);
-				alert("회원가입 실패");
+				alert('회원가입 실패');
 			}
 		});
 		
@@ -192,9 +192,9 @@ $(document).ready(()=>{
 		const url='/ajax/doubleCheck';
 		
 		$.ajax({
-			type:"POST",
+			type:'POST',
 			url:url,
-			data:{"key":key,"value":value},
+			data:{'key':key,'value':value},
 			success:(result)=>{
 				if(result){
 					if(key==='EMAIL'){
@@ -245,14 +245,14 @@ $(document).ready(()=>{
 		const data=$('.login-form').serialize();
 		$.ajax({
 			url:url,
-			type:"POST",
+			type:'POST',
 			data:data,
 			success:(result)=>{
 				if(result){
-					alert("로그인이 완료되었습니다.");
+					alert('로그인이 완료되었습니다.');
 					history.back();
 				}else{
-					alert("일치하는 정보가 없습니다.");
+					alert('일치하는 정보가 없습니다.');
 				}
 			},
 			error:(e)=>{

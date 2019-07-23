@@ -14,12 +14,12 @@ public class HeaderController {
 	@Autowired
 	HeaderDAO hd;
 	
-	@PostMapping("/ajax/getMainCategory")
-	public List<Map<String,Object>> getMainCategory(){
-		return hd.getMainCategory();
+	@PostMapping("/ajax/getMainCategoryList")
+	public List<Map<String,Object>> getMainCategoryList(){
+		return hd.getMainCategoryList();
 	}
-	@PostMapping("/ajax/getSubCategory")
-	public List<Map<String,Object>> getSubCategory(){
-		return hd.getSubCategory();
+	@PostMapping("/ajax/getSubCategoryList")
+	public List<Map<String,Object>> getSubCategoryList(){
+		return hd.getSubCategoryList();
 	}
 }
