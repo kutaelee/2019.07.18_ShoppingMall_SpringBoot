@@ -13,15 +13,34 @@ $(document).ready(()=>{
 	let REVIEW_COUNT; //서브 카테고리에 포함된 전체 리뷰개수
 	let CURRENT_PAGE=1; // 현재 페이지 넘버
 	const path=location.pathname.split('/'); //uri 매핑
+	let subjectTitle;
 	$(".header").load("../include/header.html");
-
+	let checkedCompanySeqList=[];
 	/* 카테고리 데이터 바인딩 */
+	/* 메인 카테고리SEQ -> 서브 카테고리SEQ-> 서브 카테고리 제목 */
 	getMainCategory().then(()=>{
 		getSubCategoryParentSeq().then((result)=>{
 				getSubCategoryMatchParentSeq(result);
 		});
 	});
+	getManCompanyTitle();
 	
+	/* 리뷰 상세 검색 */
+	$(document).on('change','.company-checkbox',() =>{
+			checkedCompanySeqList=[];
+		   $('input[type="checkbox"]:checked').each(function (index,item){
+			   checkedCompanySeqList.push($(this).val());
+		   });
+		   CURRENT_PAGE=1;
+		   getReviewCount(subjectTitle,checkedCompanySeqList).then((result)=>{
+			   REVIEW_COUNT=result;
+			   paging(1);
+			   $('.pagenum').css('color','grey');
+			   $('#pagenum-1').css('color','crimson');
+			   getReviewList(checkedCompanySeqList);
+		   });
+	});
+
 	function getMainCategory(){
 		return new Promise((resolve,reject)=>{
 		let url="/ajax/getMainCategoryList";  
@@ -51,7 +70,7 @@ $(document).ready(()=>{
 			$.ajax({
 				url:url,
 				type:'POST',
-				data:{'seq':data},
+				data:{'parentSeq':data},
 				success:(result)=>{
 					resolve(result);
 				},
@@ -70,7 +89,7 @@ $(document).ready(()=>{
 		$.ajax({
 			type:'POST',
 			url:url,
-			data:{'seq':result},
+			data:{'parentSeq':result},
 			success:(result)=>{
 				let subCategory='';
 				for(item of result){
@@ -78,6 +97,23 @@ $(document).ready(()=>{
 				}
 				$('.sub-category').html(subCategory);
 				$('#sub-'+path[2]).css('font-weight','bold');
+			},
+			error:(e)=>{
+				console.log(e);
+			}
+		});
+	}
+	/* 제조사 데이터 바인딩 */
+	function getManCompanyTitle(){
+		let url="/ajax/getManCompanyTitle";  
+		$.ajax({
+			type:'POST',
+			url:url,
+			data:{'parentSeq':path[2]},
+			success:(result)=>{		
+				for(item of result){
+					$('#man-company').append('<input type="checkbox" value="'+item.SEQ+'"class="company-checkbox"><label for="company-'+item.SEQ+'">'+item.TITLE+'</label>');
+				}
 			},
 			error:(e)=>{
 				console.log(e);
@@ -133,20 +169,31 @@ $(document).ready(()=>{
 	}
 	
 	/* 서브카테고리의 전체 리뷰 갯수 리턴 */
-	function getReviewCount(result){
+	function getReviewCount(result,checkedCompanySeqList){
 		return new Promise((resolve,reject)=>{
-		$('.subcategory-list-title').prepend(result);
+		subjectTitle=result;
+		$('.subcategory-list-title').text('카테고리 - '+subjectTitle);
 		let url='/ajax/getReviewCount';
-		let data=path[2];
+		let data={};
+		if(checkedCompanySeqList){
+			data={'parentSeq':path[2]};
+			let i=0;
+			for(item of checkedCompanySeqList){
+				data['checkedCompanySeqList'+i]=item;
+				i++;
+			}
+		}else{
+			data={'parentSeq':path[2]};
+		}
 		$.ajax({
 			url:url,
 			type:'POST',
-			data:{'seq':data},
+			data:data,
 			success:(result)=>{
 				if(result==='0'){
-					$('.subcategory-list-title').append('의 리뷰가 존재하지않습니다.');
+					$('.subcategory-list-title').text(subjectTitle+'의 리뷰가 존재하지않습니다.');
 				}else{
-					$('.subcategory-list-title').append(' 카테고리의 리뷰  개수 <a>('+result+')</a>');
+					$('.subcategory-list-title').html(subjectTitle+' 카테고리의 리뷰  개수 <a>('+result+')</a>');
 					REVIEW_COUNT=result;
 					resolve(result);
 				}
@@ -187,7 +234,7 @@ $(document).ready(()=>{
 			$('.reivew-list-paging').append('<a class="page-last">》</a>');
 
 		}else{
-			$('.reivew-list-paging').append('<a class="pagenum" id="pagenum-1">1</a><a class="page-next">〉</a> <a class="page-last">》</a>');
+			$('.reivew-list-paging').append('<a class="pagenum" id="pagenum-1">1</a> <a class="page-last">》</a>');
 		}
 
 	}
@@ -258,41 +305,55 @@ $(document).ready(()=>{
 	function selectPage(num){
 		$('.pagenum').css('color','grey');
 		$('#pagenum-'+num).css('color','crimson');
-		getReviewList();
+		getReviewList(checkedCompanySeqList);
 	}
 	
 	/* 서브카테고리 리뷰 데이터 바인딩 */
-	function getReviewList(){
+	function getReviewList(checkedCompanySeqList){
 		let url='/ajax/getReviewList';
-		let data=path[2];
+		let parentSeq=path[2];
 		let index=(CURRENT_PAGE-1)*5;
 		if(CURRENT_PAGE===1){
 			index=0;
+		}
+		let data={};
+		if(checkedCompanySeqList){
+			data={'parentSeq':parentSeq,'index':index}
+			let i=0;
+			for(item of checkedCompanySeqList){
+				data['checkedCompanySeqList'+i]=item;
+				i++;
+			}
+		}else{
+			data={'parentSeq':parentSeq,'index':index};
 		}
 		$('.review-item-table').text("");
 		$.ajax({
 			url:url,
 			type:'POST',
-			data:{'seq':data,'index':index},
+			data:data,
 			success:(result)=>{
 				console.log(result);
-				for(item of result){
-					let reviewItem='<tr class="review-item" onMouseOver="spettacoliIn.call(this)" id="'+item.SEQ+'">'
-					+'<td class="review-item-thumnail"><img class="item-img" src="'+item.THUM_IMG_PATH+'"></td>'
-					+'<td class="review-item-info"><h3 class="review-item-title">'+item.TITLE+'</h3>'
-					+'<p class="review-item-regdate">'+item.FRST_REG_DT+'</p>'
-					+'<p class="review-item-content">'+item.CONTENTS+'</p>'
-					+'<p class="review-item-wirter">By.'+item.FRST_REG_ID+'</p>'
-					+'<p class="review-item-likecnt">'+item.LIKE_CNT+'명이 도움받은 리뷰입니다</p>'
-					+'<img class="review-item-like-icon" src="../img/icon/like.png">'
-					+'</td></tr>'
-					$('.review-item-table').append(reviewItem);
-				}
+				$('.review-item-table').html(makeReviewList(result));
 			},
 			error:(e)=>{
 				console.log(e);
 				}
 		});
-		
+	}
+	function makeReviewList(result){
+		let reviewItem='';
+		for(item of result){
+			reviewItem+='<tr class="review-item" onMouseOver="spettacoliIn.call(this)" id="'+item.SEQ+'">'
+			+'<td class="review-item-thumnail"><img class="item-img" src="'+item.THUM_IMG_PATH+'"></td>'
+			+'<td class="review-item-info"><h3 class="review-item-title">'+item.TITLE+'</h3>'
+			+'<p class="review-item-regdate">'+item.FRST_REG_DT+'</p>'
+			+'<p class="review-item-content">'+item.CONTENTS+'</p>'
+			+'<p class="review-item-wirter">By.'+item.FRST_REG_ID+'</p>'
+			+'<p class="review-item-likecnt">'+item.LIKE_CNT+'명이 도움받은 리뷰입니다</p>'
+			+'<img class="review-item-like-icon" src="../img/icon/like.png">'
+			+'</td></tr>';
+		}
+		return reviewItem;
 	}
 });

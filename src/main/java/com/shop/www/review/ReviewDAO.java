@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,7 +28,7 @@ public class ReviewDAO {
 		String SQL = "SELECT PARENT_SEQ FROM SUB_CATEGORY" + " WHERE SEQ=?";
 	
 		try {
-			return template.queryForMap(SQL, map.get("seq")).get("PARENT_SEQ").toString();
+			return template.queryForMap(SQL, map.get("parentSeq")).get("PARENT_SEQ").toString();
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
@@ -37,8 +38,26 @@ public class ReviewDAO {
 	public String getReviewCount(HashMap<String, Object> map) {
 		String SQL = "SELECT COUNT(*) FROM REVIEW" + " WHERE PARENT_SEQ=? AND DEL_YN='N'";
 		
+		if(map.size()>1) {
+			int index=0;
+			for(String key:map.keySet()) {
+				if(!key.equals("parentSeq")) {
+					if(index==0) {
+						SQL+=" AND";
+					}else {
+						SQL+=" OR";
+					}
+					if(key.contains("checkedCompany")) {
+						SQL+=" MAN_COMPANY="+map.get(key);
+					}else if(key.contains("checkedPrice")) {
+						SQL+=" Price="+map.get(key);
+					}
+					index++;
+				}
+			}
+		}
 		try {
-			return template.queryForObject(SQL,new Object[] {map.get("seq")}, String.class);
+			return template.queryForObject(SQL,new Object[] {map.get("parentSeq")}, String.class);
 		} catch (NullPointerException e) {
 			return "0";
 		}
@@ -50,12 +69,31 @@ public class ReviewDAO {
 				+ "THUM_IMG_PATH,PARENT_SEQ,LIKE_CNT,"
 				+ "RATING,FRST_REG_DT,FRST_REG_ID"
 				+ " FROM REVIEW"
-				+ " WHERE PARENT_SEQ=? AND DEL_YN='N'"
-				+ " ORDER BY FRST_REG_DT DESC"
-				+ " LIMIT ?,5";
+				+ " WHERE PARENT_SEQ=? AND DEL_YN='N'";
 
+		if(map.size()>2) {
+			int index=0;
+			for(String key:map.keySet()) {
+				if(!key.equals("parentSeq") && !key.equals("index")) {
+					if(index==0) {
+						SQL+=" AND";
+					}else {
+						SQL+=" OR";
+					}
+					if(key.contains("checkedCompany")) {
+						SQL+=" MAN_COMPANY="+map.get(key);
+					}else if(key.contains("checkedPrice")) {
+						SQL+=" Price="+map.get(key);
+					}
+					index++;
+				}
+			}
+		}
+		
+		SQL+=" ORDER BY FRST_REG_DT DESC"
+				+ " LIMIT ?,5";
 		try {
-			return template.queryForList(SQL, map.get("seq"),Integer.parseInt(map.get("index").toString()));
+			return template.queryForList(SQL, map.get("parentSeq"),Integer.parseInt(map.get("index").toString()));
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
@@ -66,7 +104,16 @@ public class ReviewDAO {
 				+ " WHERE PARENT_SEQ=?"
 				+ " ORDER BY DISP_ORDER";
 		try {
-			return template.queryForList(SQL,Integer.parseInt((String) map.get("seq")));
+			return template.queryForList(SQL,map.get("parentSeq"));
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	public List<Map<String, Object>> getManCompanyTitle(HashMap<String, Object> map) {
+		String SQL = "SELECT SEQ,TITLE FROM MAN_COMPANY"
+				+ " WHERE PARENT_SEQ=?";
+		try {
+			return template.queryForList(SQL,map.get("parentSeq"));
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}

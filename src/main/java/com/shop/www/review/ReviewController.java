@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,4 +39,9 @@ public class ReviewController {
 	public List<Map<String, Object>> getSubCategoryMatchParentSeq(HttpServletRequest req) throws Exception{
 		return rd.getSubCategoryMatchParentSeq(requtil.reqToHashMap(req));
 	}
+	@PostMapping("/ajax/getManCompanyTitle")
+	public List<Map<String, Object>> getManCompanyTitle(HttpServletRequest req) throws Exception {
+		return rd.getManCompanyTitle(requtil.reqToHashMap(req));
+	}
+
 }
