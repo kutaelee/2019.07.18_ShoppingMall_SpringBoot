@@ -48,12 +48,16 @@ $(document).ready(()=>{
 	function reviewSlide(){
 		if(reviewCount===0){	
 			$('.sale-item').css('margin-left','-107vw');
+			$('#item-slide-left-btn').css('margin-left','110vw');
+			$('#item-slide-right-btn').css('margin-left','201vw');
 			$('.item-section-nav div:nth-child(1)').css('background','transparent');
 			$('.item-section-nav div:nth-child(2)').css('background','black');
 			reviewCount=1;
 		}
 		else if(reviewCount===1){
 			$('.sale-item').css('margin-left','0');
+			$('#item-slide-left-btn').css('margin-left','3vw');
+			$('#item-slide-right-btn').css('margin-left','94vw');
 			$('.item-section-nav div:nth-child(1)').css('background','black');
 			$('.item-section-nav div:nth-child(2)').css('background','transparent');
 			reviewCount=0;

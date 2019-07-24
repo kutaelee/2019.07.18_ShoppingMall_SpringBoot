@@ -12,7 +12,7 @@
 }
 
 .index-body button{
-	font-size: 40px;
+	font-size: 1.7vw;
     font-weight: normal;
     color: white;
     opacity: .8;
@@ -26,16 +26,18 @@
 	opacity:1;
 	transition:.2s;
 }
+.slide-btn{
+	margin-top:5%;
+	font-size:.8vw;
+}
 #item-slide-left-btn{
 	position:absolute;
 	margin-left:3vw;
-	margin-top:91vh;
 }
-
 #item-slide-right-btn{
 	position:absolute;
 	margin-left:94vw;
-	margin-top:91vh;
+
 }
 .sale-item{
 	width:9999px;
@@ -121,7 +123,8 @@
 }
 
 .review{
-	margin-left:8vw;
+	width:90%;
+	margin-left:10%;
 }
 .review-slot{
     margin-right: 5%;
@@ -138,7 +141,7 @@
 	border-color:crimson;
 }
 .review-slot h1{
-	font-size:1.5vw;
+	font-size:1vw;
 	line-height: 5vh;
 	margin-bottom:0;
 	overflow: hidden;
@@ -149,19 +152,20 @@
 	font-weight: 800;
 }
 .review-img{
-	width: 80%;
+	width: 90%;
 	height:40%;
 }
+
 .review-content{
     font-size: .8vw;
     line-height: 3.5vh;
     text-overflow: ellipsis;
-    height: 24.5vh;
+    height: 17.5vh;
     word-break: keep-all;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 7;
+    -webkit-line-clamp: 5;
     width: 95%;
     padding-left: 2.5%;
 }

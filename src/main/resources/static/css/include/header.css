@@ -76,11 +76,15 @@ a{
 .nav a{
 	text-decoration: none;
 	color:black;
-	font-size:1vw;
+	font-size:.8vw;
 	font-weight:bold;
 }
+.nav a:hover{
+	opacity:1;
+	color:crimson;
+}
 .nav h2{
-	font-size: 1.3vw;
+	font-size: 1vw;
 	cursor:pointer;
 	transform: translateX(100vw);
 }
@@ -89,16 +93,12 @@ a{
 }
 
 .nav ul{
-	padding-left:35%;
+	padding-left:40%;
 	display:none;
 }
 .nav li{
 	text-align:left;
 	margin-bottom:10%;
-}
-.nav a:hover{
-	opacity:1;
-	color:crimson;
 }
 .nav-bar{
     z-index: 1000;

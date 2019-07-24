@@ -32,6 +32,7 @@ $(document).ready(()=>{
 		getReviewCount(result).then((result)=>{
 				if(result){
 					paging(1);
+					selectPage(1);
 				}
 		});
 	});
@@ -47,7 +48,7 @@ $(document).ready(()=>{
 				type:'POST',
 				data:{'seq':data},
 				success:(result)=>{
-					$('.subcategory-title').prepend(result);	
+					$('.subcategory-title').append(result);	
 					resolve(result);
 				},
 				error:(e)=>{
@@ -87,13 +88,13 @@ $(document).ready(()=>{
 	/* 페이징 */
 	function paging(startNum){
 		$('.reivew-list-paging').html('<a class="page-first">《</a>');
+
 		if(startNum>=11){
 			$('.reivew-list-paging').append('<a class="page-prev">〈</a>');
 		}else{
 			startNum=1;
 		}
 		let pageCount=1;
-		
 		if(REVIEW_COUNT>5){
 			let str;
 			let len=Math.ceil(REVIEW_COUNT/5);
@@ -115,9 +116,6 @@ $(document).ready(()=>{
 		}else{
 			$('.reivew-list-paging').append('<a class="pagenum" id="pagenum-1">1</a><a class="page-next">〉</a> <a class="page-last">》</a>');
 		}
-		if(CURRENT_PAGE===1){
-			selectPage(1);
-		}
 
 	}
 	/* 페이지 next 버튼 클릭 */
@@ -131,6 +129,7 @@ $(document).ready(()=>{
 			paging(startNum);
 			selectPage(startNum);
 		}
+		scorllBody();
 	});
 	/* 페이지 prev 버튼 클릭 */
 	$(document).on('click','.page-prev',(e)=>{
@@ -144,6 +143,7 @@ $(document).ready(()=>{
 		CURRENT_PAGE=startNum;
 		paging(startNum);
 		selectPage(startNum);
+		scorllBody();
 	});
 	/* 페이지 last 버튼 클릭 */
 	$(document).on('click','.page-last',(e)=>{
@@ -151,18 +151,20 @@ $(document).ready(()=>{
 		if(len>10){
 			CURRENT_PAGE=len;
 			paging(len-len%10+1);
-			selectPage(len);
 		}else{
 			CURRENT_PAGE=len;
 			paging(len);
-			selectPage(len);
 		}
+		selectPage(len);
+		scorllBody();
 	});
 	/* 페이지 first 버튼 클릭 */
 	$(document).on('click','.page-first',(e)=>{
 		if(CURRENT_PAGE!==1){
 			CURRENT_PAGE=1;
 			paging(1);
+			selectPage(1);
+			scorllBody();
 		}
 	});
 	
@@ -174,8 +176,12 @@ $(document).ready(()=>{
 		}
 		CURRENT_PAGE=num;
 		selectPage(num);
+		scorllBody();
 	});
-	
+	function scorllBody(){
+		let offset=$('.review-list').offset();
+		$('html,body').stop().animate({scrollTop :offset.top-50},100);
+	}
 	function selectPage(num){
 		$('.pagenum').css('color','grey');
 		$('#pagenum-'+num).css('color','crimson');
