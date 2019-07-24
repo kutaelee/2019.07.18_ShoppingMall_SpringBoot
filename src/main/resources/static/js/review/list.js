@@ -90,7 +90,6 @@ $(document).ready(()=>{
 		if(startNum>=11){
 			$('.reivew-list-paging').append('<a class="page-prev">〈</a>');
 		}else{
-			
 			startNum=1;
 		}
 		let pageCount=1;
@@ -149,7 +148,7 @@ $(document).ready(()=>{
 	/* 페이지 last 버튼 클릭 */
 	$(document).on('click','.page-last',(e)=>{
 		let len=Math.ceil(REVIEW_COUNT/5);
-		if(len>=10){
+		if(len>10){
 			CURRENT_PAGE=len;
 			paging(len-len%10+1);
 			selectPage(len);
