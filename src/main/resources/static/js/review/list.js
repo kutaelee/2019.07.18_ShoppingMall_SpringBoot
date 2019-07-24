@@ -31,7 +31,7 @@ $(document).ready(()=>{
 	getSubCategory().then((result)=>{
 		getReviewCount(result).then((result)=>{
 				if(result){
-					getReviewList();
+					paging(1);
 				}
 		});
 	});
@@ -74,7 +74,6 @@ $(document).ready(()=>{
 				}else{
 					$('.subcategory-list-title').append(' 카테고리의 리뷰  개수 <a>('+result+')</a>');
 					REVIEW_COUNT=result;
-					paging(1);
 					resolve(result);
 				}
 			},
@@ -89,8 +88,6 @@ $(document).ready(()=>{
 	function paging(startNum){
 		$('.reivew-list-paging').html('<a class="page-first">《</a> <a class="page-prev">〈</a>');
 		let pageCount=1;
-		//startNum=1;
-		REVIEW_COUNT=110;
 
 		if(REVIEW_COUNT>5){
 			let str;
@@ -153,9 +150,8 @@ $(document).ready(()=>{
 	});
 	/* 페이지 first 버튼 클릭 */
 	$(document).on('click','.page-first',(e)=>{
-		paging(1);
 		CURRENT_PAGE=1;
-		selectPage(1);
+		paging(1);
 	});
 	
 	/* 페이지 넘버 클릭 시 */
@@ -168,16 +164,22 @@ $(document).ready(()=>{
 	function selectPage(num){
 		$('.pagenum').css('color','grey');
 		$('#pagenum-'+num).css('color','crimson');
+		getReviewList();
 	}
 	
 	/* 서브카테고리 리뷰 데이터 바인딩 */
 	function getReviewList(){
 		let url='/ajax/getReviewList';
 		let data=path[2];
+		let index=(CURRENT_PAGE-1)*5;
+		if(CURRENT_PAGE===1){
+			index=0;
+		}
+		$('.review-item-table').text("");
 		$.ajax({
 			url:url,
 			type:'POST',
-			data:{'seq':data},
+			data:{'seq':data,'index':index},
 			success:(result)=>{
 				console.log(result);
 				for(item of result){

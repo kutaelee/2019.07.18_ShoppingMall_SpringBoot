@@ -25,7 +25,7 @@ public class ReviewDAO {
 	}
 
 	public String getReviewCount(HashMap<String, Object> map) {
-		String SQL = "SELECT COUNT(*) FROM REVIEW" + " WHERE PARENT_SEQ=?";
+		String SQL = "SELECT COUNT(*) FROM REVIEW" + " WHERE PARENT_SEQ=? AND DEL_YN='N'";
 		
 		try {
 			return template.queryForObject(SQL,new Object[] {map.get("seq")}, String.class);
@@ -34,17 +34,18 @@ public class ReviewDAO {
 		}
 
 	}
-
+	
 	public List<Map<String, Object>> getReviewList(HashMap<String, Object> map) {
 		String SQL = "SELECT SEQ,TITLE,CONTENTS,"
 				+ "THUM_IMG_PATH,PARENT_SEQ,LIKE_CNT,"
 				+ "RATING,FRST_REG_DT,FRST_REG_ID"
 				+ " FROM REVIEW"
 				+ " WHERE PARENT_SEQ=? AND DEL_YN='N'"
-				+ " ORDER BY FRST_REG_DT DESC";
-		
+				+ " ORDER BY FRST_REG_DT DESC"
+				+ " LIMIT ?,5";
+
 		try {
-			return template.queryForList(SQL, map.get("seq"));
+			return template.queryForList(SQL, map.get("seq"),Integer.parseInt(map.get("index").toString()));
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
