@@ -86,9 +86,15 @@ $(document).ready(()=>{
 	}
 	/* 페이징 */
 	function paging(startNum){
-		$('.reivew-list-paging').html('<a class="page-first">《</a> <a class="page-prev">〈</a>');
+		$('.reivew-list-paging').html('<a class="page-first">《</a>');
+		if(startNum>=11){
+			$('.reivew-list-paging').append('<a class="page-prev">〈</a>');
+		}else{
+			
+			startNum=1;
+		}
 		let pageCount=1;
-
+		
 		if(REVIEW_COUNT>5){
 			let str;
 			let len=Math.ceil(REVIEW_COUNT/5);
@@ -102,19 +108,18 @@ $(document).ready(()=>{
 			for(let i=startNum;i<=count;i++){
 					$('.reivew-list-paging').append('<a class="pagenum" id="pagenum-'+i+'">'+i+'</a>');
 			}
-			$('.reivew-list-paging').append('<a class="page-next">〉</a> <a class="page-last">》</a>');
-			if((startNum+10)*5>REVIEW_COUNT){
-				$('.page-next').hide();
+			if((startNum+10)*5<REVIEW_COUNT){
+				$('.reivew-list-paging').append('<a class="page-next">〉</a>');
 			}
-			if(startNum===1){
-				$('.page-prev').hide();
-			}
+			$('.reivew-list-paging').append('<a class="page-last">》</a>');
+
 		}else{
 			$('.reivew-list-paging').append('<a class="pagenum" id="pagenum-1">1</a><a class="page-next">〉</a> <a class="page-last">》</a>');
 		}
-		if(startNum===1){
+		if(CURRENT_PAGE===1){
 			selectPage(1);
 		}
+
 	}
 	/* 페이지 next 버튼 클릭 */
 	$(document).on('click','.page-next',(e)=>{
@@ -123,8 +128,8 @@ $(document).ready(()=>{
 		}
 		let startNum=Math.floor(CURRENT_PAGE-CURRENT_PAGE%10+11);
 		if(startNum>CURRENT_PAGE){
-			paging(startNum);
 			CURRENT_PAGE=startNum;
+			paging(startNum);
 			selectPage(startNum);
 		}
 	});
@@ -134,29 +139,40 @@ $(document).ready(()=>{
 			CURRENT_PAGE--;
 		}
 		let startNum=Math.floor(CURRENT_PAGE-CURRENT_PAGE%10-9);
-		console.log(startNum);
-		if(1<=startNum){
-			paging(startNum);
-			CURRENT_PAGE=startNum;
-			selectPage(startNum);
+		if(1>startNum){
+			startNum=1;
 		}
+		CURRENT_PAGE=startNum;
+		paging(startNum);
+		selectPage(startNum);
 	});
 	/* 페이지 last 버튼 클릭 */
 	$(document).on('click','.page-last',(e)=>{
 		let len=Math.ceil(REVIEW_COUNT/5);
-		paging(len-len%10+1);
-		CURRENT_PAGE=len;
-		selectPage(len);
+		if(len>=10){
+			CURRENT_PAGE=len;
+			paging(len-len%10+1);
+			selectPage(len);
+		}else{
+			CURRENT_PAGE=len;
+			paging(len);
+			selectPage(len);
+		}
 	});
 	/* 페이지 first 버튼 클릭 */
 	$(document).on('click','.page-first',(e)=>{
-		CURRENT_PAGE=1;
-		paging(1);
+		if(CURRENT_PAGE!==1){
+			CURRENT_PAGE=1;
+			paging(1);
+		}
 	});
 	
 	/* 페이지 넘버 클릭 시 */
 	$(document).on('click','.pagenum',(e)=>{
 		let num=$('#'+e.target.id).text();
+		if(CURRENT_PAGE==num){
+			return false;
+		}
 		CURRENT_PAGE=num;
 		selectPage(num);
 	});
