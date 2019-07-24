@@ -167,7 +167,11 @@
 }
 .category h2{
 	font-size:1vw;
+	color: crimson;
 }
 .category a{
 	margin-right:.8vw;
+	cursor: pointer;
+	text-decoration: none;
+	color:black;
 }

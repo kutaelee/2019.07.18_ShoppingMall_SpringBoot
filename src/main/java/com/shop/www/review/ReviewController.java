@@ -18,9 +18,13 @@ public class ReviewController {
 	@Autowired
 	ReviewDAO rd;
 	
-	@PostMapping("/ajax/getSubCategory")
-	public String getSubCategory(HttpServletRequest req) throws Exception {
-		return rd.getSubCategory(requtil.reqToHashMap(req));
+	@PostMapping("/ajax/getSubCategoryTitle")
+	public String getSubCategoryTitle(HttpServletRequest req) throws Exception {
+		return rd.getSubCategoryTitle(requtil.reqToHashMap(req));
+	}
+	@PostMapping("/ajax/getSubCategoryParentSeq")
+	public String getSubCategoryParentSeq(HttpServletRequest req) throws Exception {
+		return rd.getSubCategoryParentSeq(requtil.reqToHashMap(req));
 	}
 	@PostMapping("/ajax/getReviewCount")
 	public String getReviewCount(HttpServletRequest req) throws Exception {
@@ -29,5 +33,9 @@ public class ReviewController {
 	@PostMapping("/ajax/getReviewList")
 	public List<Map<String, Object>> getReviewList(HttpServletRequest req) throws Exception {
 			return rd.getReviewList(requtil.reqToHashMap(req));
+	}
+	@PostMapping("/ajax/getSubCategoryMatchParentSeq")
+	public List<Map<String, Object>> getSubCategoryMatchParentSeq(HttpServletRequest req) throws Exception{
+		return rd.getSubCategoryMatchParentSeq(requtil.reqToHashMap(req));
 	}
 }

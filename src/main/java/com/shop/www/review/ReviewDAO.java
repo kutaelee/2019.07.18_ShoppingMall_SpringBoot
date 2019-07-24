@@ -14,7 +14,7 @@ public class ReviewDAO {
 	@Autowired
 	JdbcTemplate template;
 
-	public String getSubCategory(HashMap<String, Object> map) {
+	public String getSubCategoryTitle(HashMap<String, Object> map) {
 		String SQL = "SELECT TITLE FROM SUB_CATEGORY" + " WHERE SEQ=?";
 	
 		try {
@@ -23,6 +23,16 @@ public class ReviewDAO {
 			return null;
 		}
 	}
+	public String getSubCategoryParentSeq(HashMap<String, Object> map) {
+		String SQL = "SELECT PARENT_SEQ FROM SUB_CATEGORY" + " WHERE SEQ=?";
+	
+		try {
+			return template.queryForMap(SQL, map.get("seq")).get("PARENT_SEQ").toString();
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
 
 	public String getReviewCount(HashMap<String, Object> map) {
 		String SQL = "SELECT COUNT(*) FROM REVIEW" + " WHERE PARENT_SEQ=? AND DEL_YN='N'";
@@ -46,6 +56,17 @@ public class ReviewDAO {
 
 		try {
 			return template.queryForList(SQL, map.get("seq"),Integer.parseInt(map.get("index").toString()));
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	public List<Map<String, Object>> getSubCategoryMatchParentSeq(HashMap<String, Object> map) {
+		String SQL = "SELECT SEQ,TITLE,PARENT_SEQ FROM SUB_CATEGORY"
+				+ " WHERE PARENT_SEQ=?"
+				+ " ORDER BY DISP_ORDER";
+		try {
+			return template.queryForList(SQL,Integer.parseInt((String) map.get("seq")));
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}

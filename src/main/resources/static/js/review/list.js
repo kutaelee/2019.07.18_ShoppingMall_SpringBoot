@@ -10,12 +10,85 @@ function spettacoliIn(){
 	$('.overlay').attr('id',this.id);
 }
 $(document).ready(()=>{
-	let REVIEW_COUNT;
-	let CURRENT_PAGE=1;
-	
+	let REVIEW_COUNT; //서브 카테고리에 포함된 전체 리뷰개수
+	let CURRENT_PAGE=1; // 현재 페이지 넘버
+	const path=location.pathname.split('/'); //uri 매핑
 	$(".header").load("../include/header.html");
-	const path=location.pathname.split('/');
+
+	/* 카테고리 데이터 바인딩 */
+	getMainCategory().then(()=>{
+		getSubCategoryParentSeq().then((result)=>{
+				getSubCategoryMatchParentSeq(result);
+		});
+	});
 	
+	function getMainCategory(){
+		return new Promise((resolve,reject)=>{
+		let url="/ajax/getMainCategoryList";  
+		$.ajax({
+			type:'POST',
+			url:url,
+			success:(result)=>{		
+				for(item of result){
+					let mainCategory='<a id="main-'+item.SEQ+'">'+item.TITLE+'</a>';
+					$('.main-category').append(mainCategory);
+				}
+				resolve();
+			},
+			error:(e)=>{
+				reject(e);
+				console.log(e);
+			}
+		});
+		});
+	}
+	
+	function getSubCategoryParentSeq(callback){
+		return new Promise((resolve,reject)=>{
+			let url='/ajax/getSubCategoryParentSeq';
+			let data=path[2];
+			
+			$.ajax({
+				url:url,
+				type:'POST',
+				data:{'seq':data},
+				success:(result)=>{
+					resolve(result);
+				},
+				error:(e)=>{
+					reject(e);
+					console.log(e);
+				}
+			});
+		});
+	}
+	
+	function getSubCategoryMatchParentSeq(result){
+		let url="/ajax/getSubCategoryMatchParentSeq"; 
+		$('.main-category a').css('font-weight','unset');
+		$('#main-'+result).css('font-weight','bold');
+		$.ajax({
+			type:'POST',
+			url:url,
+			data:{'seq':result},
+			success:(result)=>{
+				let subCategory='';
+				for(item of result){
+				subCategory+='<a href="/reviewlist/'+item.SEQ+'"id="sub-'+item.SEQ+'">'+item.TITLE+'</a>';
+				}
+				$('.sub-category').html(subCategory);
+				$('#sub-'+path[2]).css('font-weight','bold');
+			},
+			error:(e)=>{
+				console.log(e);
+			}
+		});
+	}
+	/* 메인 카테고리 클릭 시 서브 카테고리 데이터 바인딩*/
+	$(document).on('click','.main-category a',(e)=>{
+		let seq=e.target.id.split('-');
+		getSubCategoryMatchParentSeq(seq[1]);
+	});
 	/* 리뷰 리스트 마우스아웃 */
 	$('.overlay').mouseleave(()=>{
 		$('.overlay').stop().hide();
@@ -28,7 +101,7 @@ $(document).ready(()=>{
 	})
 	
 	/* 카테고리 정보 -> 리뷰 개수 -> 리뷰리스트  데이터 바인딩 */
-	getSubCategory().then((result)=>{
+	getSubCategoryTitle().then((result)=>{
 		getReviewCount(result).then((result)=>{
 				if(result){
 					paging(1);
@@ -36,11 +109,11 @@ $(document).ready(()=>{
 				}
 		});
 	});
-	
+
 	/* 서브카테고리 명 데이터 바인딩 */
-	function getSubCategory(callback){
+	function getSubCategoryTitle(callback){
 		return new Promise((resolve,reject)=>{
-			let url='/ajax/getSubCategory';
+			let url='/ajax/getSubCategoryTitle';
 			let data=path[2];
 			
 			$.ajax({
