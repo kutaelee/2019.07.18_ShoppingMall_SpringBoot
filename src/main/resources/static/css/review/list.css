@@ -138,3 +138,21 @@
 .overlay-plus{
     font-size: 11vw;
 }
+.reivew-list-paging{
+	width:80vw;
+	text-align:center;
+	margin-left:10vw;
+}
+.reivew-list-paging a{
+	color:grey;
+	cursor:pointer;
+	font-size:1.2vw;
+	margin:0;
+	padding:1%;
+	border:1px solid white;
+}
+.reivew-list-paging a:hover{
+	border:1px solid crimson;
+	color:crimson;
+	border-radius:5px;
+}

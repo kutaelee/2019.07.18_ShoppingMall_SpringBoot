@@ -1,4 +1,4 @@
-
+/* 리뷰 리스트 마우스 오버*/
 function spettacoliIn(){
 	let offset=$(this).offset();
 	let height=$(this).css('height');
@@ -10,16 +10,23 @@ function spettacoliIn(){
 	$('.overlay').attr('id',this.id);
 }
 $(document).ready(()=>{
+	let REVIEW_COUNT;
+	let CURRENT_PAGE=1;
+	
 	$(".header").load("../include/header.html");
 	const path=location.pathname.split('/');
 	
+	/* 리뷰 리스트 마우스아웃 */
 	$('.overlay').mouseleave(()=>{
 		$('.overlay').stop().hide();
 	});
+	
+	/* 리뷰 리스트 클릭*/
 	$('.overlay').click(()=>{
 		let id=$('.overlay').prop('id');
 		window.location.href='/review/'+id;
 	})
+	
 	/* 카테고리 정보 -> 리뷰 개수 -> 리뷰리스트  데이터 바인딩 */
 	getSubCategory().then((result)=>{
 		getReviewCount(result).then((result)=>{
@@ -66,6 +73,8 @@ $(document).ready(()=>{
 					$('.subcategory-list-title').append('의 리뷰가 존재하지않습니다.');
 				}else{
 					$('.subcategory-list-title').append(' 카테고리의 리뷰  개수 <a>('+result+')</a>');
+					REVIEW_COUNT=result;
+					paging(1);
 					resolve(result);
 				}
 			},
@@ -76,7 +85,91 @@ $(document).ready(()=>{
 		});
 		});
 	}
+	/* 페이징 */
+	function paging(startNum){
+		$('.reivew-list-paging').html('<a class="page-first">《</a> <a class="page-prev">〈</a>');
+		let pageCount=1;
+		//startNum=1;
+		REVIEW_COUNT=110;
 
+		if(REVIEW_COUNT>5){
+			let str;
+			let len=Math.ceil(REVIEW_COUNT/5);
+			let count=startNum+len%10-1;
+			if(len%10===0 || len>=startNum+9){
+				count=startNum+9;
+			}
+			if(len<10){
+				count=len;
+			}
+			for(let i=startNum;i<=count;i++){
+					$('.reivew-list-paging').append('<a class="pagenum" id="pagenum-'+i+'">'+i+'</a>');
+			}
+			$('.reivew-list-paging').append('<a class="page-next">〉</a> <a class="page-last">》</a>');
+			if((startNum+10)*5>REVIEW_COUNT){
+				$('.page-next').hide();
+			}
+			if(startNum===1){
+				$('.page-prev').hide();
+			}
+		}else{
+			$('.reivew-list-paging').append('<a class="pagenum" id="pagenum-1">1</a><a class="page-next">〉</a> <a class="page-last">》</a>');
+		}
+		if(startNum===1){
+			selectPage(1);
+		}
+	}
+	/* 페이지 next 버튼 클릭 */
+	$(document).on('click','.page-next',(e)=>{
+		if(CURRENT_PAGE%10===0){
+			CURRENT_PAGE--;
+		}
+		let startNum=Math.floor(CURRENT_PAGE-CURRENT_PAGE%10+11);
+		if(startNum>CURRENT_PAGE){
+			paging(startNum);
+			CURRENT_PAGE=startNum;
+			selectPage(startNum);
+		}
+	});
+	/* 페이지 prev 버튼 클릭 */
+	$(document).on('click','.page-prev',(e)=>{
+		if(CURRENT_PAGE%10===0){
+			CURRENT_PAGE--;
+		}
+		let startNum=Math.floor(CURRENT_PAGE-CURRENT_PAGE%10-9);
+		console.log(startNum);
+		if(1<=startNum){
+			paging(startNum);
+			CURRENT_PAGE=startNum;
+			selectPage(startNum);
+		}
+	});
+	/* 페이지 last 버튼 클릭 */
+	$(document).on('click','.page-last',(e)=>{
+		let len=Math.ceil(REVIEW_COUNT/5);
+		paging(len-len%10+1);
+		CURRENT_PAGE=len;
+		selectPage(len);
+	});
+	/* 페이지 first 버튼 클릭 */
+	$(document).on('click','.page-first',(e)=>{
+		paging(1);
+		CURRENT_PAGE=1;
+		selectPage(1);
+	});
+	
+	/* 페이지 넘버 클릭 시 */
+	$(document).on('click','.pagenum',(e)=>{
+		let num=$('#'+e.target.id).text();
+		CURRENT_PAGE=num;
+		selectPage(num);
+	});
+	
+	function selectPage(num){
+		$('.pagenum').css('color','grey');
+		$('#pagenum-'+num).css('color','crimson');
+	}
+	
 	/* 서브카테고리 리뷰 데이터 바인딩 */
 	function getReviewList(){
 		let url='/ajax/getReviewList';
@@ -88,7 +181,6 @@ $(document).ready(()=>{
 			success:(result)=>{
 				console.log(result);
 				for(item of result){
-					let a='<div class="overlay"><h1 class="overlay-plus">+</h1><h1 class="overlay-info">자세히 보러가기</h1></div>';
 					let reviewItem='<tr class="review-item" onMouseOver="spettacoliIn.call(this)" id="'+item.SEQ+'">'
 					+'<td class="review-item-thumnail"><img class="item-img" src="'+item.THUM_IMG_PATH+'"></td>'
 					+'<td class="review-item-info"><h3 class="review-item-title">'+item.TITLE+'</h3>'
