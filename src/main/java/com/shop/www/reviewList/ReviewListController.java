@@ -1,13 +1,11 @@
-package com.shop.www.review;
+package com.shop.www.reviewList;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shop.www.common.ReqUtil;
 
 @RestController
-public class ReviewController {
+public class ReviewListController {
 	@Autowired
 	ReqUtil requtil;
 	@Autowired
-	ReviewDAO rd;
+	ReviewListDAO rd;
 	@Autowired
-	ReviewService rs;
+	ReviewListService rs;
 	
 	@PostMapping("/ajax/getSubCategoryTitle")
 	public String getSubCategoryTitle(HttpServletRequest req) throws Exception {

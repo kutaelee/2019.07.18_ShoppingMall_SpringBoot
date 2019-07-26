@@ -1,0 +1,16 @@
+@charset "UTF-8";
+.product{
+	width:60vw;
+	margin-left:20vw;
+	border:1px solid grey;
+	box-shadow:1px 1px 3px grey;
+	background:whitesmoke;
+	height:50vh;
+}
+.review{
+	margin-top:5vh;
+	width:60vw;
+	margin-left:20vw;
+	border:1px solid grey;
+	min-height:70vh;
+}

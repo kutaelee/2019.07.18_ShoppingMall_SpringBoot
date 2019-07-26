@@ -13,6 +13,7 @@
     border: 1px solid gray;
     background: whitesmoke;
     padding: 1vw;
+    box-shadow: 1px 1px 2px grey;
 }
 .menu-sec{
 	margin-left:2vw;
@@ -57,7 +58,7 @@
     color: dimgray;
 }
 .review-item{
-    border: 1px solid black;
+	box-shadow: 0px 1px 3px grey;
 }
 
 .review-item-wirter{
@@ -93,7 +94,6 @@
 	border-collapse: collapse;
 }
 .review-item-table tr{
-	border: 1px solid;
 	cursor:pointer;
 }
 
@@ -161,13 +161,15 @@
     margin-left: 20%;
     padding-bottom:4vh;
     padding-left:2vw;
-    border:1px solid;
     margin-bottom:3vh;
     font-family: 'Nanum Gothic', sans-serif;
+   	box-shadow: 1px 1px 2px grey;
+   	border:1px solid grey;
 }
 .category h2{
 	font-size:1vw;
 	color: crimson;
+	padding-top:2%;
 }
 .category a{
 	margin-right:.8vw;

@@ -46,9 +46,13 @@
 }
 .item-section{
 	width:100vw;
-	padding-left:8vw;
 	display:inline-block;
-	
+}
+#item-sec1{
+	padding-left:10vw;
+}
+#item-sec2{
+	padding-left:7vw;
 }
 .index-title{
 	color:crimson;
@@ -63,7 +67,7 @@
 }
 .item-section-slot{
 	margin-right:2.5vw;
-	border:2px solid black;
+ 	box-shadow: 1px 1px 3px grey;
 	width:12vw;
 	padding:20px;
 	text-align:center;
@@ -73,7 +77,7 @@
 }
 
 .item-section-slot:hover{
-	border-color:crimson;
+	border:1px solid crimson;
 }
 .item-section-slot a{
 	display:block;
@@ -128,7 +132,7 @@
 }
 .review-slot{
     margin-right: 5%;
-    border: 2px solid black;
+ 	box-shadow: 1px 1px 3px grey;
     width: 25%;
     padding: 20px;
     text-align: center;
@@ -138,7 +142,7 @@
     display:inline-block;
 }
 .review-slot:hover{
-	border-color:crimson;
+	border:1px solid crimson;
 }
 .review-slot h1{
 	font-size:1vw;

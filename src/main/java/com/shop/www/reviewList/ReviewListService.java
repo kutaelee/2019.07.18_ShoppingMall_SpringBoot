@@ -1,4 +1,4 @@
-package com.shop.www.review;
+package com.shop.www.reviewList;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Service
-public class ReviewService {
+public class ReviewListService {
 	
 	/* 상세검색 상품 seq 매핑 */
 	public HashMap<String, Object> AdvencedSearchproduct(HashMap<String,Object> map,List<Map<String,Object>> seqList,String keyName) {

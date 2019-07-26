@@ -18,8 +18,12 @@ public class ViewController {
 		return "search/searchpage";
 	}
 	@GetMapping("/reviewlist/*")
-	public String review() {
+	public String reviewlist() {
 		return "review/list";
+	}
+	@GetMapping("/review/*")
+	public String reviewread() {
+		return "review/read";
 	}
 	
 }

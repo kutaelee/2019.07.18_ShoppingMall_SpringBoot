@@ -1,4 +1,4 @@
-package com.shop.www.review;
+package com.shop.www.reviewList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ReviewDAO {
+public class ReviewListDAO {
 	@Autowired
 	JdbcTemplate template;
 

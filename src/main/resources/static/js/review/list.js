@@ -144,6 +144,7 @@ $(document).ready(()=>{
 				data:{'seq':data},
 				success:(result)=>{
 					$('.subcategory-title').append(result);	
+					$('title').prepend(result);
 					resolve(result);
 				},
 				error:(e)=>{
