@@ -1,3 +1,7 @@
+function reviewClick(element){
+	let seq=$('#'+element.id+' input').val();
+	location.href='/review/'+seq;
+}
 $(document).ready(()=>{
 	var scrollCount=2;
 	var bannerClickSw=0; // 배너 스위치
@@ -43,7 +47,6 @@ $(document).ready(()=>{
 	});
 
 	
-	
 	/* 세일아이템 슬라이드 */
 	function reviewSlide(){
 		if(reviewCount===0){	
@@ -76,11 +79,12 @@ $(document).ready(()=>{
 	            console.log(result);
 	            let list = result;
 	            
-	            for(var i=0;i<list.length;i++){
-	            	let newReview = '<div class="review-slot" id="new-review-slot'+(i+1)+'">'
+	            for(let i=0;i<list.length;i++){
+	            	let newReview = '<div class="review-slot" id="new-review-slot'+(i+1)+'" onClick="reviewClick(this)">'
 	            	+'<img class="review-img" src="'+list[i].THUM_IMG_PATH+'">'
 	            	+'<h1>'+list[i].TITLE+'</h1><hr>'
 	            	+'<p class="review-content">'+list[i].CONTENTS+'</p>'
+	            	+'<input type="hidden" value="'+list[i].SEQ+'">'
 	            	+'</div>'
 	            	$('#new-review').append(newReview);
 	            }
@@ -103,8 +107,8 @@ $(document).ready(()=>{
 	        success:(result)=>{   
 	            let list = result;
 	            
-	            for(var i=0;i<list.length;i++){
-	            	let bestReview = '<div class="review-slot" id="best-review-slot'+(i+1)+'">'
+	            for(let i=0;i<list.length;i++){
+	            	let bestReview = '<div class="review-slot" id="best-review-slot'+(i+1)+'" onClick="reviewClick(this)">'
 	            	+'<img class="review-img" src="'+list[i].THUM_IMG_PATH+'">'
 	            	+'<h1>'+list[i].TITLE+'</h1><hr>'
 	            	+'<a class="like-cnt">'+list[i].LIKE_CNT+'</a><a class="like-cnt-info">명이 이 리뷰를 좋아합니다 </a>'

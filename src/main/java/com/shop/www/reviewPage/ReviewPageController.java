@@ -19,8 +19,7 @@ public class ReviewPageController {
 	ReqUtil requtil;
 	
 	@GetMapping("/ajax/getReviewInfo")
-	public Map<String,Object> getReviewInfo(HttpServletRequest req) throws Exception{
-		
+	public List<Map<String,Object>> getReviewInfo(HttpServletRequest req) throws Exception{
 		return rd.getReviewInfo(requtil.reqToHashMap(req));
 	}
 }
