@@ -1,6 +1,5 @@
 package com.shop.www.reviewList;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,7 +15,7 @@ public class ReviewListDAO {
 	JdbcTemplate template;
 
 	public String getSubCategoryTitle(HashMap<String, Object> map) {
-		String SQL = "SELECT TITLE FROM SUB_CATEGORY" + " WHERE SEQ=?";
+		String SQL = "SELECT TITLE FROM SUB_CATEGORY WHERE SEQ=?";
 	
 		try {
 			return template.queryForMap(SQL, map.get("seq")).get("title").toString();
@@ -26,7 +24,7 @@ public class ReviewListDAO {
 		}
 	}
 	public String getSubCategoryParentSeq(HashMap<String, Object> map) {
-		String SQL = "SELECT PARENT_SEQ FROM SUB_CATEGORY" + " WHERE SEQ=?";
+		String SQL = "SELECT PARENT_SEQ FROM SUB_CATEGORY WHERE SEQ=?";
 	
 		try {
 			return template.queryForMap(SQL, map.get("parentSeq")).get("PARENT_SEQ").toString();
@@ -57,7 +55,7 @@ public class ReviewListDAO {
 	}
 
 	public String getReviewCount(HashMap<String, Object> map) {
-		String SQL = "SELECT COUNT(*) FROM REVIEW" + " WHERE PARENT_SEQ=? AND DEL_YN='N'";
+		String SQL = "SELECT COUNT(*) FROM REVIEW WHERE PARENT_SEQ=? AND DEL_YN='N'";
 		SQL+=AdvencedSearchAddSQL(map,"companySeq");
 		SQL+=AdvencedSearchAddSQL(map,"priceSeq");
 
