@@ -10,12 +10,14 @@ function spettacoliIn(){
 	$('.overlay').attr('id',this.id);
 }
 $(document).ready(()=>{
-	let REVIEW_COUNT; //서브 카테고리에 포함된 전체 리뷰개수
-	let CURRENT_PAGE=1; // 현재 페이지 넘버
+	let reviewCount; //서브 카테고리에 포함된 전체 리뷰개수
+	let currentPage=1; // 현재 페이지 넘버
 	const path=location.pathname.split('/'); //uri 매핑
 	let subjectTitle;
 	$(".header").load("../include/header.html");
 	let checkedCompanySeqList=[];
+	let checkedPriceList=[];
+	
 	/* 카테고리 데이터 바인딩 */
 	/* 메인 카테고리SEQ -> 서브 카테고리SEQ-> 서브 카테고리 제목 */
 	getMainCategory().then(()=>{
@@ -26,18 +28,27 @@ $(document).ready(()=>{
 	getManCompanyTitle();
 	
 	/* 리뷰 상세 검색 */
-	$(document).on('change','.company-checkbox',() =>{
+	$(document).on('change','input[type="checkbox"]',() =>{
+			let className='';
 			checkedCompanySeqList=[];
-		   $('input[type="checkbox"]:checked').each(function (index,item){
-			   checkedCompanySeqList.push($(this).val());
+			checkedPriceList=[];
+		   $('input[type="checkbox"]:checked').each(function (){
+			   className=$(this).attr('class');
+			   if(className==='company-checkbox'){
+				   checkedCompanySeqList.push($(this).val());
+			   }else if(className==='price-checkbox'){
+				   checkedPriceList.push($(this).val());
+			   }
 		   });
-		   CURRENT_PAGE=1;
-		   getReviewCount(subjectTitle,checkedCompanySeqList).then((result)=>{
-			   REVIEW_COUNT=result;
+		   currentPage=1;
+		  
+		   getReviewCount(subjectTitle).then((result)=>{
+			   console.log('a')
+			   reviewCount=result;
 			   paging(1);
 			   $('.pagenum').css('color','grey');
 			   $('#pagenum-1').css('color','crimson');
-			   getReviewList(checkedCompanySeqList);
+			   getReviewList();
 		   });
 	});
 
@@ -169,21 +180,32 @@ $(document).ready(()=>{
 	}
 	
 	/* 서브카테고리의 전체 리뷰 갯수 리턴 */
-	function getReviewCount(result,checkedCompanySeqList){
+	function getReviewCount(result){
 		return new Promise((resolve,reject)=>{
 		subjectTitle=result;
 		$('.subcategory-list-title').text('카테고리 - '+subjectTitle);
 		let url='/ajax/getReviewCount';
-		let data={};
+		let data={'parentSeq':path[2]};
+		let i=0;
 		if(checkedCompanySeqList){
 			data={'parentSeq':path[2]};
-			let i=0;
 			for(item of checkedCompanySeqList){
 				data['checkedCompanySeqList'+i]=item;
 				i++;
 			}
-		}else{
-			data={'parentSeq':path[2]};
+		}
+		
+		if(checkedPriceList){
+			for(item of checkedPriceList){
+				if(item==='1000000'){
+					data['checkedPriceLast']=item;
+				}else if(item==='10000'){
+					data['checkedPriceFirst']=item;
+				}else{
+					data['checkedPrice'+i]=item;
+				}
+				i++;
+			}
 		}
 		$.ajax({
 			url:url,
@@ -192,11 +214,15 @@ $(document).ready(()=>{
 			success:(result)=>{
 				if(result==='0'){
 					$('.subcategory-list-title').text(subjectTitle+'의 리뷰가 존재하지않습니다.');
+					reviewCount=1;
+					resolve(1);
 				}else{
+					reviewCount=result;
 					$('.subcategory-list-title').html(subjectTitle+' 카테고리의 리뷰  개수 <a>('+result+')</a>');
-					REVIEW_COUNT=result;
+					reviewCount=result;
 					resolve(result);
 				}
+	
 			},
 			error:(e)=>{
 				reject(e);
@@ -215,9 +241,9 @@ $(document).ready(()=>{
 			startNum=1;
 		}
 		let pageCount=1;
-		if(REVIEW_COUNT>5){
+		if(reviewCount>5){
 			let str;
-			let len=Math.ceil(REVIEW_COUNT/5);
+			let len=Math.ceil(reviewCount/5);
 			let count=startNum+len%10-1;
 			if(len%10===0 || len>=startNum+9){
 				count=startNum+9;
@@ -228,7 +254,7 @@ $(document).ready(()=>{
 			for(let i=startNum;i<=count;i++){
 					$('.reivew-list-paging').append('<a class="pagenum" id="pagenum-'+i+'">'+i+'</a>');
 			}
-			if((startNum+10)*5<REVIEW_COUNT){
+			if((startNum+10)*5<reviewCount){
 				$('.reivew-list-paging').append('<a class="page-next">〉</a>');
 			}
 			$('.reivew-list-paging').append('<a class="page-last">》</a>');
@@ -240,12 +266,12 @@ $(document).ready(()=>{
 	}
 	/* 페이지 next 버튼 클릭 */
 	$(document).on('click','.page-next',(e)=>{
-		if(CURRENT_PAGE%10===0){
-			CURRENT_PAGE--;
+		if(currentPage%10===0){
+			currentPage--;
 		}
-		let startNum=Math.floor(CURRENT_PAGE-CURRENT_PAGE%10+11);
-		if(startNum>CURRENT_PAGE){
-			CURRENT_PAGE=startNum;
+		let startNum=Math.floor(currentPage-currentPage%10+11);
+		if(startNum>currentPage){
+			currentPage=startNum;
 			paging(startNum);
 			selectPage(startNum);
 		}
@@ -253,26 +279,26 @@ $(document).ready(()=>{
 	});
 	/* 페이지 prev 버튼 클릭 */
 	$(document).on('click','.page-prev',(e)=>{
-		if(CURRENT_PAGE%10===0){
-			CURRENT_PAGE--;
+		if(currentPage%10===0){
+			currentPage--;
 		}
-		let startNum=Math.floor(CURRENT_PAGE-CURRENT_PAGE%10-9);
+		let startNum=Math.floor(currentPage-currentPage%10-9);
 		if(1>startNum){
 			startNum=1;
 		}
-		CURRENT_PAGE=startNum;
+		currentPage=startNum;
 		paging(startNum);
 		selectPage(startNum);
 		scorllBody();
 	});
 	/* 페이지 last 버튼 클릭 */
 	$(document).on('click','.page-last',(e)=>{
-		let len=Math.ceil(REVIEW_COUNT/5);
+		let len=Math.ceil(reviewCount/5);
 		if(len>10){
-			CURRENT_PAGE=len;
+			currentPage=len;
 			paging(len-len%10+1);
 		}else{
-			CURRENT_PAGE=len;
+			currentPage=len;
 			paging(len);
 		}
 		selectPage(len);
@@ -280,8 +306,8 @@ $(document).ready(()=>{
 	});
 	/* 페이지 first 버튼 클릭 */
 	$(document).on('click','.page-first',(e)=>{
-		if(CURRENT_PAGE!==1){
-			CURRENT_PAGE=1;
+		if(currentPage!==1){
+			currentPage=1;
 			paging(1);
 			selectPage(1);
 			scorllBody();
@@ -291,10 +317,10 @@ $(document).ready(()=>{
 	/* 페이지 넘버 클릭 시 */
 	$(document).on('click','.pagenum',(e)=>{
 		let num=$('#'+e.target.id).text();
-		if(CURRENT_PAGE==num){
+		if(currentPage==num){
 			return false;
 		}
-		CURRENT_PAGE=num;
+		currentPage=num;
 		selectPage(num);
 		scorllBody();
 	});
@@ -305,27 +331,37 @@ $(document).ready(()=>{
 	function selectPage(num){
 		$('.pagenum').css('color','grey');
 		$('#pagenum-'+num).css('color','crimson');
-		getReviewList(checkedCompanySeqList);
+		getReviewList();
 	}
 	
 	/* 서브카테고리 리뷰 데이터 바인딩 */
-	function getReviewList(checkedCompanySeqList){
+	function getReviewList(){
 		let url='/ajax/getReviewList';
 		let parentSeq=path[2];
-		let index=(CURRENT_PAGE-1)*5;
-		if(CURRENT_PAGE===1){
+		let index=(currentPage-1)*5;
+		if(currentPage===1){
 			index=0;
 		}
-		let data={};
+		let data={'parentSeq':parentSeq,'index':index};
 		if(checkedCompanySeqList){
-			data={'parentSeq':parentSeq,'index':index}
 			let i=0;
 			for(item of checkedCompanySeqList){
 				data['checkedCompanySeqList'+i]=item;
 				i++;
 			}
-		}else{
-			data={'parentSeq':parentSeq,'index':index};
+		}
+		if(checkedPriceList){
+			let i=0;
+			for(item of checkedPriceList){
+				if(item==='1000000'){
+					data['checkedPriceLast']=item;
+				}else if(item==='10000'){
+					data['checkedPriceFirst']=item;
+				}else{
+					data['checkedPrice'+i]=item;
+				}
+				i++;
+			}
 		}
 		$('.review-item-table').text("");
 		$.ajax({
@@ -334,7 +370,9 @@ $(document).ready(()=>{
 			data:data,
 			success:(result)=>{
 				console.log(result);
-				$('.review-item-table').html(makeReviewList(result));
+				if(result){
+					$('.review-item-table').html(makeReviewList(result));
+				}
 			},
 			error:(e)=>{
 				console.log(e);
