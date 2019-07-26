@@ -35,39 +35,32 @@ public class ReviewDAO {
 		}
 	}
 	
+	/* 상세검색 조건문 쿼리 추가 */
+	public String AdvencedSearchAddSQL(HashMap<String, Object> map,String keyName) {
+		int idx=0;
+		StringBuffer SQL=new StringBuffer();
+		for(String key:map.keySet()) {
+			if(key.contains(keyName)) {
+			if(idx==0) {
+				SQL.append(" AND (");
+			}else {
+				SQL.append(" OR");
+			}
+			SQL.append(" PRODUCT_SEQ="+map.get(key));
+			idx++;
+			}
+		}
+		if(idx>0) {
+			SQL.append(")");
+		}
+		return SQL.toString();
+	}
 
 	public String getReviewCount(HashMap<String, Object> map) {
 		String SQL = "SELECT COUNT(*) FROM REVIEW" + " WHERE PARENT_SEQ=? AND DEL_YN='N'";
-		int idx=0;
-		for(String key:map.keySet()) {
-			if(key.contains("companySeq")) {
-			if(idx==0) {
-				SQL +=" AND (";
-			}else {
-				SQL +=" OR";
-			}
-			SQL+=" PRODUCT_SEQ="+map.get(key);
-			idx++;
-			}
-		}
-		if(idx>0) {
-			SQL+=")";
-		}
-		idx=0;
-		for(String key:map.keySet()) {
-			if(key.contains("priceSeq")) {
-			if(idx==0) {
-				SQL +=" AND (";
-			}else {
-				SQL +=" OR";
-			}
-			SQL+=" PRODUCT_SEQ="+map.get(key);
-			idx++;
-			}
-		}
-		if(idx>0) {
-			SQL+=")";
-		}
+		SQL+=AdvencedSearchAddSQL(map,"companySeq");
+		SQL+=AdvencedSearchAddSQL(map,"priceSeq");
+
 		try {
 			return template.queryForObject(SQL,new Object[] {map.get("parentSeq")}, String.class);
 		} catch (NullPointerException e) {
@@ -75,8 +68,8 @@ public class ReviewDAO {
 		}
 
 	}
+	
 	public List<Map<String, Object>> getProductSeqListForCompany(HashMap<String, Object> map) {
-		
 		String SQL = "SELECT SEQ FROM PRODUCT WHERE PARENT_SEQ=?";
 		int idx=0;
 		for(String key:map.keySet()) {
@@ -97,6 +90,7 @@ public class ReviewDAO {
 		}
 
 	}
+	
 	public List<Map<String, Object>> getProductSeqListForPrice(HashMap<String, Object> map) {
 		String SQL = "SELECT SEQ FROM PRODUCT WHERE PARENT_SEQ=?";
 		int idx=0;
@@ -126,6 +120,7 @@ public class ReviewDAO {
 		}
 
 	}
+	
 	public List<Map<String, Object>> getReviewList(HashMap<String, Object> map) {
 		String SQL = "SELECT SEQ,TITLE,CONTENTS,"
 				+ "THUM_IMG_PATH,PARENT_SEQ,LIKE_CNT,"
@@ -133,36 +128,9 @@ public class ReviewDAO {
 				+ " FROM REVIEW"
 				+ " WHERE PARENT_SEQ=? AND DEL_YN='N'";
 		
-		int idx=0;
-		for(String key:map.keySet()) {
-			if(key.contains("companySeq")) {
-			if(idx==0) {
-				SQL +=" AND (";
-			}else {
-				SQL +=" OR";
-			}
-			SQL+=" PRODUCT_SEQ="+map.get(key);
-			idx++;
-			}
-		}
-		if(idx>0) {
-			SQL+=")";
-		}
-		idx=0;
-		for(String key:map.keySet()) {
-			if(key.contains("priceSeq")) {
-			if(idx==0) {
-				SQL +=" AND (";
-			}else {
-				SQL +=" OR";
-			}
-			SQL+=" PRODUCT_SEQ="+map.get(key);
-			idx++;
-			}
-		}
-		if(idx>0) {
-			SQL+=")";
-		}
+		SQL+=AdvencedSearchAddSQL(map,"companySeq");
+		SQL+=AdvencedSearchAddSQL(map,"priceSeq");
+		
 		SQL+=" ORDER BY FRST_REG_DT DESC"
 				+ " LIMIT ?,5";
 		try {
@@ -182,6 +150,7 @@ public class ReviewDAO {
 			return null;
 		}
 	}
+	
 	public List<Map<String, Object>> getManCompanyTitle(HashMap<String, Object> map) {
 		String SQL = "SELECT SEQ,TITLE FROM MAN_COMPANY"
 				+ " WHERE PARENT_SEQ=?";

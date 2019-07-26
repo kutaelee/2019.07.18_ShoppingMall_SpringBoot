@@ -26,31 +26,6 @@ $(document).ready(()=>{
 		});
 	});
 	getManCompanyTitle();
-	
-	/* 리뷰 상세 검색 */
-	$(document).on('change','input[type="checkbox"]',() =>{
-			let className='';
-			checkedCompanySeqList=[];
-			checkedPriceList=[];
-		   $('input[type="checkbox"]:checked').each(function (){
-			   className=$(this).attr('class');
-			   if(className==='company-checkbox'){
-				   checkedCompanySeqList.push($(this).val());
-			   }else if(className==='price-checkbox'){
-				   checkedPriceList.push($(this).val());
-			   }
-		   });
-		   currentPage=1;
-		  
-		   getReviewCount(subjectTitle).then((result)=>{
-			   console.log('a')
-			   reviewCount=result;
-			   paging(1);
-			   $('.pagenum').css('color','grey');
-			   $('#pagenum-1').css('color','crimson');
-			   getReviewList();
-		   });
-	});
 
 	function getMainCategory(){
 		return new Promise((resolve,reject)=>{
@@ -178,6 +153,29 @@ $(document).ready(()=>{
 			});
 		});
 	}
+	/* 리뷰 상세 검색 */
+	$(document).on('change','input[type="checkbox"]',() =>{
+			let className='';
+			checkedCompanySeqList=[];
+			checkedPriceList=[];
+		   $('input[type="checkbox"]:checked').each(function (){
+			   className=$(this).attr('class');
+			   if(className==='company-checkbox'){
+				   checkedCompanySeqList.push($(this).val());
+			   }else if(className==='price-checkbox'){
+				   checkedPriceList.push($(this).val());
+			   }
+		   });
+		   currentPage=1;
+		  
+		   getReviewCount(subjectTitle).then((result)=>{
+			   reviewCount=result;
+			   paging(1);
+			   $('.pagenum').css('color','grey');
+			   $('#pagenum-1').css('color','crimson');
+			   getReviewList();
+		   });
+	});
 	
 	/* 서브카테고리의 전체 리뷰 갯수 리턴 */
 	function getReviewCount(result){
@@ -252,7 +250,7 @@ $(document).ready(()=>{
 				count=len;
 			}
 			for(let i=startNum;i<=count;i++){
-					$('.reivew-list-paging').append('<a class="pagenum" id="pagenum-'+i+'">'+i+'</a>');
+				$('.reivew-list-paging').append('<a class="pagenum" id="pagenum-'+i+'">'+i+'</a>');
 			}
 			if((startNum+10)*5<reviewCount){
 				$('.reivew-list-paging').append('<a class="page-next">〉</a>');
@@ -379,6 +377,7 @@ $(document).ready(()=>{
 				}
 		});
 	}
+	/* 리뷰 리스트 생성 */
 	function makeReviewList(result){
 		let reviewItem='';
 		for(item of result){
