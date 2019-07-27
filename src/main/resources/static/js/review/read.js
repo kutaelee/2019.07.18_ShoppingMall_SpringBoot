@@ -36,16 +36,27 @@ $(document).ready(()=>{
 			+'<table class="product-box" id="product-info-box">'
 			+'<input type="hidden" value='+item.P_SEQ+'>'
 			+'<td class="thead">가격(원)</td><td class="product-value">'+item.PRICE+'</td><tr>'
-			+'<td class="thead">별점</td><td class="product-value">'+item.RATING_AVG+'</td><tr>'
+			+'<td class="thead">별점</td><td class="product-value">'+ratingImg(item.RATING_AVG)+'</td><tr>'
 			+'<td class="thead">제조년도</td><td class="product-value">'+item.REL_REG_DT+'</td><tr>'
 			+'<td class="thead">제조회사</td><td class="product-value">'+item.MAN_COMPANY+'</td><tr>'
 			+'<td class="thead">마지막 수정자</td><td class="product-value">'+item.LAST_MOD_ID+'</td><tr>'
-			+'<td class="thead">사이즈</td><td class="product-value">'+item.SIZE+'<td></table>';
+			+'<td class="thead">사이즈</td><td class="product-value">'+item.SIZE+'<td></table><hr>';
 		}
 
 		$('.product').append(productInfo);
 		}else
 			$('.product').append('<h1> 제품정보가 존재하지않습니다.</h2>');
+	}
+	function ratingImg(rating){
+		let str='';
+		for(let i=1;i<=5;i++){
+			if(i<=rating){
+				str+='<img class="rating-img" src="../img/icon/star.png">';
+			}else{
+				str+='<img class="rating-img" src="../img/icon/emptystar.png">';
+			}
+		}
+		return str;
 	}
 	function bindReviewInfo(result){
 		let reviewInfo='';
@@ -53,12 +64,14 @@ $(document).ready(()=>{
 			reviewInfo='<div class="review-box">'
 				+'<h1 class="review-title">“ '+item.R_TITLE+' ”</h1><hr>'
 				+'<p class="regdate">작성일:'+item.FRST_REG_DT+'</p>'
-				+'<p class="regdate">마지막 수정일:'+item.LAST_REG_DT+'</p>'
+				+'<p class="regdate">수정일:'+item.LAST_REG_DT+'</p>'
 				+'<img class="thum-img" src="'+item.R_THUM_IMG_PATH+'">'
-				+'<p class="rating">'+item.RATING+'</p>'
+				+'<p class="rating">리뷰 작성자의 별점:'+ratingImg(item.RATING_AVG)+'</p>'
 				+'<div class="content">'+item.CONTENTS+'</div>'
 				+'<img class="like-icon"src="../img/icon/emptylike.png"><p class="like-cnt">'+item.LIKE_CNT+'</p>'
+				$('.list-btn').attr('href','/reviewlist/'+item.PARENT_SEQ);
 		}
 		$('.review').append(reviewInfo);
+		
 	}
 });

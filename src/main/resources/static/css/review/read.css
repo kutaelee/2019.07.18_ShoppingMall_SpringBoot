@@ -5,6 +5,7 @@
 }
 .review{
 	margin-top:5vh;
+	margin-bottom:2vh;
 	width:60vw;
 	margin-left:20vw;
 	border:1px solid grey;
@@ -46,7 +47,8 @@
 	padding: 2% 10%;
 	line-height: 5vh;
 }
-.review-box img{
+.thum-img{
+	width:90%;
 	display: block; 
 	margin: 0px auto;
 }
@@ -67,13 +69,14 @@
 .content p{
 	word-break: keep-all;
 }
-.thum-img{
-	width:90%;
-}
 .content img{
+	display: block; 
+	margin: 0px auto;
 	max-width:90%;
 }
 .like-icon{
+	display: block; 
+	margin: 0px auto;
 	cursor:pointer;
 	width:5%;
 }
@@ -81,4 +84,11 @@
 	text-align: center;
 	color:crimson;
 	margin:0
+}
+.rating-img{
+	width:1vw;
+	display: inline-block;
+}
+.list-btn{
+	margin-left: 76.5vw;
 }

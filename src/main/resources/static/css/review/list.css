@@ -102,6 +102,7 @@
 	text-overflow: ellipsis;
     white-space: nowrap; 
     width:40vw;
+    margin-bottom:1vh;
 }
 .review-item-regdate{
 	color:grey;
@@ -119,6 +120,8 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 }
 .overlay{
     border: 1px solid crimson;
