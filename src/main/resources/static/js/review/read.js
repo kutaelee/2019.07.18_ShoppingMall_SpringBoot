@@ -31,16 +31,16 @@ $(document).ready(()=>{
 		if(result[0]){
 		let productInfo='';
 		for(item of result){
-			productInfo='<div class="product-box" id="product-thumnail-box"><img class="product-thumnail"src='+item.P_THUM_IMG_PATH+'></div>'
-			+'<div class="product-box" id="product-info-box">'
+			productInfo='<h1>'+item.P_TITLE+'</h1><hr>'
+			+'<div class="product-box" id="product-thumnail-box"><img class="product-thumnail"src='+item.P_THUM_IMG_PATH+'></div>'
+			+'<table class="product-box" id="product-info-box">'
 			+'<input type="hidden" value='+item.P_SEQ+'>'
-			+'<p>제품명:'+item.P_TITLE+'</p>'
-			+'<p>별점:'+item.RATING_AVG+'</p>'
-			+'<p>가격대:'+item.PRICE+'</p>'
-			+'<p>제조일자:'+item.REL_REG_DT+'</p>'
-			+'<p>제조회사:'+item.MAN_COMPANY+'</p>'
-			+'<p>마지막 수정자:'+item.LAST_MOD_ID+'</p>'
-			+'<p>사이즈:'+item.SIZE+'<p></div>';
+			+'<td class="thead">가격(원)</td><td class="product-value">'+item.PRICE+'</td><tr>'
+			+'<td class="thead">별점</td><td class="product-value">'+item.RATING_AVG+'</td><tr>'
+			+'<td class="thead">제조년도</td><td class="product-value">'+item.REL_REG_DT+'</td><tr>'
+			+'<td class="thead">제조회사</td><td class="product-value">'+item.MAN_COMPANY+'</td><tr>'
+			+'<td class="thead">마지막 수정자</td><td class="product-value">'+item.LAST_MOD_ID+'</td><tr>'
+			+'<td class="thead">사이즈</td><td class="product-value">'+item.SIZE+'<td></table>';
 		}
 
 		$('.product').append(productInfo);
@@ -51,13 +51,13 @@ $(document).ready(()=>{
 		let reviewInfo='';
 		for(item of result){
 			reviewInfo='<div class="review-box">'
-				+'<h1 class="review-title">'+item.R_TITLE+'</h1>'
-				+'<img src="'+item.R_THUM_IMG_PATH+'">'
-				+'<p>별점:'+item.RATING+'</p>'
-				+'<p>내용:'+item.CONTENTS+'</p>'
-				+'<p>작성일:'+item.FRST_REG_DT+'</p>'
-				+'<p>마지막 수정일:'+item.LAST_REG_DT+'</p>'
-				+'<p>좋아요:'+item.LIKE_CNT+'</p>'
+				+'<h1 class="review-title">“ '+item.R_TITLE+' ”</h1><hr>'
+				+'<p class="regdate">작성일:'+item.FRST_REG_DT+'</p>'
+				+'<p class="regdate">마지막 수정일:'+item.LAST_REG_DT+'</p>'
+				+'<img class="thum-img" src="'+item.R_THUM_IMG_PATH+'">'
+				+'<p class="rating">'+item.RATING+'</p>'
+				+'<div class="content">'+item.CONTENTS+'</div>'
+				+'<img class="like-icon"src="../img/icon/emptylike.png"><p class="like-cnt">'+item.LIKE_CNT+'</p>'
 		}
 		$('.review').append(reviewInfo);
 	}

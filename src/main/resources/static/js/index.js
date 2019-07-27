@@ -83,7 +83,7 @@ $(document).ready(()=>{
 	            	let newReview = '<div class="review-slot" id="new-review-slot'+(i+1)+'" onClick="reviewClick(this)">'
 	            	+'<img class="review-img" src="'+list[i].THUM_IMG_PATH+'">'
 	            	+'<h1>'+list[i].TITLE+'</h1><hr>'
-	            	+'<p class="review-content">'+list[i].CONTENTS+'</p>'
+	            	+'<div class="review-content">'+list[i].CONTENTS+'</div>'
 	            	+'<input type="hidden" value="'+list[i].SEQ+'">'
 	            	+'</div>'
 	            	$('#new-review').append(newReview);

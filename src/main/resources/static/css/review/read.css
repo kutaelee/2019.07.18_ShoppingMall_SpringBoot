@@ -1,6 +1,7 @@
 @charset "UTF-8";
 .product{
-    width: 100vw;
+    width: 60vw;
+    margin-left: 20%;
 }
 .review{
 	margin-top:5vh;
@@ -10,21 +11,74 @@
 	min-height:100vh;
 	box-shadow: 1px 1px 3px grey;
 }
-.product-box{
-	padding-left: 34%;
-}
 #product-thumnail-box{
-    width: 30%;
-    height: 100%;
+    width: 35%;
+    height: 25vh;
+    display: inline-block;
+    font-family: 'Nanum Gothic', sans-serif;
+    box-shadow: 1px 1px 3px grey;
 }
 .product-thumnail{
     width: 100%;
-    height: 70%;
+    height: 100%;
 }
 #product-info-box{
-    width: 50%;
-    height: 90%;
+    width: 60%;
+    height: 25vh;
+    display: inline-block;
+    margin-left:5%;
+    border-collapse: collapse;
 }
-.product h1{
+#product-info-box td{
+	padding:1%;
+}
+.thead{
+	width:30%;
+	font-size:.8vw;
+	color:grey;
+}
+.product-value{
+	width:70%;
 	text-align:center;
+	font-size:.8vw;
+}
+.review-box{
+	padding: 2% 10%;
+	line-height: 5vh;
+}
+.review-box img{
+	display: block; 
+	margin: 0px auto;
+}
+.review-title{
+    text-align: center;
+}
+.regdate{
+	text-align:right;
+	line-height: 2vh;
+	color:grey;
+}
+.rating{
+	text-align: center;
+}
+.content{
+	margin-bottom:3vh;
+}
+.content p{
+	word-break: keep-all;
+}
+.thum-img{
+	width:90%;
+}
+.content img{
+	max-width:90%;
+}
+.like-icon{
+	cursor:pointer;
+	width:5%;
+}
+.like-cnt{
+	text-align: center;
+	color:crimson;
+	margin:0
 }
