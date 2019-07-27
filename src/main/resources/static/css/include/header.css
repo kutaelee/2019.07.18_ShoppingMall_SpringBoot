@@ -84,7 +84,7 @@ a{
 	color:crimson;
 }
 .nav h2{
-	font-size: 1vw;
+	font-size: 1.2vw;
 	cursor:pointer;
 	transform: translateX(100vw);
 }
@@ -93,11 +93,12 @@ a{
 }
 
 .nav ul{
-	padding-left:40%;
 	display:none;
+	list-style: none;
+    padding-left: 0;
 }
 .nav li{
-	text-align:left;
+	text-align:center;
 	margin-bottom:10%;
 }
 .nav-bar{
@@ -119,7 +120,7 @@ a{
 .search{
 	position: absolute;
     z-index: 100;
-    margin-left: 75vw;
+    margin-left: 79vw;
     margin-top: 3vh;
     width: 20vw;
 }
@@ -129,17 +130,17 @@ a{
 	height: 2vw;
     width: 15vw;
     border: 2px solid crimson;
-    margin-left: -8vw;
+    margin-left: -14vw;
     font-size: .9vw;
     padding-left: .5vw;
     letter-spacing: 1px;
+    margin-right: 1vw;
 }
 
 .search-icon{
     width: 2vw;
     cursor: pointer;
     position: absolute;
-    margin-left: 1vw;
 }
 
 .nav-toggle-icon{

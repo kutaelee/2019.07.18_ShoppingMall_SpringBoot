@@ -175,5 +175,8 @@
 	margin-right:.8vw;
 	cursor: pointer;
 	text-decoration: none;
-	color:black;
+	color:grey;
+}
+.select-category{
+	font-weight: bold;
 }
