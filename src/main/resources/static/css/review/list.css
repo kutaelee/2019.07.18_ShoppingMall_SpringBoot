@@ -52,6 +52,13 @@
 	font-weight: 800;
 	color: crimson;
 	margin-bottom:2vh;
+	width:98%;
+	display: inline-block;
+}
+.write-btn{
+	width:1.2vw;
+	display: inline-block;
+	cursor: pointer;
 }
 .subcategory-list-title a{
     font-size: 1vw;

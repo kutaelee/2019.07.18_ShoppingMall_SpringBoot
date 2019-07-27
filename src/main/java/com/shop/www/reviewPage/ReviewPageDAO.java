@@ -32,4 +32,14 @@ public class ReviewPageDAO {
 		}
 	}
 
+	public void likeUpdate(HashMap<String, Object> map) {
+		String SQL = "UPDATE REVIEW SET LIKE_CNT=? WHERE SEQ=?";
+		template.update(SQL, map.get("cnt"),map.get("seq"));
+	}
+
+	public String getLikeCnt(HashMap<String, Object> map) {
+		String SQL = "SELECT LIKE_CNT FROM REVIEW WHERE SEQ=?";
+		return template.queryForMap(SQL,map.get("seq")).get("LIKE_CNT").toString();
+	}
+
 }

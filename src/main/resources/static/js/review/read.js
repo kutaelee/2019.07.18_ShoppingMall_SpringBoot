@@ -1,11 +1,12 @@
 $(document).ready(()=>{
 	$(".header").load("../include/header.html");
 	const path=location.pathname.split('/'); //uri 매핑
+
+	/* 상품,리뷰 데이터 바인딩 */
 	getReviewInfo().then((result)=>{
 		bindProductInfo(result);
 		bindReviewInfo(result);
 	});
-	
 	
 	/* 상품,리뷰 정보 데이터 바인딩*/
 	function getReviewInfo(){
@@ -14,6 +15,7 @@ $(document).ready(()=>{
 			$.ajax({
 				url:url,
 				data:{'seq':path[2]},
+				type:'POST',
 				success:(result)=>{
 					console.log(result)
 					resolve(result);
@@ -25,7 +27,32 @@ $(document).ready(()=>{
 			});
 		});
 	}
-	
+	/* 좋아요 클릭 이벤트 */
+	$(document).on('click','.like-icon',(e)=>{
+		let cnt=$('.like-cnt').text();
+		let seq=$('.review-seq').val();
+		if(e.target.id==='like-empty'){
+			$('.like-icon').attr('src','../img/icon/like.png');
+			$('.like-icon').attr('id','like');
+			cnt=parseInt(cnt)+1;
+		}else{
+			$('.like-icon').attr('src','../img/icon/emptylike.png');
+			$('.like-icon').attr('id','like-empty');
+			cnt=parseInt(cnt)-1;
+		}
+		let url='/ajax/likeUpdate';
+		$.ajax({
+			url:url,
+			type:'PUT',
+			data:{'cnt':cnt,'seq':seq},
+			success:(result)=>{
+				$('.like-cnt').text(result);
+			},
+			error:(e)=>{
+				console.log(e);
+			}
+		});
+	});
 	/* 상품정보 편집 후 리턴 */
 	function bindProductInfo(result){
 		if(result[0]){
@@ -47,6 +74,7 @@ $(document).ready(()=>{
 		}else
 			$('.product').append('<h1> 제품정보가 존재하지않습니다.</h2>');
 	}
+	/* 별점 이미지 리턴 */
 	function ratingImg(rating){
 		let str='';
 		for(let i=1;i<=5;i++){
@@ -58,6 +86,7 @@ $(document).ready(()=>{
 		}
 		return str;
 	}
+	/* 리뷰 정보 편집 후 리턴 */
 	function bindReviewInfo(result){
 		let reviewInfo='';
 		for(item of result){
@@ -68,7 +97,8 @@ $(document).ready(()=>{
 				+'<img class="thum-img" src="'+item.R_THUM_IMG_PATH+'">'
 				+'<p class="rating">리뷰 작성자의 별점:'+ratingImg(item.RATING_AVG)+'</p>'
 				+'<div class="content">'+item.CONTENTS+'</div>'
-				+'<img class="like-icon"src="../img/icon/emptylike.png"><p class="like-cnt">'+item.LIKE_CNT+'</p>'
+				+'<img class="like-icon" id="like-empty" src="../img/icon/emptylike.png"><p class="like-cnt">'+item.LIKE_CNT+'</p>'
+				+'<input class="review-seq" type="hidden" value="'+item.R_SEQ+'">';
 				$('.list-btn').attr('href','/reviewlist/'+item.PARENT_SEQ);
 		}
 		$('.review').append(reviewInfo);
