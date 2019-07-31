@@ -240,7 +240,7 @@ $(document).ready(()=>{
 	}
 	
 	/* 로그인 */
-	$('.login-btn').click(()=>{
+/*	$('.login-btn').click(()=>{
 		const url='/ajax/login';
 		const data=$('.login-form').serialize();
 		$.ajax({
@@ -250,7 +250,7 @@ $(document).ready(()=>{
 			success:(result)=>{
 				if(result){
 					alert('로그인이 완료되었습니다.');
-					history.back();
+					//history.back();
 				}else{
 					alert('일치하는 정보가 없습니다.');
 				}
@@ -259,5 +259,5 @@ $(document).ready(()=>{
 				console.log(e);
 			}
 		});
-	});
+	});*/
 });

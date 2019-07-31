@@ -17,7 +17,10 @@ $(document).ready(()=>{
 	$(".header").load("../include/header.html");
 	let checkedCompanySeqList=[];
 	let checkedPriceList=[];
-	
+	/* 글쓰기 버튼 */
+	$('.write-btn').click(()=>{
+		window.location.href='/reviewInsertPage';
+	});
 	/* 카테고리 데이터 바인딩 */
 	/* 메인 카테고리SEQ -> 서브 카테고리SEQ-> 서브 카테고리 제목 */
 	getMainCategory().then(()=>{

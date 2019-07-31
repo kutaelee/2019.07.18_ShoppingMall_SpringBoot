@@ -12,12 +12,13 @@
 	<div class="account">
 		<div class="box" id="login-box">
 			<h1 class="login-title">로그인</h1>
-			<form class="login-form" name="login-form">
+			<form class="login-form" name="login-form" action="/account" method="post">
 				<label for="id">ID</label><br /> <input class="id"
-					type="text" name="id" maxlength="50"><br /> <label for="pw">Password</label><br />
-				<input class="pw" type="password" name="pw" maxlength="50">
+					type="text" name="username" maxlength="50"><br /> <label for="pw">Password</label><br />
+				<input class="pw" type="password" name="password" maxlength="50">
+			<button class="login-btn">Login</button>
 			</form>
-				<button class="login-btn">Login</button>
+				
 			<a class="signform-call-btn">회원가입</a>
 			<a class="findform-call-btn">아이디/비밀번호를 찾기</a>
 		</div>

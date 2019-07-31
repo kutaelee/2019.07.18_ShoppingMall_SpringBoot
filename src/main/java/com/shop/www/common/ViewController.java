@@ -25,5 +25,9 @@ public class ViewController {
 	public String reviewread() {
 		return "review/read";
 	}
+	@GetMapping("/reviewInsertPage")
+	public String reviewInsertPage() {
+		return "review/insert";
+	}
 	
 }

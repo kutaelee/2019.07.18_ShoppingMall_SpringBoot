@@ -1,5 +1,12 @@
-$(document).ready(()=>{
 
+$(document).ready(()=>{
+/*	let token = $("meta[name='_csrf']").attr("content");
+	let header = $("meta[name='_csrf_header']").attr("content");
+	$(() => {
+	    $(document).ajaxSend((e, xhr, options) => {
+	        xhr.setRequestHeader(header, token);
+	    });
+	});*/
 	/* 메뉴 토글 */
 	function navToggle(button){
 		if(button==='toggle-off'){
