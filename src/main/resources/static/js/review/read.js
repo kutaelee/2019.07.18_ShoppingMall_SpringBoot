@@ -27,18 +27,16 @@ $(document).ready(()=>{
 			});
 		});
 	}
+	
 	/* 좋아요 클릭 이벤트 */
 	$(document).on('click','.like-icon',(e)=>{
-		let cnt=$('.like-cnt').text();
+		let cnt=0;
 		let seq=$('.review-seq').val();
-		if(e.target.id==='like-empty'){
-			$('.like-icon').attr('src','../img/icon/like.png');
-			$('.like-icon').attr('id','like');
-			cnt=parseInt(cnt)+1;
+		let id=e.target.id;
+		if(id==='like-empty'){
+			cnt=1;
 		}else{
-			$('.like-icon').attr('src','../img/icon/emptylike.png');
-			$('.like-icon').attr('id','like-empty');
-			cnt=parseInt(cnt)-1;
+			cnt=-1;
 		}
 		let url='/ajax/likeUpdate';
 		$.ajax({
@@ -46,13 +44,22 @@ $(document).ready(()=>{
 			type:'PUT',
 			data:{'cnt':cnt,'seq':seq},
 			success:(result)=>{
+				if(id==='like-empty'){
+					$('.like-icon').attr('src','../img/icon/like.png');
+					$('.like-icon').attr('id','like');
+				}else{
+					$('.like-icon').attr('src','../img/icon/emptylike.png');
+					$('.like-icon').attr('id','like-empty');
+				}
 				$('.like-cnt').text(result);
 			},
 			error:(e)=>{
+				alert('로그인 후 이용해주세요');
 				console.log(e);
 			}
 		});
 	});
+	
 	/* 상품정보 편집 후 리턴 */
 	function bindProductInfo(result){
 		if(result[0]){

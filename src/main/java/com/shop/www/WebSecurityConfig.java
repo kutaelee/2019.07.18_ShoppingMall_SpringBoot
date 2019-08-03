@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            	.antMatchers("/reviewInsertPage").hasRole("USER")
+            	.antMatchers("/reviewInsertPage","/ajax/likeUpdate").hasRole("USER")
             	.antMatchers("/**","/ajax/*").permitAll()
                 .and()
             .formLogin()
