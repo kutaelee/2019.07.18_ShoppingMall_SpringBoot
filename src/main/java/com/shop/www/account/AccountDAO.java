@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -117,7 +119,7 @@ public class AccountDAO {
 		try {
 			return template.queryForObject(SQL,List.class,id);
 		}catch(EmptyResultDataAccessException e) {
-			return null;
+			throw new UsernameNotFoundException("유저를 찾을 수 없습니다.");
 		}
 	}
 

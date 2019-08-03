@@ -50,11 +50,38 @@ $(document).ready(()=>{
 		}
 	});
 
+	/* 헤더 로그인아이콘 세션체크 */
+	$.ajax({
+		url:'/ajax/sessionCheck',
+		type:'post',
+		success:(result)=>{
+			if(result){
+				$('.login-icon').css('display','none');
+				$('.logout-icon').css('display','block');
+			}else{
+				$('.logout-icon').css('display','none');
+				$('.login-icon').css('display','block');
+			}
+		}
+	});
+	
 	/* 로그인 버튼 */
 	$('.login-icon').click(()=>{
 		document.location.href='/account';
 	});
-	
+	/* 로그아웃 버튼 */
+	$('.logout-icon').click(()=>{
+		$.ajax({
+			url:'/logout',
+			type:'post',
+			success:()=>{
+				alert('정상적으로 로그아웃되었습니다.');
+				window.location.reload();
+			},error:(e)=>{
+				console.log(e);
+			}
+		});
+	});
 	/* 카테고리 데이터 바인드 */
 	getCategory();
 	function getCategory(){

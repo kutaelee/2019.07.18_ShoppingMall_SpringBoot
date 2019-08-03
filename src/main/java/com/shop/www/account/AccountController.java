@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.coyote.Adapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +50,16 @@ public class AccountController {
 		}else {
 			return false;
 		}
+	}
 	
+	/* 세션 체크 */
+	@PostMapping("/ajax/sessionCheck")
+	public boolean sessionCheck(HttpServletRequest req) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		if(principal !=null && principal instanceof UserDetails) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

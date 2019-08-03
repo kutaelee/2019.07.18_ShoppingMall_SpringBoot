@@ -6,7 +6,7 @@ $(document).ready(()=>{
 	let pwLenCheck=false;
 	let pw2LenCheck=false;
 	let pwSame=false;
-	
+	let eamilPatten=false;
 	$(".header").load("../include/header.html");
 	$('.box').html=$('#login-box').html();
 	/* 인풋 블러효과 */
@@ -43,7 +43,7 @@ $(document).ready(()=>{
 	
 	/* 회원 가입 */
 	$('.sign-btn').click(()=>{
-		if(emptyCheck() && emailDoubling && idDoubling && lengthCheck() && pwSameCheck()){
+		if(emptyCheck() && emailDoubling && idDoubling && lengthCheck() && pwSameCheck() && emailPattenCheck()){
 			insertUser();
 		}else{
 			if(!emptyCheck()){
@@ -57,6 +57,8 @@ $(document).ready(()=>{
 				alert("비밀번호가 같지 않습니다.");
 			}else if(!lengthCheck()){
 				alert("입력하신 글자수가 4자 이하 이거나 50자 이상 입니다.");
+			}else if(!emailPattenCheck()){
+				alert("이메일 규격을 맞춰야합니다.");
 			}
 		}	
 	});
@@ -216,8 +218,8 @@ $(document).ready(()=>{
 				console.log(e);
 			}
 		}).done(()=>{
-			let value=$('.email').val();
-			if(emailDoubling && emailLenCheck && emailPattenCheck(value)){
+			
+			if(emailDoubling && emailLenCheck && emailPattenCheck()){
 				$('.email-check-icon').attr('src','../img/icon/success.png');
 			}else{
 				$('.email-check-icon').attr('src','../img/icon/error.png');
@@ -240,7 +242,8 @@ $(document).ready(()=>{
 		   }
 	}
 	/* email 정규식 검사*/
-	function emailPattenCheck(value){
+	function emailPattenCheck(){
+		let value=$('.email').val();
 		const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		   if (regExp.test(value)) {
 				return true;
@@ -248,5 +251,15 @@ $(document).ready(()=>{
 				return false;
 			}
 	}
-
+	/* 로그인페이지 세션체크 */
+	$.ajax({
+		url:'/ajax/sessionCheck',
+		type:'post',
+		success:(result)=>{
+			if(result){
+				alert('이미 로그인하셨습니다.');
+				window.history.back();
+			}
+		}
+	});
 });
