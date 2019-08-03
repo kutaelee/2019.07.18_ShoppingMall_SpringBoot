@@ -103,7 +103,7 @@ $(document).ready(()=>{
 			data:{'parentSeq':path[2]},
 			success:(result)=>{		
 				for(item of result){
-					$('#man-company').append('<input type="checkbox" value="'+item.SEQ+'"class="company-checkbox"><label for="company-'+item.SEQ+'">'+item.TITLE+'</label>');
+					$('#man-company').append('<input type="checkbox" value="'+item.SEQ+'"class="company-checkbox" id="'+item.TITLE+'"><label for="'+item.TITLE+'">'+item.TITLE+'</label>');
 				}
 			},
 			error:(e)=>{
