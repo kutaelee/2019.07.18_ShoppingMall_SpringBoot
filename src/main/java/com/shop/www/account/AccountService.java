@@ -22,6 +22,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mysql.cj.util.StringUtils;
+
 @Service
 @Transactional
 public class AccountService implements UserDetailsService {
@@ -30,11 +32,6 @@ public class AccountService implements UserDetailsService {
 	@Autowired
 	BCryptPasswordEncoder bCryptencoder;
 	
-	/*
-	 * public void insertUser(HashMap<String, Object> map) { map.put("id",
-	 * regularText(map.get("id").toString())); map.put("pw",
-	 * passwordEncoding(map.get("pw").toString())); ad.insertUser(map); }
-	 */
 	//비밀번호 암호화
 	public String passwordEncoding(String pw) {
 		return bCryptencoder.encode(pw);
@@ -62,28 +59,21 @@ public class AccountService implements UserDetailsService {
 			return str;
 		}
 	}
-
-	//로그인 관련 서비스
-	/*
-	 * public boolean pwCheck(HashMap<String, Object> map) { Map<String, Object>
-	 * pw=ad.getPw(map); if(ObjectUtils.isEmpty(pw)) { return false; } return
-	 * compareToPassword(pw.get("PASS").toString(),map.get("password").toString());
-	 * }
-	 */
-
+	
+	//유저 정보 반환
 	public Map<String,Object> selectUser(String id) {
 		return ad.selectUser(id);
 	}
+	
+	//관리자 체크 시큐리티에선 사용안함
+	/*
+	 * public boolean isIsadmin(Map<String, Object> user) { Map<String, Object>
+	 * map=ad.getGrade(user.get("id").toString());
+	 * if(map.get("grade").toString().equals("5")) { return true; }else { return
+	 * false; } }
+	 */
 
-	public boolean isIsadmin(Map<String, Object> user) {
-		Map<String, Object> map=ad.getGrade(user.get("id").toString());
-		if(map.get("grade").toString().equals("5")) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-
+	//시큐리티 로그인
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		AccountDTO account=findById(username);
@@ -156,15 +146,29 @@ public class AccountService implements UserDetailsService {
 		} 
 		return authorities; 
 	}
+	
 	/* 회원가입  */
 	public AccountDTO save(AccountDTO account,String role){
-		account.setPass(bCryptencoder.encode(account.getPassword()));
-		account.setAccountNonExpired(true);
-		account.setAccountNonLocked(true);
-		account.setCredentialsNonExpired(true);
-		account.setEnabled(true);
-		ad.insertUser(account);
-		ad.insertUserAutority(account.getUsername(), role);
-		return account;
+		HashMap<String,Object> idMap=new HashMap<String,Object>();
+		HashMap<String,Object> emailMap=new HashMap<String,Object>();
+		idMap.put("key", "ID");
+		idMap.put("value", account.getUsername());
+		emailMap.put("key", "EMAIL");
+		emailMap.put("value", account.getEmail());
+		
+		if(StringUtils.isEmptyOrWhitespaceOnly(ad.doubleCheck(idMap)) && StringUtils.isEmptyOrWhitespaceOnly(ad.doubleCheck(emailMap))){
+			account.setPass(bCryptencoder.encode(account.getPassword()));
+			account.setAccountNonExpired(true);
+			account.setAccountNonLocked(true);
+			account.setCredentialsNonExpired(true);
+			account.setEnabled(true);
+			ad.insertUser(account);
+			ad.insertUserAutority(account.getUsername(), role);
+			return account;
+		}else {
+			return null;
+		}
+
+
 	}
 }

@@ -25,11 +25,8 @@ public class AccountController {
 	@Autowired
 	AccountDAO ad;
 	
-	/*
-	 * @PostMapping("/ajax/insertUser") public void insertUser(HttpServletRequest
-	 * req) throws Exception{ HashMap<String,Object> map=requtil.reqToHashMap(req);
-	 * map.put("ip", requtil.getRemoteIP(req)); as.insertUser(map); }
-	 */
+	
+	/* 회원가입 */
 	@PostMapping("/ajax/insertUser")
 	public void insertUser(HttpServletRequest req) throws Exception{
 		AccountDTO account=new AccountDTO();
@@ -42,19 +39,8 @@ public class AccountController {
 		account.setPass(req.getParameter("pw"));
 		as.save(account,"ROLE_USER");
 	}
-	/*
-	 * @PostMapping("/ajax/login") public boolean login(HttpServletRequest
-	 * req,HttpSession session) throws Exception { HashMap<String,Object>
-	 * map=requtil.reqToHashMap(req); if(ObjectUtils.isEmpty(map.get("username")) ||
-	 * ObjectUtils.isEmpty(map.get("password"))) { return false; }
-	 * if(as.pwCheck(map)) { UserDetails
-	 * userDetails=as.loadUserByUsername(req.getParameter("id"));
-	 * System.out.println(userDetails.toString()); return true; }else { return
-	 * false; }
-	 * 
-	 * }
-	 */
-	
+
+	/* email,id 중복체크 */
 	@PostMapping("/ajax/doubleCheck")
 	public boolean doubleCheck(HttpServletRequest req) throws Exception {
 		//이미 있는 값이라면 true 리턴

@@ -20,13 +20,6 @@ public class AccountDAO {
 	@Autowired
 	JdbcTemplate template;
 	
-	/*
-	 * public void insertUser(Map<String, Object> info) { String SQL =
-	 * "INSERT INTO MEMBER(ID,PASS,EMAIL" + ",FRST_REG_IP,LAST_MOD_IP,LAST_MOD_ID" +
-	 * ",NICK,FRST_REG_DT,LAST_MOD_DT)" + " VALUES(?,?,?,?,?,?,?,now(),now())";
-	 * template.update(SQL,info.get("id"),info.get("pw"),info.get("email")
-	 * ,info.get("ip"),info.get("ip"),info.get("id"),info.get("id")); }
-	 */
 	public void insertUser(AccountDTO account) {
 		String SQL = "INSERT INTO MEMBER(ID,PASS,EMAIL"
 				+ ",FRST_REG_IP,LAST_MOD_IP,LAST_MOD_ID"

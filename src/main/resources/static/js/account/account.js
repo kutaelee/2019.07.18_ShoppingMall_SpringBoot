@@ -106,9 +106,9 @@ $(document).ready(()=>{
 		
 		if(!(key==='pw') && !(key==='pw-check')){
 			doubleCheck(key.toUpperCase(),value);
-			
-		}
 
+		}
+		
 	});
 	
 	/* 빈값이 있으면 false를 반환 */
@@ -216,7 +216,8 @@ $(document).ready(()=>{
 				console.log(e);
 			}
 		}).done(()=>{
-			if(emailDoubling && emailLenCheck){
+			let value=$('.email').val();
+			if(emailDoubling && emailLenCheck && emailPattenCheck(value)){
 				$('.email-check-icon').attr('src','../img/icon/success.png');
 			}else{
 				$('.email-check-icon').attr('src','../img/icon/error.png');
@@ -238,26 +239,14 @@ $(document).ready(()=>{
 			      $('.sign-form .id').val(value.replace(regExp, ""));
 		   }
 	}
-	
-	/* 로그인 */
-/*	$('.login-btn').click(()=>{
-		const url='/ajax/login';
-		const data=$('.login-form').serialize();
-		$.ajax({
-			url:url,
-			type:'POST',
-			data:data,
-			success:(result)=>{
-				if(result){
-					alert('로그인이 완료되었습니다.');
-					//history.back();
-				}else{
-					alert('일치하는 정보가 없습니다.');
-				}
-			},
-			error:(e)=>{
-				console.log(e);
+	/* email 정규식 검사*/
+	function emailPattenCheck(value){
+		const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		   if (regExp.test(value)) {
+				return true;
+			}else{
+				return false;
 			}
-		});
-	});*/
+	}
+
 });

@@ -23,7 +23,7 @@ public class MainDAO {
 
 	public List<Map<String, Object>> getBestReview() {
 		String SQL = "SELECT * FROM REVIEW"
-					+ " WHERE FRST_REG_DT>DATE_SUB(NOW() , INTERVAL 7 DAY)"
+					+ " WHERE FRST_REG_DT>DATE_SUB(NOW() , INTERVAL 100 DAY)"
 					+ " ORDER BY LIKE_CNT DESC"
 					+ " LIMIT 3";
 		return template.queryForList(SQL);

@@ -105,7 +105,7 @@ $(document).ready(()=>{
 	        url:url,      
 	        success:(result)=>{   
 	            let list = result;
-	            
+	            console.log(list);
 	            for(let i=0;i<list.length;i++){
 	            	let bestReview = '<div class="review-slot" id="best-review-slot'+(i+1)+'" onClick="reviewClick(this)">'
 	            	+'<img class="review-img" src="'+list[i].THUM_IMG_PATH+'">'
