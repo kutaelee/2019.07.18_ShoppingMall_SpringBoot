@@ -1,1 +1,12 @@
 @charset "UTF-8";
+#cke_p_content{
+	width:70%;
+	margin-left:15%;
+}
+
+.cke_editable{
+	width:96%;
+}
+.cke_editable img{
+	max-width:98%;
+}
