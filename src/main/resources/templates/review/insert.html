@@ -6,13 +6,57 @@
 <script type="text/javascript" src="../js/review/insert.js"></script>
 <link rel="stylesheet" href="../css/review/insert.css">
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/ckeditor/adapters/jquery.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
 <div class="header"> </div>
-<div>
-	<textarea class="form-control" id="p_content"></textarea>
+<div class="insert-body">
+	<h1>상품정보 작성</h1>
+	<div class="category-box" id="main-category">
+	
+	<div class="select-box" id="main-box">
+		<h4>MAIN CATEGORY</h4>
+		<ul></ul>
+	</div>
+	
+	<div class="select-box" id="sub-box">
+		<h4>SUB CATEGORY</h4>
+		<ul></ul>
+	</div>
+	<div class="select-box" id="company-box">
+		<h4>제조사</h4>
+		<ul></ul>
+	</div>
+	
+	<div class="select-box" id="product-box">
+		<h4>PRODUCT NAME</h4>
+		<ul></ul>
+	</div>
+	
 
+	</div>
+		<div class="product-info">
+		<label for="product-name" id="product-name-label">제품명</label>
+		<input type="text" id="product-name" maxlength="30">
+		<label for="product-company">제조사</label>
+		<select name="product-company">   
+		<option value="삼성">삼성</option>
+		<option value="엘쥐">엘쥐</option>
+		</select> 
+		<label for="product-price">가격</label> 
+		<input type="text" id="product-price" maxlength="30"> 
+		<label for="product-regdate">제조일자</label> 
+		<input type="text" id="product-regdate">
+	</div>
+
+	<h1>리뷰작성</h1>
+	<input id="review-title" type="text" maxlength="50" placeholder="리뷰제목">
+	<textarea class="form-control" id="p-content"></textarea>
+	<button id="review-submit-btn">등록</button>
 </div>
 </body>
 </html>

@@ -1,11 +1,11 @@
 package com.shop.www.reviewInsert;
 
-import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -13,20 +13,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.JsonObject;
+import com.shop.www.common.ReqUtil;
 
 
 @RestController
 public class ReviewInsertController {
+	@Autowired
+	ReviewInsertDAO rd;
+	@Autowired
+	ReqUtil requtil;
 	
+	@PostMapping("/ajax/reviewInsert")
+	public boolean reviewInsert(HttpServletRequest req) {
+		
+		return true;
+	}
+	@PostMapping("/ajax/getProductTitle")
+	public List<Map<String,Object>> getProductTitle(HttpServletRequest req) throws Exception{
+		return rd.getProductTitle(requtil.reqToHashMap(req));
+	}
 	@PostMapping("/ajax/fileUpload")
 	public String fileUpload(HttpServletRequest req, HttpServletResponse resp, MultipartHttpServletRequest multiFile)
 			throws Exception {
