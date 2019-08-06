@@ -43,7 +43,7 @@ a{
 	font-size: 3vw;
 	cursor: pointer;
 	text-decoration: none;
-	color:crimson;
+	color:#F28705;
 	letter-spacing: 2px;
 }
 
@@ -68,28 +68,29 @@ a{
 }
 .nav-title{
 	font-weight:bold;
-	color:crimson;
+	color: black;
 	letter-spacing: .3vw;
 	font-size:1.5vw;
 	text-transform: uppercase;
 }
 .nav a{
 	text-decoration: none;
-	color:black;
+	color: #262626;
 	font-size:.8vw;
 	font-weight:bold;
 }
 .nav a:hover{
 	opacity:1;
-	color:crimson;
+	color: #ff9500;
 }
 .nav h2{
+	color: black;
 	font-size: 1.2vw;
 	cursor:pointer;
 	transform: translateX(100vw);
 }
 .nav h2:hover{
-	color:crimson;
+	color: #ff9500;
 }
 
 .nav ul{
@@ -129,7 +130,7 @@ a{
     display: none;
 	height: 2vw;
     width: 15vw;
-    border: 2px solid crimson;
+    border: 2px solid #262626;
     margin-left: -14vw;
     font-size: .9vw;
     padding-left: .5vw;

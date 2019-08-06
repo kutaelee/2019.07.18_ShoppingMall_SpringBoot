@@ -15,8 +15,8 @@ $(document).ready(()=>{
 			$('.nav').css('margin-left','85%');
 			$('.nav').css('transition','0.5s');
 			$('.search').fadeOut();
-			$('.title').slideUp('slow');
-			$('.login-icon').fadeOut();
+			$('.icon').fadeOut();
+			$('.title').slideUp();
 			$('.nav-title').css('transform','translateX(0vw)');
 			$('.nav h2').css('transform','translateX(0vw)');
 		}
@@ -27,8 +27,9 @@ $(document).ready(()=>{
 			$('.nav').css('margin-left','100%');
 			$('.nav').css('transition','0.3s');
 			$('.search').fadeIn('slow');
+			$('.icon').show();
 			$('.title').slideDown('slow');
-			$('.login-icon').fadeIn();
+			
 		}
 	}
 

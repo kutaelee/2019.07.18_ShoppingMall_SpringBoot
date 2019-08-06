@@ -55,7 +55,7 @@
 	padding-left:7vw;
 }
 .index-title{
-	color:crimson;
+	color: #F28705;
 	margin-left:4vw;
 	display: inline-block;
 }
@@ -77,7 +77,7 @@
 }
 
 .item-section-slot:hover{
-	border:1px solid crimson;
+	border:1px solid #ff9500;
 }
 .item-section-slot a{
 	display:block;
@@ -142,7 +142,7 @@
     display:inline-block;
 }
 .review-slot:hover{
-	border:1px solid crimson;
+	border:1px solid #ff9500;
 }
 .review-slot h1{
 	font-size:1vw;

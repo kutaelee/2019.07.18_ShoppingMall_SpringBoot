@@ -73,9 +73,10 @@ $(document).ready(()=>{
 	
 	function getSubCategoryMatchParentSeq(result){
 		let url="/ajax/getSubCategoryMatchParentSeq"; 
+		$('.select-category').css('color','grey');
 		$('.select-category').removeAttr('class');
 		$('#main-'+result).attr('class','select-category');
-		$('#main-'+result).css('color','black');
+		$('#main-'+result).css('color','#ff9500');
 		$.ajax({
 			type:'POST',
 			url:url,
@@ -86,7 +87,7 @@ $(document).ready(()=>{
 				subCategory+='<a href="/reviewlist/'+item.SEQ+'"id="sub-'+item.SEQ+'">'+item.TITLE+'</a>';
 				}
 				$('.sub-category').html(subCategory);
-				$('#sub-'+path[2]).css('color','black');
+				$('#sub-'+path[2]).css('color','#ff9500');
 				$('#sub-'+path[2]).attr('class','select-category');
 			},
 			error:(e)=>{

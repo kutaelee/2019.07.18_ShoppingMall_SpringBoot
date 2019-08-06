@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .subcategory-title{
-	color:crimson;
+	color: black;
 	margin-left:20vw;
 	font-size:1.5vw;
 	font-family: 'NanumSquareRound',sans-serif;
@@ -50,7 +50,7 @@
 	font-size: 1.3vw;
 	font-family: 'NanumSquareRound',sans-serif;
 	font-weight: 800;
-	color: crimson;
+	color: black;
 	margin-bottom:2vh;
 	width:98%;
 	display: inline-block;
@@ -131,9 +131,9 @@
     margin-bottom: 1vh;
 }
 .overlay{
-    border: 1px solid crimson;
+    border: 1px solid #ff9500;
     margin-left: 20vw;
-    background: crimson;
+    background: #ff9500;
     opacity: .7;
     position: absolute;
     cursor: pointer;
@@ -178,7 +178,7 @@
 }
 .category h2{
 	font-size:1vw;
-	color: crimson;
+	color: #262626;
 	padding-top:2%;
 }
 .category a{
