@@ -17,16 +17,10 @@
     height: 3vh;
 }
 #review-submit-btn{
-	margin-left: 77.5%;
+	margin-left: 78%;
     margin-top: 1%;
-    font-size: .8vw;
-    border: none;
-    background: crimson;
-    letter-spacing: 1px;
-    font-weight: bold;
-    padding: 0.5%;
-    color: white;
     cursor:pointer;
+    width:2vw;
 }
 .category-box{
 	width:60%;
@@ -46,10 +40,11 @@
 }
 .select-box h4{
 	text-align: center;
-    background: crimson;
+    background: #595959;
     color: white;
     padding: 1%;
-    margin: 1%;
+    margin: 0;
+    margin-bottom:1%;
 }
 .select-box ul{
 	padding-left:0;
@@ -65,7 +60,7 @@
 	text-align:center;
 }
 .select-box li:hover{
-	background:crimson;
+	background: #262626;
 	color:white;
 }
 .product-info{
@@ -77,9 +72,9 @@
 }
 .insert-body h1{
 	margin-left:20%;
-	color:crimson;
+	color:black;
 }
 .select-category{
-	background:crimson;
+	background: #262626;
 	color:white;
 }

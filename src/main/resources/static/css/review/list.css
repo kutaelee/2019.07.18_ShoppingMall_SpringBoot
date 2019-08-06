@@ -162,7 +162,7 @@
 	border:1px solid white;
 }
 .reivew-list-paging a:hover{
-	border:1px solid crimson;
+	border:1px solid #F28705;
 	color:crimson;
 	border-radius:5px;
 }

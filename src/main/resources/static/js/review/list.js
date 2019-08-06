@@ -179,7 +179,7 @@ $(document).ready(()=>{
 			   reviewCount=result;
 			   paging(1);
 			   $('.pagenum').css('color','grey');
-			   $('#pagenum-1').css('color','crimson');
+			   $('#pagenum-1').css('color','#F28705');
 			   getReviewList();
 		   });
 	});
@@ -335,7 +335,7 @@ $(document).ready(()=>{
 	}
 	function selectPage(num){
 		$('.pagenum').css('color','grey');
-		$('#pagenum-'+num).css('color','crimson');
+		$('#pagenum-'+num).css('color','#F28705');
 		getReviewList();
 	}
 	

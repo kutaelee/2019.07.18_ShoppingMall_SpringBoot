@@ -1,7 +1,7 @@
 $(document).ready(()=>{
 	$(".header").load("../include/header.html");
 	const path=location.pathname.split('/'); //uri 매핑
-
+	let backLink='';
 	/* 상품,리뷰 데이터 바인딩 */
 	getReviewInfo().then((result)=>{
 		bindProductInfo(result);
@@ -59,7 +59,7 @@ $(document).ready(()=>{
 			}
 		});
 	});
-	
+
 	/* 상품정보 편집 후 리턴 */
 	function bindProductInfo(result){
 		if(result[0]){
@@ -106,9 +106,13 @@ $(document).ready(()=>{
 				+'<div class="content">'+item.CONTENTS+'</div>'
 				+'<img class="like-icon" id="like-empty" src="../img/icon/emptylike.png"><p class="like-cnt">'+item.LIKE_CNT+'</p>'
 				+'<input class="review-seq" type="hidden" value="'+item.R_SEQ+'">';
-				$('.list-btn').attr('href','/reviewlist/'+item.PARENT_SEQ);
+				backLink='/reviewlist/'+item.PARENT_SEQ;
 		}
-		$('.review').append(reviewInfo);
 		
+		$('.review').append(reviewInfo);
 	}
+	/* 목록으로 돌아가는 이벤트 */
+	$('.list-btn').click(()=>{
+		location.href=backLink;
+	});
 });

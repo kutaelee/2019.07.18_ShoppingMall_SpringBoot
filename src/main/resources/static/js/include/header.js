@@ -12,6 +12,7 @@ $(document).ready(()=>{
 		if(button==='toggle-off'){
 			$('.nav-toggle-btn').attr('id','toggle-on');
 			$('.nav-toggle-icon').attr('src','../img/icon/cancel.png');
+			$('.nav-toggle-icon').attr('title','닫기');
 			$('.nav').css('margin-left','85%');
 			$('.nav').css('transition','0.5s');
 			$('.search').fadeOut();
@@ -24,6 +25,7 @@ $(document).ready(()=>{
 			$('.nav-toggle-btn').attr('id','toggle-off');
 			$('.nav-toggle-btn').css('color','black');
 			$('.nav-toggle-icon').attr('src','../img/icon/list.png');
+			$('.nav-toggle-icon').attr('title','메뉴');
 			$('.nav').css('margin-left','100%');
 			$('.nav').css('transition','0.3s');
 			$('.search').fadeIn('slow');

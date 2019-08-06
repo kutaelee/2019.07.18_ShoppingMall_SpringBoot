@@ -90,5 +90,7 @@
 	display: inline-block;
 }
 .list-btn{
-	margin-left: 76.5vw;
+	width: 2vw;
+    cursor: pointer;
+    margin-left: 78.5vw;
 }
