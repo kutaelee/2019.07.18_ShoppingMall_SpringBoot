@@ -65,10 +65,13 @@
 }
 .product-info{
     overflow-x: hidden;
-    display: inline-block;
-    width: 60%;
-    margin-left:21%;
-    margin-bottom:2%;
+    display: none;
+    width: 58%;
+    margin-bottom: 2%;
+    margin-left: 21%;
+}
+.product-info input{
+	width:23%;
 }
 .insert-body h1{
 	margin-left:20%;
