@@ -48,12 +48,32 @@ public class ReviewInsertDAO {
 		return template.queryForMap(SQL);
 	}
 	
+	public Map<String,Object> productDupleCheck(HashMap<String, Object> map){
+		String SQL= "SELECT SEQ FROM PRODUCT WHERE TITLE=? AND PARENT_SEQ=? AND MAN_COMPANY=?";
+		
+		try {
+			return template.queryForMap(SQL,map.get("proTitle"),map.get("subCategorySeq"),map.get("manCompany"));
+		}catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
 	public Map<String,Object> manCompanyInsertAndReturnSeq(HashMap<String, Object> map) {
 		String SQL= "INSERT INTO MAN_COMPANY(TITLE,PARENT_SEQ) VALUES(?,?)";
 		template.update(SQL,map.get("proCompany"),map.get("subCategorySeq"));
 		
 		SQL="SELECT LAST_INSERT_ID()";
 		return template.queryForMap(SQL);
+	}
+	
+	public Map<String,Object> companyDupleCheck(HashMap<String, Object> map){
+		String SQL= "SELECT SEQ FROM MAN_COMPANY WHERE TITLE=? AND PARENT_SEQ=?";
+		
+		try {
+			return template.queryForMap(SQL,map.get("proCompany"),map.get("subCategorySeq"));
+		}catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 	
 	// 리뷰 이미지 섬네일 컨텐츠 서비스단에서 추가필요
@@ -63,7 +83,6 @@ public class ReviewInsertDAO {
 				+ "FRST_REG_IP,FRST_REG_DT,LAST_MOD_ID,"
 				+ "LAST_MOD_IP,LAST_MOD_DT,PRODUCT_SEQ,MEM_SEQ)"
 				+ " VALUES(?,?,?,?,?,?,?,?,NOW(),?,?,NOW(),?,?)";
-		System.out.println(map.get("subCategorySeq"));
 		template.update(SQL,map.get("reviewTitle"),map.get("reviewContents"),map.get("reviewImg"),
 				map.get("rating"),map.get("subCategorySeq"),map.get("reviewThumContent"),
 				map.get("nick"),map.get("ip"),map.get("nick"),map.get("ip"),

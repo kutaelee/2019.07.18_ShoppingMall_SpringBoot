@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,7 +57,7 @@ public class ReviewInsertController {
 	}
 	
 	@PostMapping("/ajax/newProductReviewInsert")
-	public boolean newProductReviewInsert(HttpServletRequest req) throws Exception {
+	public boolean newProductReviewInsert(MultipartHttpServletRequest req) throws Exception {
 		HashMap<String,Object> map=requtil.reqToHashMap(req);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		if(principal !=null && principal instanceof UserDetails) {
@@ -66,8 +67,19 @@ public class ReviewInsertController {
 			map.put("memberSeq",ad.getSeq());
 			map.put("ip", requtil.getRemoteIP(req));
 			map.put("rating", "5.0");
-			map.put("reviewImg", req.getSession().getAttribute("filePath").toString());
-			return rs.newProductReviewInsert(map);
+			MultipartFile file = req.getFile("proThumnailImg");
+			if(file!=null) {
+				String path=System.getProperty("user.dir")+"/src/main/resources/static/img/product";
+				System.out.println(path);
+				map.put("proThumnailImg",rs.productFileUpload(file,path));
+				if(!ObjectUtils.isEmpty(req.getSession().getAttribute("filePath"))) {
+					map.put("reviewImg", req.getSession().getAttribute("filePath").toString());
+				}
+				return rs.newProductReviewInsert(map);
+			}else {
+				return false;
+			}
+
 		}else {
 			return false;
 		}

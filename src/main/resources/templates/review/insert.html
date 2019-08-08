@@ -38,18 +38,18 @@
 	</div>
 
 	</div>
-		<div class="product-info" id="others-info">
+		<form class="product-info" id="others-info" enctype="multipart/form-data">
 		<label for="product-name" id="product-name-label">제품명</label><br/>
-		<input type="text" id="product-name" maxlength="30"><br/>
+		<input type="text" id="product-name" maxlength="30" name="proTitle"><br/>
 		<label for="product-company">제조사</label><br/>
-		<input type="text" id="product-company" maxlength="30"> <br/>
+		<input type="text" id="product-company" maxlength="30" name="proCompany"> <br/>
 		<label for="product-price">가격(원)</label> <br/>
-		<input type="text" id="product-price" maxlength="30"> <br/>
+		<input type="text" id="product-price" maxlength="30" name="proPrice"> <br/>
 		<label for="product-regdate">출시일</label> <br/>
-		<input type="text" id="product-regdate"> <br/>
+		<input type="text" id="product-regdate" readonly name="proRegdate"> <br/>
 		<label for="product-img">이미지</label> <br/>
-		<input type="file" id="product-img">
-		</div>
+		<input type="file" id="product-img" name="proThumnailImg">
+		</form>
 		<div class="product-info" id="product-info">
 		</div>
 

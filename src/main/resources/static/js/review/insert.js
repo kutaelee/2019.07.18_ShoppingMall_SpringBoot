@@ -23,7 +23,6 @@ $(document).ready(()=>{
 			 alert('상품정보는 필수입니다.');
 		 }
 	 });
-	 //이미 있는 제조사 및 제품명 사용불가하게 해야됨
 	 //파일패스 수정필요
 	 //미리보기 글 추출필요
 	 function newProductReviewInsert(reviewContents,reviewTitle,subCategorySeq){
@@ -31,16 +30,24 @@ $(document).ready(()=>{
 		 let proCompany=$('#product-company').val();
 		 let proPrice=$('#product-price').val();
 		 let proRegdate=$('#product-regdate').val();
-		 let proThumnailImg=$('#product-img').val();
-	
+		 let proThumnailImg=$('#product-img')[0].files[0];
+		 let formData= new FormData($('#others-info')[0]);
+		 formData.append('reviewContents', reviewContents);
+		 formData.append('reviewTitle', reviewTitle);
+		 formData.append('subCategorySeq', subCategorySeq);
+		/* {'proTitle':proTitle,'proCompany':proCompany,'proPrice':proPrice
+				,'proRegdate':proRegdate,'proThumnailImg':proThumnailImg,'reviewContents':reviewContents
+				,'reviewTitle':reviewTitle,'subCategorySeq':subCategorySeq},*/
 		 if(proTitle && proCompany && proPrice && proRegdate && proThumnailImg){
 			 let url='/ajax/newProductReviewInsert';
 			 $.ajax({
 				type:'POST',
 				url:url,
-				data:{'proTitle':proTitle,'proCompany':proCompany,'proPrice':proPrice
-					,'proRegdate':proRegdate,'proThumnailImg':proThumnailImg,'reviewContents':reviewContents
-					,'reviewTitle':reviewTitle,'subCategorySeq':subCategorySeq},
+		        async: false,
+		        cache: false,
+		        contentType: false,
+		        processData: false,
+				data:formData,
 				success:(result)=>{
 					if(result){
 						alert('작성이 완료되었습니다.');
@@ -104,9 +111,17 @@ $(document).ready(()=>{
 			let id=e.target.id;
 			let seq=seqReturn(id);
 			let parentSeq=seqReturn($('#sub-box .select-category').prop('id'));
+			let manCompany=$('#company-box .select-category').text();
 			$('#product-box .select-category').attr('class','product');
 			$('#product-'+seq).attr('class','select-category');
 			if(seq==='others'){
+				if(manCompany!=='기타'){
+					$('#product-company').val(manCompany);
+					$('#product-company').attr('readonly','readonly');
+				}else{
+					$('#product-company').val('');
+					$('#product-company').removeAttr('readonly');
+				}
 				$('#product-info').fadeOut();
 				$('#others-info').fadeIn();
 			}else{
