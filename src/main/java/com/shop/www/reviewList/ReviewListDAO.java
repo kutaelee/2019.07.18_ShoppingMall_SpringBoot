@@ -122,7 +122,7 @@ public class ReviewListDAO {
 	public List<Map<String, Object>> getReviewList(HashMap<String, Object> map) {
 		String SQL = "SELECT SEQ,TITLE,CONTENTS,"
 				+ "THUM_IMG_PATH,PARENT_SEQ,LIKE_CNT,"
-				+ "RATING,FRST_REG_DT,FRST_REG_ID,THUM_CONTENT"
+				+ "RATING,FRST_REG_DT,FRST_REG_ID"
 				+ " FROM REVIEW"
 				+ " WHERE PARENT_SEQ=? AND DEL_YN='N'";
 		

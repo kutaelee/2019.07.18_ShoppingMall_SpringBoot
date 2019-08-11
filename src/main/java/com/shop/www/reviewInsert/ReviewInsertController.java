@@ -55,7 +55,21 @@ public class ReviewInsertController {
 	public Map<String,Object> getProductInfo(HttpServletRequest req) throws Exception{
 		return rd.getProductInfo(requtil.reqToHashMap(req));
 	}
-	
+	@PostMapping("/ajax/productReviewInsert")
+	public boolean productReviewInsert(HttpServletRequest req) throws Exception {
+		HashMap<String,Object> map=requtil.reqToHashMap(req);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		if(principal !=null && principal instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails)principal;
+			AccountDTO ad=as.findById(userDetails.getUsername());
+			map.put("nick",ad.getNick());
+			map.put("memberSeq",ad.getSeq());
+			map.put("ip", requtil.getRemoteIP(req));
+			return rs.productReviewInsert(map);
+		}else {
+			return false;
+		}
+	}
 	@PostMapping("/ajax/newProductReviewInsert")
 	public boolean newProductReviewInsert(MultipartHttpServletRequest req) throws Exception {
 		HashMap<String,Object> map=requtil.reqToHashMap(req);
@@ -66,10 +80,9 @@ public class ReviewInsertController {
 			map.put("nick",ad.getNick());
 			map.put("memberSeq",ad.getSeq());
 			map.put("ip", requtil.getRemoteIP(req));
-			map.put("rating", "5.0");
 			MultipartFile file = req.getFile("proThumnailImg");
 			if(file!=null) {
-				String path=System.getProperty("user.dir")+"/src/main/resources/static/img/product";
+				String path=req.getServletContext().getRealPath("/img/product");
 				System.out.println(path);
 				map.put("proThumnailImg",rs.productFileUpload(file,path));
 				if(!ObjectUtils.isEmpty(req.getSession().getAttribute("filePath"))) {
@@ -97,7 +110,7 @@ public class ReviewInsertController {
 					try {
 						String fileName = file.getName();
 						byte[] bytes = file.getBytes();
-						String uploadPath = req.getServletContext().getRealPath("/img");
+						String uploadPath = req.getServletContext().getRealPath("/img/review");
 						req.getSession().setAttribute("filePath", uploadPath);
 						File uploadFile = new File(uploadPath);
 						if (!uploadFile.exists()) {

@@ -393,7 +393,7 @@ $(document).ready(()=>{
 			+'<td class="review-item-thumnail"><img class="item-img" src="'+item.THUM_IMG_PATH+'"></td>'
 			+'<td class="review-item-info"><h3 class="review-item-title">'+item.TITLE+'</h3>'
 			+'<p class="review-item-regdate">'+item.FRST_REG_DT+'</p>'
-			+'<div class="review-item-content" id="content'+i+'">'+item.THUM_CONTENT+'</div>'
+			+'<div class="review-item-content" id="content'+i+'">'+contentReplaceText(item.CONTENTS)+'</div>'
 			+'<p class="review-item-wirter">By.'+item.FRST_REG_ID+'</p>'
 			+'<p class="review-item-likecnt">'+item.LIKE_CNT+'명이 도움받은 리뷰입니다</p>'
 			+'<img class="review-item-like-icon" src="../img/icon/like.png">'
@@ -401,5 +401,11 @@ $(document).ready(()=>{
 			i++;
 		}
 		return reviewItem;
+	}
+	/* 섬네일텍스트 추출 */
+	function contentReplaceText(contents){
+		contents=contents.replace(/<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/gi,"");
+		contents=contents.replace(/<p>/gi,"");
+		return contents.replace(/<(\/)p>/gi,"&nbsp");
 	}
 });

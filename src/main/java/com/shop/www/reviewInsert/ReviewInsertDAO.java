@@ -79,15 +79,14 @@ public class ReviewInsertDAO {
 	// 리뷰 이미지 섬네일 컨텐츠 서비스단에서 추가필요
 	public void reviewInsert(HashMap<String, Object> map) {
 		String SQL="INSERT INTO REVIEW(TITLE,CONTENTS,THUM_IMG_PATH,"
-				+ "RATING,PARENT_SEQ,THUM_CONTENT,FRST_REG_ID,"
+				+ "RATING,PARENT_SEQ,FRST_REG_ID,"
 				+ "FRST_REG_IP,FRST_REG_DT,LAST_MOD_ID,"
 				+ "LAST_MOD_IP,LAST_MOD_DT,PRODUCT_SEQ,MEM_SEQ)"
-				+ " VALUES(?,?,?,?,?,?,?,?,NOW(),?,?,NOW(),?,?)";
+				+ " VALUES(?,?,?,?,?,?,?,NOW(),?,?,NOW(),?,?)";
 		template.update(SQL,map.get("reviewTitle"),map.get("reviewContents"),map.get("reviewImg"),
-				map.get("rating"),map.get("subCategorySeq"),map.get("reviewThumContent"),
-				map.get("nick"),map.get("ip"),map.get("nick"),map.get("ip"),
+				map.get("rating"),map.get("subCategorySeq"),map.get("nick"),
+				map.get("ip"),map.get("nick"),map.get("ip"),
 				map.get("productSeq"),map.get("memberSeq"));
 	}
-
 
 }

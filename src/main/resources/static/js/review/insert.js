@@ -1,17 +1,36 @@
 $(document).ready(()=>{
 	$(".header").load("../include/header.html");
-
+	//제품평점
+	let rating=0; 
 	/* ck에디터 치환 */
 	 CKEDITOR.replace('p-content', {height: 500 , 
 		 filebrowserUploadUrl: '/ajax/fileUpload'});
-	
+	 
+	 /* 제품평점 애니메이션 및 데이터바인딩 */
+	 for(let i=1;i<=5;i++){
+		$('#review-rating').append('<img src="../img/icon/emptystar.png" class="review-star" id="rating-'+i+'">');
+	 }
+	 $(document).on('mouseover','#review-rating img',(e)=>{
+		let id=e.target.id;
+		let len=seqReturn(id);
+		for(let i=1;i<=len;i++){
+			$('#rating-'+i).attr('src','../img/icon/star.png');
+		}
+		rating=len;
+		len++;
+		for(len;len<=5;len++){
+			$('#rating-'+len).attr('src','../img/icon/emptystar.png');
+		}
+	 });
+	 
+	 
 	 /* 리뷰 및 상품 등록 */
 	 $('#review-submit-btn').click(()=>{
 		 let reviewContents = CKEDITOR.instances['p-content'].getData();
 		 let reviewTitle=$('#review-title').val();
 		 let productSeq=$('#product-box .select-category').prop('id');
 		 let subCategorySeq=$('#sub-box .select-category').prop('id');
-		 if(productSeq){
+		 if(emptyCheck(reviewTitle,reviewContents,productSeq,rating)){
 			 productSeq=seqReturn(productSeq);
 			 subCategorySeq=seqReturn(subCategorySeq);
 			 if(productSeq==='others'){
@@ -19,12 +38,45 @@ $(document).ready(()=>{
 			 }else{
 				 productReviewInsert(reviewContents,reviewTitle,productSeq,subCategorySeq);
 			 }
-		 }else{
-			 alert('상품정보는 필수입니다.');
 		 }
 	 });
-	 //파일패스 수정필요
-	 //미리보기 글 추출필요
+	 function emptyCheck(title,content,product,rating){
+		 if(!product){
+			 alert('상품 정보를 선택해주세요');
+		 }else if(!title){
+			 alert('리뷰 제목을 작성해주세요');
+			 $('#review-title').focus();
+		 }else if(!content){
+			 alert('리뷰내용을 작성해주세요');
+		 }else if(!rating){
+			 alert('제품 평점을 1점 이상 선택해주셔야합니다');
+		 }else{
+			 return true;
+		 }
+	 }
+	 /* 기존 제품이 있는 경우 리뷰등록 */
+	 function productReviewInsert(reviewContents,reviewTitle,productSeq,subCategorySeq){
+		 let url='/ajax/productReviewInsert';
+		 $.ajax({
+			type:'POST',
+			url:url,
+			data:{'reviewContents':reviewContents,'reviewTitle':reviewTitle,
+				'productSeq':productSeq,'subCategorySeq':subCategorySeq,
+				'rating':rating},
+			success:(result)=>{
+				if(result){
+					alert('작성이 완료되었습니다.');
+					location.href='/reviewlist/'+subCategorySeq;
+				}else{
+					alert('로그인세션이 끊겼습니다 다시 로그인해주세요.');
+				}
+			},
+			error:(e)=>{
+				console.log(e);
+			}
+		 });
+	 }
+	 /* 새로운 제품과 함께 리뷰등록 */
 	 function newProductReviewInsert(reviewContents,reviewTitle,subCategorySeq){
 		 let proTitle=$('#product-name').val();
 		 let proCompany=$('#product-company').val();
@@ -35,9 +87,7 @@ $(document).ready(()=>{
 		 formData.append('reviewContents', reviewContents);
 		 formData.append('reviewTitle', reviewTitle);
 		 formData.append('subCategorySeq', subCategorySeq);
-		/* {'proTitle':proTitle,'proCompany':proCompany,'proPrice':proPrice
-				,'proRegdate':proRegdate,'proThumnailImg':proThumnailImg,'reviewContents':reviewContents
-				,'reviewTitle':reviewTitle,'subCategorySeq':subCategorySeq},*/
+		 formData.append('rating',rating);
 		 if(proTitle && proCompany && proPrice && proRegdate && proThumnailImg){
 			 let url='/ajax/newProductReviewInsert';
 			 $.ajax({

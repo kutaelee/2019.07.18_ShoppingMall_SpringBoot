@@ -83,7 +83,7 @@ $(document).ready(()=>{
 	            	let newReview = '<div class="review-slot" id="new-review-slot'+(i+1)+'" onClick="reviewClick(this)">'
 	            	+'<img class="review-img" src="'+list[i].THUM_IMG_PATH+'">'
 	            	+'<h1>'+list[i].TITLE+'</h1><hr>'
-	            	+'<p class="review-content">'+list[i].THUM_CONTENT+'</p>'
+	            	+'<p class="review-content">'+contentReplaceText(list[i].CONTENTS)+'</p>'
 	            	+'<input type="hidden" value="'+list[i].SEQ+'">'
 	            	+'</div>'
 	            	$('#new-review').append(newReview);
@@ -112,7 +112,7 @@ $(document).ready(()=>{
 	            	+'<h1>'+list[i].TITLE+'</h1><hr>'
 	            	+'<a class="like-cnt">'+list[i].LIKE_CNT+'</a><a class="like-cnt-info">명이 이 리뷰를 좋아합니다 </a>'
 	            	+'<img class="best-review-like-icon" src="../img/icon/like.png">'
-	            	+'<p class="review-content">'+list[i].THUM_CONTENT+'</p>'
+	            	+'<p class="review-content">'+contentReplaceText(list[i].CONTENTS)+'</p>'
 	            	+'<input type="hidden" value="'+list[i].SEQ+'">'
 	            	+'</div>'
 	            	$('#best-review').append(bestReview);
@@ -159,5 +159,11 @@ $(document).ready(()=>{
 	        	console.log(e);
 	        }
 	    });
+	}
+	/* 섬네일텍스트 추출 */
+	function contentReplaceText(contents){
+		contents=contents.replace(/<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/gi,"");
+		contents=contents.replace(/<p>/gi,"");
+		return contents.replace(/<(\/)p>/gi,"&nbsp");
 	}
 });

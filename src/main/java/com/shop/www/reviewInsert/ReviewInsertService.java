@@ -25,7 +25,6 @@ public class ReviewInsertService {
 		if(ObjectUtils.isEmpty(rd.companyDupleCheck(map))) {
 			map.put("manCompany", rd.manCompanyInsertAndReturnSeq(map).get("LAST_INSERT_ID()").toString());
 		}else {
-			System.out.println("a");
 			map.put("manCompany", rd.companyDupleCheck(map).get("SEQ").toString());
 		}
 	
@@ -58,6 +57,11 @@ public class ReviewInsertService {
             }
         }
         return "../img/product/"+randomeUUID + "_" + file.getOriginalFilename();
+	}
+
+	public boolean productReviewInsert(HashMap<String, Object> map) {
+		rd.reviewInsert(map);
+		return true;
 	}
 	
 }

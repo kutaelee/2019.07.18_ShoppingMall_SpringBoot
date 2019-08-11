@@ -81,3 +81,11 @@
 	background: #262626;
 	color:white;
 }
+#review-rating{
+	margin-left: 20%;
+}
+#review-rating img{
+	margin-left:8%;
+	width:5%;
+	cursor: pointer;
+}
