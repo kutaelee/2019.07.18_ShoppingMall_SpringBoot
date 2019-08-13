@@ -40,6 +40,7 @@ $(document).ready(()=>{
 			 }
 		 }
 	 });
+	 
 	 function emptyCheck(title,content,product,rating){
 		 if(!product){
 			 alert('상품 정보를 선택해주세요');

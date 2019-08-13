@@ -368,7 +368,7 @@ $(document).ready(()=>{
 				i++;
 			}
 		}
-		$('.review-item-table').text("");
+		$('.review-item-table').text('');
 		$.ajax({
 			url:url,
 			type:'POST',
@@ -376,7 +376,8 @@ $(document).ready(()=>{
 			success:(result)=>{
 				console.log(result);
 				if(result){
-					$('.review-item-table').html(makeReviewList(result));
+					makeReviewList(result);
+					$('#content2').text($('#content2').text());
 				}
 			},
 			error:(e)=>{
@@ -388,24 +389,23 @@ $(document).ready(()=>{
 	function makeReviewList(result){
 		let reviewItem='';
 		let i=0;
-		for(item of result){
+		for(let item of result){
 			reviewItem+='<tr class="review-item" onMouseOver="spettacoliIn.call(this)" id="'+item.SEQ+'">'
 			+'<td class="review-item-thumnail"><img class="item-img" src="'+item.THUM_IMG_PATH+'"></td>'
 			+'<td class="review-item-info"><h3 class="review-item-title">'+item.TITLE+'</h3>'
 			+'<p class="review-item-regdate">'+item.FRST_REG_DT+'</p>'
-			+'<div class="review-item-content" id="content'+i+'">'+contentReplaceText(item.CONTENTS)+'</div>'
+			+'<div class="review-item-content" id="content'+i+'">'+item.CONTENTS+'</div>'
 			+'<p class="review-item-wirter">By.'+item.FRST_REG_ID+'</p>'
 			+'<p class="review-item-likecnt">'+item.LIKE_CNT+'명이 도움받은 리뷰입니다</p>'
 			+'<img class="review-item-like-icon" src="../img/icon/like.png">'
 			+'</td></tr>';
 			i++;
 		}
-		return reviewItem;
-	}
-	/* 섬네일텍스트 추출 */
-	function contentReplaceText(contents){
-		contents=contents.replace(/<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/gi,"");
-		contents=contents.replace(/<p>/gi,"");
-		return contents.replace(/<(\/)p>/gi,"&nbsp");
+		$('.review-item-table').html(reviewItem);
+		i=0;
+		for(let item of result){
+			$('#content'+i).text($('#content'+i).text());
+			i++;
+		}
 	}
 });

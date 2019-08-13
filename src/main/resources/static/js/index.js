@@ -78,16 +78,20 @@ $(document).ready(()=>{
 	        success:(result)=>{   
 	            console.log(result);
 	            let list = result;
-	            
+	            let newReview='';
 	            for(let i=0;i<list.length;i++){
-	            	let newReview = '<div class="review-slot" id="new-review-slot'+(i+1)+'" onClick="reviewClick(this)">'
+	            	newReview += '<div class="review-slot" id="new-review-slot'+(i+1)+'" onClick="reviewClick(this)">'
 	            	+'<img class="review-img" src="'+list[i].THUM_IMG_PATH+'">'
 	            	+'<h1>'+list[i].TITLE+'</h1><hr>'
-	            	+'<p class="review-content">'+contentReplaceText(list[i].CONTENTS)+'</p>'
+	            	+'<div class="review-content" id="new-review-content'+i+'">'+list[i].CONTENTS+'</div>'
 	            	+'<input type="hidden" value="'+list[i].SEQ+'">'
-	            	+'</div>'
-	            	$('#new-review').append(newReview);
+	            	+'</div>';
 	            }
+	        	$('#new-review').html(newReview);
+	        	
+	        	for(let i=0;i<list.length;i++){
+	            	$('#new-review-content'+i).text($('#new-review-content'+i).text());
+	        	}
 	            
 	        },   
 	        error:(e)=>{  
@@ -106,18 +110,21 @@ $(document).ready(()=>{
 	        success:(result)=>{   
 	            let list = result;
 	            console.log(list);
+	            let bestReview='';
 	            for(let i=0;i<list.length;i++){
-	            	let bestReview = '<div class="review-slot" id="best-review-slot'+(i+1)+'" onClick="reviewClick(this)">'
+	            	bestReview += '<div class="review-slot" id="best-review-slot'+(i+1)+'" onClick="reviewClick(this)">'
 	            	+'<img class="review-img" src="'+list[i].THUM_IMG_PATH+'">'
 	            	+'<h1>'+list[i].TITLE+'</h1><hr>'
 	            	+'<a class="like-cnt">'+list[i].LIKE_CNT+'</a><a class="like-cnt-info">명이 이 리뷰를 좋아합니다 </a>'
 	            	+'<img class="best-review-like-icon" src="../img/icon/like.png">'
-	            	+'<p class="review-content">'+contentReplaceText(list[i].CONTENTS)+'</p>'
+	            	+'<div class="review-content" id="best-review-content'+i+'">'+contentReplaceText(list[i].CONTENTS)+'</div>'
 	            	+'<input type="hidden" value="'+list[i].SEQ+'">'
-	            	+'</div>'
-	            	$('#best-review').append(bestReview);
+	            	+'</div>';
 	            }
-	            
+	        	$('#best-review').html(bestReview);
+	        	for(let i=0;i<list.length;i++){
+	            	$('#best-review-content'+i).text($('#best-review-content'+i).text());
+	        	}
 	        },   
 	        error:(e)=>{  
 	          console.log(e);
@@ -159,11 +166,5 @@ $(document).ready(()=>{
 	        	console.log(e);
 	        }
 	    });
-	}
-	/* 섬네일텍스트 추출 */
-	function contentReplaceText(contents){
-		contents=contents.replace(/<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/gi,"");
-		contents=contents.replace(/<p>/gi,"");
-		return contents.replace(/<(\/)p>/gi,"&nbsp");
 	}
 });

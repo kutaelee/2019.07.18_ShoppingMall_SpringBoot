@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.util.HtmlUtils;
 
 import com.google.gson.JsonObject;
 import com.shop.www.account.AccountDTO;
@@ -62,6 +63,7 @@ public class ReviewInsertController {
 		if(principal !=null && principal instanceof UserDetails) {
 			UserDetails userDetails = (UserDetails)principal;
 			AccountDTO ad=as.findById(userDetails.getUsername());
+			
 			map.put("nick",ad.getNick());
 			map.put("memberSeq",ad.getSeq());
 			map.put("ip", requtil.getRemoteIP(req));

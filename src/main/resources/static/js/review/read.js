@@ -77,7 +77,7 @@ $(document).ready(()=>{
 			+'<td class="thead">사이즈</td><td class="product-value">'+item.SIZE+'<td></table><hr>';
 		}
 
-		$('.product').append(productInfo);
+		$('.product').html(productInfo);
 		}else
 			$('.product').append('<h1> 제품정보가 존재하지않습니다.</h2>');
 	}
@@ -107,9 +107,10 @@ $(document).ready(()=>{
 				+'<img class="like-icon" id="like-empty" src="../img/icon/emptylike.png"><p class="like-cnt">'+item.LIKE_CNT+'</p>'
 				+'<input class="review-seq" type="hidden" value="'+item.R_SEQ+'">';
 				backLink='/reviewlist/'+item.PARENT_SEQ;
+				console.log(item.CONTENTS);
+				console.log(item.R_TITLE);
 		}
-		
-		$('.review').append(reviewInfo);
+		$('.review').html(reviewInfo);
 	}
 	/* 목록으로 돌아가는 이벤트 */
 	$('.list-btn').click(()=>{

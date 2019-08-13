@@ -164,14 +164,15 @@
     font-size: .8vw;
     line-height: 3.5vh;
     text-overflow: ellipsis;
-    height: 24.5vh;
+    height: 21.5vh;
     word-break: keep-all;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 7;
+    -webkit-line-clamp: 6;
     width: 95%;
     padding-left: 2.5%;
+    margin-top:5%;
 }
 .best-review-like-icon{
 	width: .8vw;
