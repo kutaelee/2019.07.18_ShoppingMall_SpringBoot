@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.ObjectUtils;
@@ -28,6 +31,7 @@ import com.google.gson.JsonObject;
 import com.shop.www.account.AccountDTO;
 import com.shop.www.account.AccountService;
 import com.shop.www.common.ReqUtil;
+import com.shop.www.common.S3Util;
 
 
 @RestController
@@ -40,6 +44,7 @@ public class ReviewInsertController {
 	AccountService as;
 	@Autowired
 	ReqUtil requtil;
+
 	
 	@PostMapping("/ajax/reviewInsert")
 	public boolean reviewInsert(HttpServletRequest req) {
@@ -84,9 +89,7 @@ public class ReviewInsertController {
 			map.put("ip", requtil.getRemoteIP(req));
 			MultipartFile file = req.getFile("proThumnailImg");
 			if(file!=null) {
-				String path=req.getServletContext().getRealPath("/img/product");
-				System.out.println(path);
-				map.put("proThumnailImg",rs.productFileUpload(file,path));
+				map.put("proThumnailImg",rs.productFileUpload(file));
 				if(!ObjectUtils.isEmpty(req.getSession().getAttribute("filePath"))) {
 					map.put("reviewImg", req.getSession().getAttribute("filePath").toString());
 				}
@@ -112,7 +115,7 @@ public class ReviewInsertController {
 					try {
 						String fileName = file.getName();
 						byte[] bytes = file.getBytes();
-						String uploadPath = req.getServletContext().getRealPath("/img/review");
+						String uploadPath = req.getServletContext().getRealPath("/review");
 						req.getSession().setAttribute("filePath", uploadPath);
 						File uploadFile = new File(uploadPath);
 						if (!uploadFile.exists()) {
@@ -125,7 +128,7 @@ public class ReviewInsertController {
 						System.out.println(uploadPath);
 						printWriter = resp.getWriter();
 						resp.setContentType("text/html");
-						String fileUrl = req.getContextPath() + "/img/" + fileName;
+						String fileUrl = req.getContextPath() + "/review/" + fileName;
 						// json 데이터로 등록
 						// {"uploaded" : 1, "fileName" : "test.jpg", "url" : "/img/test.jpg"}
 						// 이런 형태로 리턴이 나가야함.

@@ -117,7 +117,7 @@ $(document).ready(()=>{
 	            	+'<h1>'+list[i].TITLE+'</h1><hr>'
 	            	+'<a class="like-cnt">'+list[i].LIKE_CNT+'</a><a class="like-cnt-info">명이 이 리뷰를 좋아합니다 </a>'
 	            	+'<img class="best-review-like-icon" src="../img/icon/like.png">'
-	            	+'<div class="review-content" id="best-review-content'+i+'">'+contentReplaceText(list[i].CONTENTS)+'</div>'
+	            	+'<div class="review-content" id="best-review-content'+i+'">'+list[i].CONTENTS+'</div>'
 	            	+'<input type="hidden" value="'+list[i].SEQ+'">'
 	            	+'</div>';
 	            }

@@ -13,11 +13,16 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.HtmlUtils;
 import org.springframework.web.util.JavaScriptUtils;
+
+import com.shop.www.common.S3Util;
+import com.shop.www.common.UploadFileUtils;
 
 @Transactional
 @Service
@@ -42,26 +47,17 @@ public class ReviewInsertService {
 		return true;
 	}
 	
-	public String productFileUpload(MultipartFile file,String path) throws IOException {
-		UUID randomeUUID = UUID.randomUUID();
-		
-		File realUploadDir = new File(path);
-        if (!realUploadDir.exists()) {
-            realUploadDir.mkdirs();
-        }
-        if (file.getSize()>0) {
-        	String organizedfilePath =path+ "/" + randomeUUID + "_" + file.getOriginalFilename();
-        	OutputStream outputStream = new FileOutputStream(organizedfilePath);
-        	InputStream inputStream = inputStream = file.getInputStream();
-            int readByte = 0;
-            byte[] buffer = new byte[8192];
 
-            while ((readByte = inputStream.read(buffer, 0, 8120)) != -1) {
-                outputStream.write(buffer, 0, readByte); 
-                
-            }
-        }
-        return "../img/product/"+randomeUUID + "_" + file.getOriginalFilename();
+	public String productFileUpload(MultipartFile file) throws Exception {
+		String uploadpath = "product/coverImage";
+
+		ResponseEntity<String> img_path = new ResponseEntity<>(
+				UploadFileUtils.uploadFile(uploadpath, file.getOriginalFilename(), file.getBytes()),
+				HttpStatus.CREATED);
+		String coverImagePath = (String) img_path.getBody();
+		S3Util s3=new S3Util();
+		System.out.println(s3.getFileURL("gyutae-review", uploadpath+coverImagePath));
+		return s3.getFileURL("gyutae-review", uploadpath+coverImagePath);
 	}
 
 	public boolean productReviewInsert(HashMap<String, Object> map) {
